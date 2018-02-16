@@ -21,6 +21,7 @@
 		E49A621B2035389B0002923B /* HDCommonTools+Permission.m in Sources */ = {isa = PBXBuildFile; fileRef = E49A621A2035389B0002923B /* HDCommonTools+Permission.m */; };
 		E49A621F20353E6C0002923B /* SimulateIDFA.m in Sources */ = {isa = PBXBuildFile; fileRef = E49A621D20353E6C0002923B /* SimulateIDFA.m */; };
 		E49A622220353EE20002923B /* HDCommonTools+SystemInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = E49A622120353EE20002923B /* HDCommonTools+SystemInfo.m */; };
+		E49A622620366D430002923B /* HDCommonTools+Appstore.m in Sources */ = {isa = PBXBuildFile; fileRef = E49A622520366D430002923B /* HDCommonTools+Appstore.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,8 @@
 		E49A622020353EE20002923B /* HDCommonTools+SystemInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HDCommonTools+SystemInfo.h"; sourceTree = "<group>"; };
 		E49A622120353EE20002923B /* HDCommonTools+SystemInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "HDCommonTools+SystemInfo.m"; sourceTree = "<group>"; };
 		E49A62232035422B0002923B /* HDCommonHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HDCommonHeader.h; sourceTree = "<group>"; };
+		E49A622420366D430002923B /* HDCommonTools+Appstore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HDCommonTools+Appstore.h"; sourceTree = "<group>"; };
+		E49A622520366D430002923B /* HDCommonTools+Appstore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "HDCommonTools+Appstore.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +171,8 @@
 				E49A621A2035389B0002923B /* HDCommonTools+Permission.m */,
 				E49A622020353EE20002923B /* HDCommonTools+SystemInfo.h */,
 				E49A622120353EE20002923B /* HDCommonTools+SystemInfo.m */,
+				E49A622420366D430002923B /* HDCommonTools+Appstore.h */,
+				E49A622520366D430002923B /* HDCommonTools+Appstore.m */,
 				E49A621C20353E6C0002923B /* SimulateIDFA */,
 			);
 			path = HDCommonTools;
@@ -321,6 +326,7 @@
 				E49A62172035374F0002923B /* HDCommonTools+Multimedia.m in Sources */,
 				E49A622220353EE20002923B /* HDCommonTools+SystemInfo.m in Sources */,
 				E49A61E6203488280002923B /* main.m in Sources */,
+				E49A622620366D430002923B /* HDCommonTools+Appstore.m in Sources */,
 				E49A621B2035389B0002923B /* HDCommonTools+Permission.m in Sources */,
 				E49A62182035374F0002923B /* HDCommonTools+FileHandle.m in Sources */,
 				E49A61D8203488280002923B /* AppDelegate.m in Sources */,

@@ -50,4 +50,17 @@ typedef NS_ENUM(NSUInteger, HDQuickFormatType) {
     kHDQuickFormateTypeMDTime       //月日时间 09-02 05:23
 };
 
+///评分样式类型
+typedef NS_ENUM(NSUInteger, HDScoreType) {
+    kHDScoreTypeInAppStore,  //强制跳转到appsStore中评分
+    kHDScoreTypeInApp,      //强制在app中弹出评分弹窗，ios10.3版本以下无反应
+    kHDScoreTypeAuto         //10.3版本以下去appStore评分，10.3版本以上在app中弹出评分弹窗
+};
+
+///打开指定软件的appstore样式类型
+typedef NS_ENUM(NSUInteger, HDJumpStoreType) {
+    kHDJumpStoreTypeInAppStore,  //强制跳转到appsStore
+    kHDJumpStoreTypeInApp,      //强制在app中弹出appStore，ios10.3版本以下无反应
+    kHDJumpStoreTypeAuto         //10.3版本以下跳转appStore，10.3版本以上在app中弹出Appstore
+};
 #endif /* HDCommonToolsConfig_h */

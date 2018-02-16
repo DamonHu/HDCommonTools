@@ -2,7 +2,7 @@
 
 # HDCommonTools
 
-一句代码即可实现多种常用功能，根据数据处理、文件管理、多媒体管理、权限管理、系统信息等几种不同的类型封装不同的Category，同时可以通过调用不同的函数去使用。
+一句代码即可实现多种常用功能，根据数据处理、文件管理、多媒体管理、权限管理、系统信息、Appstore操作等几种不同的类型封装不同的Category，同时可以通过调用不同的函数去使用。
 
 ## 一、导入项目
 
@@ -244,6 +244,25 @@ FOUNDATION_EXPORT NSString * const HDPermissionStatusItem;
 
 ///是否是iphoneX
 -(BOOL)isPhoneX;
+
+#pragma mark -
+#pragma mark - Appstore相关操作类
+
+/**
+ 打开appstore的预览下载页面
+ @param appleID 指定软件的appid，在itunes后台可以看到
+ @param jumpStoreType 跳转到appstore样式类型
+ */
+-(void)jumpStoreWithAppleID:(NSString*)appleID withType:(HDJumpStoreType)jumpStoreType;
+
+/**
+ 好评弹窗
+ @param appleID 评分的appid，在itunes后台可以看到。
+ 如果选择了kHDScoreTypeInApp，或者kHDScoreTypeAuto在10.3版本情况下，appldid无效，自动弹出就是自己app的评分
+ @param scoreType 评分样式类型
+ */
+-(void)giveScoreWithAppleID:(NSString*)appleID withType:(HDScoreType)scoreType;
+
 ```
 ## 五、其他
 
@@ -255,3 +274,5 @@ FOUNDATION_EXPORT NSString * const HDPermissionStatusItem;
 
 ## 六、重要修改记录
 
+### v1.1.1
+1. 增加了appstore的预览页面和评分
