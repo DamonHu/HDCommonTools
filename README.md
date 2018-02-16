@@ -82,6 +82,7 @@ FOUNDATION_EXPORT NSString * const HDPermissionStatusItem;
 |HDCommonTools+Multimedia|多媒体文件处理函数|
 |HDCommonTools+Permission|权限管理和申请函数|
 |HDCommonTools+SystemInfo|手机系统信息及项目信息函数|
+|HDCommonTools+Appstore|appstore相关操作函数|
 
 ## 四、所有功能
 
