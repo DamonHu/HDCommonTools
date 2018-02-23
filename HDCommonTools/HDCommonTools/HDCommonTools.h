@@ -10,12 +10,17 @@
 #import "HDCommonToolsConfig.h"
 
 @interface HDCommonTools : NSObject
-
 ///工具的单例
 + (HDCommonTools*)sharedHDCommonTools;
 
 #pragma mark -
 #pragma mark - 数据处理类
+/**
+ 将log打印信息输出到文件中，调用此函数后控制台将不再显示log的打印信息
+ @return 返回打印信息所在的文件路径
+ */
++(NSString*)setHdDebugLogToFile;
+
 /// 将字典或者数组转化为Data数据
 - (NSData *)toJSONData:(id)theData;
 

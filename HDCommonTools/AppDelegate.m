@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-
+#import "HDCommonHeader.h"
 @interface AppDelegate ()
 
 @end

@@ -13,16 +13,29 @@
 ///工具的单例
 + (HDCommonTools*)sharedHDCommonTools
 {
-    static HDCommonTools *aCommonTools = nil;
-    if (!aCommonTools) {
-        static dispatch_once_t onceToken;
-        dispatch_once(&onceToken, ^{
-            aCommonTools = [[HDCommonTools alloc] init];
-        });
-    }
+    static HDCommonTools *aCommonTools;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        aCommonTools = [[HDCommonTools alloc] init];
+    });
     return aCommonTools;
 }
 
++(NSString*)setHdDebugLogToFile{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentDirectory = [paths objectAtIndex:0];
+    NSString *fileName = [NSString stringWithFormat:@"HDNSLog.txt"];// 注意不是NSData!
+    
+    NSString *logFilePath = [documentDirectory stringByAppendingPathComponent:fileName];
+    // 先删除已经存在的文件
+    NSFileManager *defaultManager = [NSFileManager defaultManager];
+    [defaultManager removeItemAtPath:logFilePath error:nil];
+    
+    // 将log输入到文件
+    freopen([logFilePath cStringUsingEncoding:NSASCIIStringEncoding], "a+", stdout);
+    freopen([logFilePath cStringUsingEncoding:NSASCIIStringEncoding], "a+", stderr);
+    return logFilePath;
+}
 #pragma mark -
 #pragma mark - 数据处理类
 /// 将字典或者数组转化为Data数据

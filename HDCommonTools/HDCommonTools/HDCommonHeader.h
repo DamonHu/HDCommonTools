@@ -10,6 +10,7 @@
 #define HDCommonHeader_h
 
 #import "HDCommonToolsConfig.h"
+#import "HDCommonDefine.h"
 #import "HDCommonTools.h"
 #import "HDCommonTools+FileHandle.h"
 #import "HDCommonTools+Multimedia.h"
