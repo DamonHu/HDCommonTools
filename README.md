@@ -72,10 +72,16 @@ FOUNDATION_EXPORT NSString * const HDPermissionStatusItem;
     }
 }
 ```
+
+为了更加清晰的使用，完善了demo，demo中每一类用法都加了使用方法。
+
+![](./demo.png)
+
 ## 三、文件结构
 |文件名|文件作用|
 |----|----|
 |HDCommonHeader.h|包含所有头文件|
+|HDCommonDefine.h|快捷处理的宏定义|
 |HDCommonToolsConfig|项目定义的枚举类型|
 |HDCommonTools|数据处理函数|
 |HDCommonTools+FileHandle|文件处理函数|
@@ -274,6 +280,9 @@ FOUNDATION_EXPORT NSString * const HDPermissionStatusItem;
 个人博客：[http://www.hudongdong.com/ios/796.html](http://www.hudongdong.com/ios/796.html)
 
 ## 六、重要修改记录
+### v1.1.2
+1. 增加常用宏定义
+2. 完善demo示例
 
 ### v1.1.1
 1. 增加了appstore的预览页面和评分
