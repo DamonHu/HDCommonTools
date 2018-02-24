@@ -13,9 +13,11 @@
 ///系统权限授权变化通知
 //System authority authorization change notification
 FOUNDATION_EXPORT NSString * const HDPermissionStatusDidChangeNotification;
+
 ///系统变化通知中的userinfo的key，标记名字
 //The key of the userinfo in the system change notification, marked name
 FOUNDATION_EXPORT NSString * const HDPermissionNameItem;
+
 ///系统变化通知中的userinfo的key，标记状态
 //The key of userinfo in the system change notification, marked state
 FOUNDATION_EXPORT NSString * const HDPermissionStatusItem;
