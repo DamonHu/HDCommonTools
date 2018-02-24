@@ -25,7 +25,7 @@ Download the project, import the contents of the HDCommonTools folder into the p
 
 ## 二、函数使用 Function use
 
-两步即可调用所有函数功能。
+两步即可调用所有函数功能。详细使用说明可以参考：[wiki](https://github.com/DamonHu/HDCommonTools/wiki)
 
 All function functions can be called in the two step.
 
