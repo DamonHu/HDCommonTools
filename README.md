@@ -2,7 +2,7 @@
 
 # HDCommonTools
 
-一句代码即可实现多种常用功能，根据数据处理、文件管理、多媒体管理、权限管理、系统信息、Appstore操作等几种不同的类型封装不同的Category，同时可以通过调用不同的函数去使用。
+一句代码即可实现多种常用功能，根据数据处理、文件管理、多媒体管理、权限管理、系统信息、Appstore操作、加密解密、快捷宏定义等几种不同的类型封装不同的Category，同时可以通过调用不同的函数去使用。
 
 ## 一、导入项目
 
@@ -89,8 +89,9 @@ FOUNDATION_EXPORT NSString * const HDPermissionStatusItem;
 |HDCommonTools+Permission|权限管理和申请函数|
 |HDCommonTools+SystemInfo|手机系统信息及项目信息函数|
 |HDCommonTools+Appstore|appstore相关操作函数|
+|HDCommonTools+Encrypt|加密解密相关操作函数|
 
-## 四、所有功能
+## 四、功能概述
 
 ```
 #pragma mark -
@@ -118,9 +119,6 @@ FOUNDATION_EXPORT NSString * const HDPermissionStatusItem;
 
 ///从指定文件名文件获取json内容
 - (id)getJsonDataFromFileName:(NSString*)jsonName;
-
-///字符串MD5加密
-- (NSString*)getMD5withStr:(NSString*)str;
 
 ///获取当前时间的时间戳
 - (NSString*)getCurrentTimeStamp;
@@ -270,6 +268,89 @@ FOUNDATION_EXPORT NSString * const HDPermissionStatusItem;
  */
 -(void)giveScoreWithAppleID:(NSString*)appleID withType:(HDScoreType)scoreType;
 
+#pragma mark -
+#pragma mark - 常用宏定义
+#pragma mark -
+#pragma mark - 对象引用
+///弱引用
+#define HDWEAKSELF __weak typeof(self) weakSelf = self
+///强引用
+#define HDSTRONGSELF __strong typeof(weakSelf) strongSelf = weakSelf
+
+#pragma mark -
+#pragma mark - log输出
+//log输出，当为true时输出log，false不输出log
+#define HDDEBUG_MODE true
+
+#if HDDEBUG_MODE
+#define HDDebugLog( s, ... ) NSLog( @"\n↓↓↓↓↓↓↓↓\n<%p %@:(%d)> \n%s\n%@\n↑↑↑↑↑↑↑↑", __FILE__, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, __FUNCTION__, [NSString stringWithFormat:(s), ##__VA_ARGS__] )
+#else
+#define HDDebugLog( s, ... )
+#endif
+
+#pragma mark -
+#pragma mark - 界面
+/*
+ *  UIColor
+ */
+///16进制颜色转为UIColor
+#define HDColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+///16进制颜色转为UIColor，设置透明度
+#define HDColorFromRGBA(rgbValue, _A) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:_A]
+///通过数值转为UIColor
+#define HDColorWithRGB(_R,_G,_B)        ((UIColor *)[UIColor colorWithRed:_R/255.0 green:_G/255.0 blue:_B/255.0 alpha:1.0])
+///通过数值转为UIColor，设置透明度
+#define HDColorWithRGBA(_R,_G,_B,_A)    ((UIColor *)[UIColor colorWithRed:_R/255.0 green:_G/255.0 blue:_B/255.0 alpha:_A])
+/*
+ *  Screen size
+ */
+///屏幕宽度
+#define HDScreenWidth   [UIScreen mainScreen].bounds.size.width
+///屏幕高度
+#define HDScreenHeight  [UIScreen mainScreen].bounds.size.height
+///状态栏当前高度
+#define HD_Portrait_Status_Height [UIApplication sharedApplication].statusBarFrame.size.height //状态栏高度
+
+// 判断是否是iPhone X
+#define iPhoneX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
+// 状态栏默认高度
+#define HD_Default_Portrait_Status_Height (iPhoneX ? 44.f : 20.f)
+// 导航栏默认高度
+#define HD_Default_Portrait_NAVIGATION_BAR_HEIGHT (iPhoneX ? 88.f : 64.f)
+// tabBar默认高度
+#define HD_Default_Portrait_TAB_BAR_HEIGHT (iPhoneX ? (49.f+34.f) : 49.f)
+// home indicator
+#define HD_Default_Portrait_HOME_INDICATOR_HEIGHT (iPhoneX ? 34.f : 0.f)
+
+#pragma mark -
+#pragma mark - 加密解密相关操作类
+
+/**
+ 字符串MD5加密
+ @param str 要加密的字符串
+ @param lowercase 是否小写
+ @return 加密过的字符串
+ */
+- (NSString*)getMD5withStr:(NSString*)str lowercase:(BOOL)lowercase;
+
+
+/**
+ 字符串aes256加密
+ @param plain 要加密的字符串
+ @param key 加密的key值
+ @return 加密后的字符串
+ */
+- (NSString *)AES256EncryptWithPlainText:(NSString *)plain andKey:(NSString*)key;
+
+
+/**
+ 字符串aes256解密
+
+ @param ciphertexts 要解密的字符串
+ @param key 加密的key值
+ @return 解密后的字符串
+ */
+- (NSString *)AES256DecryptWithCiphertext:(NSString *)ciphertexts andKey:(NSString*)key;
 ```
 ## 五、其他
 
@@ -280,6 +361,11 @@ FOUNDATION_EXPORT NSString * const HDPermissionStatusItem;
 个人博客：[http://www.hudongdong.com/ios/796.html](http://www.hudongdong.com/ios/796.html)
 
 ## 六、重要修改记录
+### v1.2.0
+1. 增加aes256加密解密模块
+2. 整理MD5加密解密功能
+3. 完善demo示例和说明
+
 ### v1.1.2
 1. 增加常用宏定义
 2. 完善demo示例

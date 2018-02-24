@@ -41,7 +41,7 @@
 - (NSData *)toJSONData:(id)theData{
     NSError *error = nil;
     if (!theData) {
-        NSAssert(NO, @"转换数据为空");
+        NSAssert(NO, @"theData is nil");
         return nil;
     }
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:theData options:NSJSONWritingPrettyPrinted error:&error];
@@ -55,7 +55,7 @@
 /// 将字典或者数组转化为json字符串数据
 - (NSString *)toJSONStr:(id)theData{
     if (!theData) {
-        NSAssert(NO, @"转换数据为空");
+        NSAssert(NO, @"theData is nil");
         return nil;
     }
     NSData *jsonData = [self toJSONData:theData];
@@ -66,7 +66,7 @@
 /// 将JSON Data串转化为字典或者数组
 - (id)DataToArrayOrNSDictionary:(NSData *)jsonData{
     if (!jsonData) {
-        NSAssert(NO, @"转换数据为空");
+        NSAssert(NO, @"jsonData is nil");
         return nil;
     }
     NSError *error = nil;

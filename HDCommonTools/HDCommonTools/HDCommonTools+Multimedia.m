@@ -83,7 +83,7 @@ AVPlayer *avPlayer;
 ///获取本地视频的时长
 - (NSUInteger)durationWithVideo:(NSString *)videoPath{
     if (!videoPath || videoPath.length == 0) {
-        NSAssert(NO, @"视频地址错误");
+        NSAssert(NO, @"videoPath is error");
         return 0;
     }
     NSDictionary *opts = [NSDictionary dictionaryWithObject:@(NO) forKey:AVURLAssetPreferPreciseDurationAndTimingKey];

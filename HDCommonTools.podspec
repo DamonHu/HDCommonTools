@@ -1,8 +1,8 @@
 Pod::Spec.new do |s|
 s.name = 'HDCommonTools'
-s.version = '1.1.2'
+s.version = '1.2.0'
 s.license= { :type => "MIT", :file => "LICENSE" }
-s.summary = 'HDCommonTools,一句代码即可实现多种常用功能.数据处理、文件管理、多媒体管理、权限管理、系统信息等几种不同的类型封装.'
+s.summary = 'HDCommonTools,一句代码即可实现多种常用功能.数据处理、文件管理、多媒体管理、权限管理、系统信息、加密解密、快捷宏定义等几种不同的类型封装.'
 s.homepage = 'https://github.com/DamonHu/HDCommonTools'
 s.authors = { 'DamonHu' => 'dong765@qq.com' }
 s.source = { :git => "https://github.com/DamonHu/HDCommonTools.git", :tag => s.version}
