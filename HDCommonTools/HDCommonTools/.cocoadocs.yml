@@ -7,3 +7,6 @@ alt-link-color: "#00a98b;"
 warning-color: "#b88391;"
 additional_guides:
      - https://github.com/DamonHu/HDCommonTools/wiki/Import-project
+     - https://github.com/DamonHu/HDCommonTools/wiki/SystemInfo
+     - https://github.com/DamonHu/HDCommonTools/wiki/Permission
+     - https://github.com/DamonHu/HDCommonTools/wiki/Appstore
