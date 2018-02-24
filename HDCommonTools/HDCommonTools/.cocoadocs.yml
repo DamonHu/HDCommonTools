@@ -6,5 +6,4 @@ background-colour: "#e5f2ec;"
 alt-link-color: "#00a98b;"
 warning-color: "#b88391;"
 additional_guides:
-     - https://github.com/DamonHu/HDCommonTools/wiki
-     
+     - https://github.com/DamonHu/HDCommonTools/wiki/Import-project
