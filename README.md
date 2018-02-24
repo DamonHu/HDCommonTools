@@ -97,7 +97,8 @@ For clearer use, demo is perfected, and every usage in demo is used.
 
 ![](./demo.png)
 
-## 三、file structure
+## 三、文件结构 file structure
+
 |文件名 file name|文件作用 Document function|
 |----|----|
 |HDCommonHeader.h|包含所有头文件 Contain all the header files|
@@ -433,9 +434,9 @@ For clearer use, demo is perfected, and every usage in demo is used.
 ```
 ## 五、其他 Other
 
-欢迎大家提bug，多交流，互相学习
+欢迎交流，互相学习
 
-Welcome to bug, exchange and learn from each other
+Welcome to exchange and learn from each other
 
 项目gitHub地址：[https://github.com/DamonHu/HDCommonTools](https://github.com/DamonHu/HDCommonTools)
 
