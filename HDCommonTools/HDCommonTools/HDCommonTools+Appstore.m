@@ -33,7 +33,7 @@
                     }
                 }];
             }else{
-                NSLog(@"10.3以下版本不支持app内打开Appstore预览页");
+                NSLog(@"Less than 10.3 version does not support opening the Appstore preview page within app");
             }
         }
             break;
@@ -78,7 +78,7 @@
             if (@available(iOS 10.3, *)) {
                 [SKStoreReviewController requestReview];
             }else{
-                NSLog(@"10.3以下版本不支持app内打开评分");
+                NSLog(@"Less than 10.3 version does not support the app open score");
             }
         }
             break;

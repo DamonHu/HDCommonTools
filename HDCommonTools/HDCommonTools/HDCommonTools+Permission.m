@@ -20,6 +20,7 @@ CLLocationManager *locationManager;
 #pragma mark -
 #pragma mark - 权限类
 ///是否有麦克风权限
+//Whether have the microphone permissions
 - (HDPrivatePermissionStatus)hasAVMediaTypeAudio{
     AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
     if (status == AVAuthorizationStatusAuthorized) {
@@ -34,6 +35,7 @@ CLLocationManager *locationManager;
 }
 
 ///是否有拍照权限
+//Whether have the Camera permissions
 - (HDPrivatePermissionStatus)hasAVMediaTypeVideo{
     AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
     if (status == AVAuthorizationStatusAuthorized) {
@@ -48,6 +50,7 @@ CLLocationManager *locationManager;
 }
 
 ///是否有相册权限
+////Whether have the Photo album permissions
 - (HDPrivatePermissionStatus)hasPhotoLibrary{
     PHAuthorizationStatus status=[PHPhotoLibrary authorizationStatus];
     if (status == PHAuthorizationStatusAuthorized) {
@@ -62,6 +65,7 @@ CLLocationManager *locationManager;
 }
 
 ///是否有定位权限
+//Whether have the GPS permissions
 - (HDPrivatePermissionStatus)hasGPSLibrary{
     if ([CLLocationManager locationServicesEnabled] && ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse || [CLLocationManager authorizationStatus]  == kCLAuthorizationStatusAuthorizedAlways)) {
         //定位功能可用
@@ -78,6 +82,7 @@ CLLocationManager *locationManager;
 }
 
 ///申请定位权限
+//Apply the GPS permissions
 -(void)getGPSLibraryWithType:(HDGPSPermissionType)GPSPermissionType{
     locationManager = [[CLLocationManager alloc] init];
     locationManager.delegate = self;
@@ -92,6 +97,7 @@ CLLocationManager *locationManager;
 }
 
 ///申请麦克风权限
+//Apply the Microphone permissions
 - (void)getAVMediaTypeAudio{
     [AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler:^(BOOL granted) {
         HDPrivatePermissionStatus permissionStatus;
@@ -106,6 +112,7 @@ CLLocationManager *locationManager;
 }
 
 ///申请拍照权限
+//Apply the Camera permissions
 -(void)getAVMediaTypeVideo{
     [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
         HDPrivatePermissionStatus permissionStatus;
@@ -120,6 +127,7 @@ CLLocationManager *locationManager;
 }
 
 ///申请相册权限
+//Apply the Photo album permissions
 - (void)getPhotoLibrary{
     [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
         HDPrivatePermissionStatus permissionStatus;
@@ -138,6 +146,7 @@ CLLocationManager *locationManager;
 }
 
 ///打开系统设置
+//Open the system settings
 - (void)openSetting{
     NSURL *settingUrl = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
     if ([[UIApplication sharedApplication] canOpenURL:settingUrl]) {

@@ -63,6 +63,7 @@ static Byte ivBuff[]   = {0xA,1,0xB,5,4,0xF,7,9,0x17,3,1,6,8,0xC,0xD,91};
     return derivedKey;
 }
 ///字符串aes256加密
+//String aes256 encryption
 - (NSString *)AES256EncryptWithPlainText:(NSString *)plain andKey:(NSString*)key{
     NSData *plainText = [plain dataUsingEncoding:NSUTF8StringEncoding];
     // 'key' should be 32 bytes for AES256, will be null-padded otherwise
@@ -93,6 +94,7 @@ static Byte ivBuff[]   = {0xA,1,0xB,5,4,0xF,7,9,0x17,3,1,6,8,0xC,0xD,91};
 }
 
 ///字符串aes256解密
+//String aes256 Decrypted
 - (NSString *)AES256DecryptWithCiphertext:(NSString *)ciphertexts andKey:(NSString*)key{
     NSData *cipherData = [self dataWithBase64EncodedString:ciphertexts];
     // 'key' should be 32 bytes for AES256, will be null-padded otherwise

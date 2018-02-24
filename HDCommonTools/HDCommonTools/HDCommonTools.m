@@ -9,7 +9,7 @@
 #import "HDCommonTools.h"
 
 @implementation HDCommonTools
-///工具的单例
+///工具的单例 singleton
 + (HDCommonTools*)sharedHDCommonTools
 {
     static HDCommonTools *aCommonTools;
@@ -20,6 +20,12 @@
     return aCommonTools;
 }
 
+/**
+ 将log打印信息输出到文件中，调用此函数后控制台将不再显示log的打印信息
+ @return 返回打印信息所在的文件路径
+ The log print information is exported to the file, and the console will no longer display the print information of the log after calling this function
+ Returns the path of the file where the print information is located
+ */
 +(NSString*)setHdDebugLogToFile{
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentDirectory = [paths objectAtIndex:0];
@@ -37,7 +43,9 @@
 }
 #pragma mark -
 #pragma mark - 数据处理类
+
 /// 将字典或者数组转化为Data数据
+//Translate dictionaries or arrays into Data
 - (NSData *)toJSONData:(id)theData{
     NSError *error = nil;
     if (!theData) {
@@ -53,6 +61,7 @@
 }
 
 /// 将字典或者数组转化为json字符串数据
+//Translate dictionaries or arrays into JSON string data
 - (NSString *)toJSONStr:(id)theData{
     if (!theData) {
         NSAssert(NO, @"theData is nil");
@@ -64,6 +73,7 @@
 }
 
 /// 将JSON Data串转化为字典或者数组
+//Converting the JSON string Data into a dictionary or array
 - (id)DataToArrayOrNSDictionary:(NSData *)jsonData{
     if (!jsonData) {
         NSAssert(NO, @"jsonData is nil");
@@ -80,17 +90,20 @@
 }
 
 /// 将JSON串转化为字典或者数组
+//Converting the JSON string into a dictionary or array
 - (id)StrToArrayOrNSDictionary:(NSString *)jsonStr{
     NSData *jsonData = [jsonStr dataUsingEncoding:NSUTF8StringEncoding];
     return [self DataToArrayOrNSDictionary:jsonData];
 }
 
 ///NSArray转为NSString
+//Converting NSArray into NSString
 - (NSString*)ArrayToString:(NSArray*)array{
     return [array componentsJoinedByString:@","];
 }
 
-///NSString通过指定的分割符转为NSArray
+///NSString通过指定的分割符转为NSArray，如果symbol为空，则默认为","
+//NSString turns to NSArray by the specified division, and if symbol is empty, the default is ","
 - (NSArray*)StringToArray:(NSString*)str bySymbol:(NSString*)symbol{
     if (!str || str.length == 0) {
         return [NSArray array];
@@ -104,6 +117,7 @@
 }
 
 ///unicode转换为中文
+//Unicode conversion to Chinese
 - (NSString*)convertUnicodeString:(NSString*)unicodeStr{
     NSString *tempStr1 = [unicodeStr stringByReplacingOccurrencesOfString:@"\\u" withString:@"\\U"];
     NSString *tempStr2 = [tempStr1 stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
@@ -118,6 +132,7 @@
 }
 
 ///从指定文件名文件获取json内容
+//Getting the JSON content from the specified file name file
 - (id)getJsonDataFromFileName:(NSString*)jsonName{
     NSString *jsonPath = [[NSBundle mainBundle] pathForResource:jsonName ofType:@"json"];
     NSData *data = [NSData dataWithContentsOfFile:jsonPath];
@@ -126,17 +141,20 @@
 }
 
 ///获取当前时间的时间戳
+//Get the timestamp of the current time
 - (NSString*)getCurrentTimeStamp{
     return [self getTimeStampByDate:[NSDate date]];
 }
 
 ///获取指定时间的时间戳
+//Get the timestamp of the specified time
 - (NSString*)getTimeStampByDate:(NSDate*)date{
     return [NSString stringWithFormat:@"%.0f",[date timeIntervalSince1970]];
 }
 
 /**
  时间戳获取时间
+ Getting time through a timestamp
  
  @param timeStamp 时间戳
  @param quickType 快速格式化时间，如果传None则自己定义foramatter
