@@ -23,6 +23,7 @@
 		E49A622220353EE20002923B /* HDCommonTools+SystemInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = E49A622120353EE20002923B /* HDCommonTools+SystemInfo.m */; };
 		E49A622620366D430002923B /* HDCommonTools+Appstore.m in Sources */ = {isa = PBXBuildFile; fileRef = E49A622520366D430002923B /* HDCommonTools+Appstore.m */; };
 		E4AC0DCE203FEBA700EA1EBF /* music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E4AC0DCD203FEBA700EA1EBF /* music.mp3 */; };
+		E4AC0DD320401DC100EA1EBF /* HDCommonTools+Encrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = E4AC0DD220401DC100EA1EBF /* HDCommonTools+Encrypt.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +78,8 @@
 		E49A622520366D430002923B /* HDCommonTools+Appstore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "HDCommonTools+Appstore.m"; sourceTree = "<group>"; };
 		E4AC0DCC203FC41C00EA1EBF /* HDCommonDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HDCommonDefine.h; sourceTree = "<group>"; };
 		E4AC0DCD203FEBA700EA1EBF /* music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music.mp3; sourceTree = "<group>"; };
+		E4AC0DD120401DC100EA1EBF /* HDCommonTools+Encrypt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HDCommonTools+Encrypt.h"; sourceTree = "<group>"; };
+		E4AC0DD220401DC100EA1EBF /* HDCommonTools+Encrypt.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "HDCommonTools+Encrypt.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +181,8 @@
 				E49A622120353EE20002923B /* HDCommonTools+SystemInfo.m */,
 				E49A622420366D430002923B /* HDCommonTools+Appstore.h */,
 				E49A622520366D430002923B /* HDCommonTools+Appstore.m */,
+				E4AC0DD120401DC100EA1EBF /* HDCommonTools+Encrypt.h */,
+				E4AC0DD220401DC100EA1EBF /* HDCommonTools+Encrypt.m */,
 				E49A621C20353E6C0002923B /* SimulateIDFA */,
 			);
 			path = HDCommonTools;
@@ -330,6 +335,7 @@
 				E49A621F20353E6C0002923B /* SimulateIDFA.m in Sources */,
 				E49A61DB203488280002923B /* ViewController.m in Sources */,
 				E49A62172035374F0002923B /* HDCommonTools+Multimedia.m in Sources */,
+				E4AC0DD320401DC100EA1EBF /* HDCommonTools+Encrypt.m in Sources */,
 				E49A622220353EE20002923B /* HDCommonTools+SystemInfo.m in Sources */,
 				E49A61E6203488280002923B /* main.m in Sources */,
 				E49A622620366D430002923B /* HDCommonTools+Appstore.m in Sources */,

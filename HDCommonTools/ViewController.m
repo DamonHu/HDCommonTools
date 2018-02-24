@@ -26,16 +26,18 @@
 }
 
 -(void)initData{
-    _titleArray = [NSArray arrayWithObjects:@"系统信息示例",@"权限申请示例",@"多媒体操作",@"常用宏定义示例", nil];
+    _titleArray = [NSArray arrayWithObjects:@"系统信息示例",@"权限申请示例",@"多媒体操作",@"常用宏定义示例",@"加密解密", nil];
     _dataArray = [NSMutableArray array];
     NSArray *array = [NSArray arrayWithObjects:@"打印软件版本",@"打印系统语言",@"打印系统iOS版本", nil];
     NSArray *array2 = [NSArray arrayWithObjects:@"申请GPS权限",@"申请相册权限",@"打开系统设置", nil];
     NSArray *array3 = [NSArray arrayWithObjects:@"播放音乐",@"关闭音乐", nil];
     NSArray *array4 = [NSArray arrayWithObjects:@"测试输出",@"16进制颜色#f44336",@"rgb颜色3，169，244，半透明",@"界面输出",@"将log输出到文件", nil];
+    NSArray *array5 = [NSArray arrayWithObjects:@"md5加密",@"aes256加密",@"aes256解密", nil];
     [_dataArray addObject:array];
     [_dataArray addObject:array2];
     [_dataArray addObject:array3];
     [_dataArray addObject:array4];
+    [_dataArray addObject:array5];
 }
 -(void)createUI{
     UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, HDScreenWidth, HDScreenHeight) style:UITableViewStyleGrouped];
@@ -178,6 +180,30 @@
                     break;
             }
         }
+        case 4:{
+            switch (indexPath.row) {
+                case 0:{
+                    NSLog(@"md5加密的大写字符串：%@",[[HDCommonTools sharedHDCommonTools] getMD5withStr:@"我是哈哈哈" lowercase:YES]);
+                    NSLog(@"md5加密的小写字符串：%@",[[HDCommonTools sharedHDCommonTools] getMD5withStr:@"我是哈哈哈" lowercase:NO]);
+                }
+                    break;
+                case 1:
+                    NSLog(@"aes加密后的字符串：%@",[[HDCommonTools sharedHDCommonTools] AES256EncryptWithPlainText:@"我是哈哈哈" andKey:@"密码只有我知道"]);
+                    break;
+                case 2:{
+                    ///aes加密后的字符串
+                    NSString* str = [[HDCommonTools sharedHDCommonTools] AES256EncryptWithPlainText:@"我是哈哈哈" andKey:@"密码只有我知道"];
+                    NSLog(@"aes加密后的字符串：%@",str);
+                    NSLog(@"aes解密后的字符串：%@",[[HDCommonTools sharedHDCommonTools] AES256DecryptWithCiphertext:str andKey:@"密码只有我知道"]);
+                    ///使用错误的key解密是空值
+                    NSLog(@"aes解密后的字符串：%@",[[HDCommonTools sharedHDCommonTools] AES256DecryptWithCiphertext:str andKey:@"错误的key值"]);
+                }
+                    break;
+                default:
+                    break;
+            }
+        }
+            break;
         default:
             break;
     }

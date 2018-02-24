@@ -45,9 +45,6 @@
 ///从指定文件名文件获取json内容
 - (id)getJsonDataFromFileName:(NSString*)jsonName;
 
-///字符串MD5加密
-- (NSString*)getMD5withStr:(NSString*)str;
-
 ///获取当前时间的时间戳
 - (NSString*)getCurrentTimeStamp;
 

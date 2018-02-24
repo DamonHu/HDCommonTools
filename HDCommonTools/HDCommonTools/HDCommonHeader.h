@@ -17,5 +17,6 @@
 #import "HDCommonTools+Permission.h"
 #import "HDCommonTools+SystemInfo.h"
 #import "HDCommonTools+Appstore.h"
+#import "HDCommonTools+Encrypt.h"
 
 #endif /* HDCommonHeader_h */
