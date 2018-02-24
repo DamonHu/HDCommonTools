@@ -10,5 +10,4 @@ s.requires_arc = true
 s.ios.deployment_target = '9.0'
 s.source_files = "HDCommonTools/HDCommonTools/SimulateIDFA/*.{h,m}","HDCommonTools/HDCommonTools/*.{h,m}"
 s.frameworks = 'UIKit','Foundation'
-s.documentation_url = 'http://www.hudongdong.com/ios/796.html'
 end
