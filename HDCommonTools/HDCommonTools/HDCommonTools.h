@@ -21,7 +21,7 @@
  The log print information is exported to the file, and the console will no longer display the print information of the log after calling this function
  Returns the path of the file where the print information is located
  */
-+(NSString*)setHdDebugLogToFile;
+- (NSString*)setHdDebugLogToFile;
 
 /// 将字典或者数组转化为Data数据
 //Translate dictionaries or arrays into Data

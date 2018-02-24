@@ -26,7 +26,7 @@
  The log print information is exported to the file, and the console will no longer display the print information of the log after calling this function
  Returns the path of the file where the print information is located
  */
-+(NSString*)setHdDebugLogToFile{
+- (NSString*)setHdDebugLogToFile{
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentDirectory = [paths objectAtIndex:0];
     NSString *fileName = [NSString stringWithFormat:@"HDNSLog.txt"];// 注意不是NSData!

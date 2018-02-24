@@ -66,7 +66,7 @@
 -(void)giveScoreWithAppleID:(NSString*)appleID withType:(HDScoreType)scoreType{
     switch (scoreType) {
         case kHDScoreTypeInAppStore:{
-            NSString* urlStr =[NSString stringWithFormat:@"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%@",appleID];
+            NSString* urlStr =[NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/viewContentsUserReviews?id=%@",appleID];
             if (@available(iOS 10.0, *)) {
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlStr] options:[NSDictionary dictionary] completionHandler:nil];
             }else{

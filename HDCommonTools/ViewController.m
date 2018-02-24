@@ -27,18 +27,20 @@
 }
 
 -(void)initData{
-    _titleArray = [NSArray arrayWithObjects:@"系统信息示例 System information",@"权限申请示例 Permission application",@"多媒体操作 Multi-Media",@"常用宏定义示例 common define",@"加密解密 Crypto", nil];
+    _titleArray = [NSArray arrayWithObjects:@"系统信息示例 System information",@"权限申请示例 Permission application",@"多媒体操作 Multi-Media",@"常用宏定义示例 common define",@"加密解密 Crypto",@"Appstore", nil];
     _dataArray = [NSMutableArray array];
     NSArray *array = [NSArray arrayWithObjects:@"打印软件版本 Print software version",@"打印系统语言 Print system language",@"打印系统iOS版本 Print system iOS version", nil];
     NSArray *array2 = [NSArray arrayWithObjects:@"申请GPS权限 GPS permissions",@"申请相册权限 Photo album permissions",@"打开系统设置 Open the system settings", nil];
     NSArray *array3 = [NSArray arrayWithObjects:@"播放音乐 Play music",@"关闭音乐 Stop playing music", nil];
     NSArray *array4 = [NSArray arrayWithObjects:@"测试输出 Log output",@"16进制颜色 16 Decimal color #f44336",@"rgb color 3，169，244，translucent",@"Interface parameters",@"将log输出到文件 Output log to a file", nil];
     NSArray *array5 = [NSArray arrayWithObjects:@"md5加密 String MD5 encryption",@"aes256加密 String aes256 encryption",@"aes256解密 String aes256 Decrypted", nil];
+    NSArray *array6 = [NSArray arrayWithObjects:@"应用内Appstore评分 Force the score pop-up window in app",@"跳转Appstore评分 Forced jump to appsStore to give score",@"应用内弹出appstore介绍 Force the score pop-up window in app",@"跳转到appstore看介绍 Jump to the appstore to see the introduction", nil];
     [_dataArray addObject:array];
     [_dataArray addObject:array2];
     [_dataArray addObject:array3];
     [_dataArray addObject:array4];
     [_dataArray addObject:array5];
+    [_dataArray addObject:array6];
 }
 -(void)createUI{
     UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, HDScreenWidth, HDScreenHeight) style:UITableViewStyleGrouped];
@@ -157,7 +159,7 @@
                     break;
                 case 4:{
                     ///After calling this function, the console will not output the print information
-                    _debugFilePath = [HDCommonTools setHdDebugLogToFile];
+                    _debugFilePath = [[HDCommonTools sharedHDCommonTools] setHdDebugLogToFile];
                     ///The following print has been printed to the file
                     NSLog(@"ScreenWidth:%f,ScreenHeight:%f",HDScreenWidth,HDScreenHeight);
                     NSLog(@"状态栏当前高度 Status bar current height:%f",HD_Portrait_Status_Height);//打电话时或者定位会发生变化
@@ -200,6 +202,33 @@
                     NSLog(@"aes解密后的字符串 AES decrypted string：%@",[[HDCommonTools sharedHDCommonTools] AES256DecryptWithCiphertext:str andKey:@"Password"]);
                     ///使用错误的key解密是空值 The use of the wrong key decryption is an empty value
                     NSLog(@"aes使用错误的key解密后的字符串 AES decrypted string with wrong Password：%@",[[HDCommonTools sharedHDCommonTools] AES256DecryptWithCiphertext:str andKey:@"WrongPassword"]);
+                }
+                    break;
+                default:
+                    break;
+            }
+        }
+            break;
+        case 5:{
+            switch (indexPath.row) {
+                case 0:{
+                    //应用内Appstore评分 Force the score pop-up window in app"
+                    [[HDCommonTools sharedHDCommonTools] giveScoreWithAppleID:@"1193575039" withType:kHDScoreTypeInApp];
+                }
+                    break;
+                case 1:{
+                    //跳转Appstore评分 Forced jump to appsStore to give score
+                    [[HDCommonTools sharedHDCommonTools] giveScoreWithAppleID:@"1193575039" withType:kHDScoreTypeInAppStore];
+                }
+                    break;
+                case 2:{
+                    //应用内弹出appstore介绍 Force the score pop-up window in app
+                    [[HDCommonTools sharedHDCommonTools] jumpStoreWithAppleID:@"1193575039" withType:kHDJumpStoreTypeInApp];
+                }
+                    break;
+                case 3:{
+                    //跳转到appstore看介绍 Jump to the appstore to see the introduction
+                    [[HDCommonTools sharedHDCommonTools] jumpStoreWithAppleID:@"1193575039" withType:kHDJumpStoreTypeInAppStore];
                 }
                     break;
                 default:
