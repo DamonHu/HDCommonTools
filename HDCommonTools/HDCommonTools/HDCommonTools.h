@@ -76,4 +76,17 @@
  */
 - (NSString*)getTimeFromTimeStamp:(NSString*)timeStamp andQuickFormatType:(HDQuickFormatType)quickType orCustomFormatter:(NSDateFormatter*)formatter;
 
+
+/**
+ 比较两个日期的先后顺序
+ Compare the order of the two dates
+
+ @param firstDay 第一个日期
+ @param secondDay 第二个日期
+ @return 第一个日期和第二个日期比较的结果 the comparison between the first date and the second date
+ NSOrderedAscending:第一个日期更早 The first date is earlier
+ NSOrderedSame:两个日期一样 Two dates are the same
+ NSOrderedDescending:第一个日期更晚 The first date is later
+ */
+- (NSComparisonResult)compareFirstDay:(NSDate *)firstDay withSecondDay:(NSDate *)secondDay;
 @end

@@ -44,9 +44,13 @@ All function functions can be called in the two step.
 ```
 ### 3、权限通知说明 Permission notice
 
-在申请权限的过程，在返回结果的时候会触发通知
+在申请权限的过程，在返回结果的时候会触发通知。
 
 In the process of applying for permissions, a notification is triggered when the result is returned.
+
+**获取通知权限的变化状态比较特殊，因为能监测通知变化的相关接口是在iOS10.0之后添加的，所以在iOS10.0之前的版本在通知权限变化时是没有通知的，只能在申请权限之后，自己去检测是否授予权限**
+
+**To obtain the change status notification authority is special, because the relevant interface monitoring notification change is added in the iOS10.0, so in previous versions of iOS10.0 there is no notice when the notification authority change, The solution is to check if the authority is granted after the application is applied.**
 
 ```
 ///系统权限授权变化通知
@@ -178,6 +182,19 @@ For clearer use, demo is perfected, and every usage in demo is used.
  */
 - (NSString*)getTimeFromTimeStamp:(NSString*)timeStamp andQuickFormatType:(HDQuickFormatType)quickType orCustomFormatter:(NSDateFormatter*)formatter;
 
+/**
+ 比较两个日期的先后顺序
+ Compare the order of the two dates
+
+ @param firstDay 第一个日期
+ @param secondDay 第二个日期
+ @return 第一个日期和第二个日期比较的结果 the comparison between the first date and the second date
+ NSOrderedAscending:第一个日期更早 The first date is earlier
+ NSOrderedSame:两个日期一样 Two dates are the same
+ NSOrderedDescending:第一个日期更晚 The first date is later
+ */
+- (NSComparisonResult)compareFirstDay:(NSDate *)firstDay withSecondDay:(NSDate *)secondDay;
+
 #pragma mark -
 #pragma mark - 文件处理管理类
 
@@ -185,9 +202,13 @@ For clearer use, demo is perfected, and every usage in demo is used.
 // Write the Data content to local save, rename, and return the saved path
 - (NSString*)savedPathWithData:(NSData*)data WithFileName:(NSString*)fileName;
 
-///在Document创建子文件夹
-//Create a subfolder in Document
+///在Document创建子文件夹并返回创建后的路径
+//Create a subfolder in Document And return to the created path
 -(NSString*)createFolder:(NSString*)folderName;
+
+///获取在Document文件夹里的或者子文件夹里面对应文件名的路径
+//Get the path to the file name in the Document folder or in the subfolder
+-(NSString*)getFilePathByName:(NSString*)fileName subfolder:(NSString*)folderName;
 
 ///检查文件夹下是否有指定文件名文件
 //Check if there is a specified file name file under the folder
@@ -255,6 +276,10 @@ For clearer use, demo is perfected, and every usage in demo is used.
 //Whether have the GPS permissions
 - (HDPrivatePermissionStatus)hasGPSLibrary;
 
+///是否有通知权限
+///Whether there is notification authority
+- (HDPrivatePermissionStatus)hasNotification;
+
 ///申请定位权限
 //Apply the GPS permissions
 -(void)getGPSLibraryWithType:(HDGPSPermissionType)GPSPermissionType;
@@ -270,6 +295,10 @@ For clearer use, demo is perfected, and every usage in demo is used.
 ///申请相册权限
 //Apply the Photo album permissions
 - (void)getPhotoLibrary;
+
+///申请通知权限,iOS10.0以上才可以动态通知获取到的权限
+///Application of notification authority,More than iOS10.0 can dynamically notify the acquired permissions
+-(void)getNotification;
 
 ///打开系统设置
 //Open the system settings
@@ -448,8 +477,13 @@ My Blog：[http://www.hudongdong.com/ios/796.html](http://www.hudongdong.com/ios
 
 ## 六、重要修改记录 Important revision record
 
+### v1.2.6
+
+1. 增加时间比较功能 Add the time comparison function
+2. 增加通知权限的状态获取和申请 Add the status and application of notification permissions
+
 ### v1.2.0
-1. 增加aes256加密解密模块 Adding aes256 encryption and decryption module
+1. 增加aes256加密解密模块 Add aes256 encryption and decryption module
 2. 整理MD5加密解密功能 Sorting the encryption and decryption functions of MD5
 3. 完善demo示例和说明 Perfect the demo examples and instructions
 

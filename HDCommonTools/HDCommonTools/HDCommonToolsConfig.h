@@ -15,6 +15,7 @@ typedef NS_ENUM(NSUInteger, HDPrivatePermissionName) {
     kHDPermissionNameVideo,     //摄像头权限 Camera permissions
     kHDPermissionNamePhotoLib,  //相册权限 Photo album permissions
     kHDPermissionNameGPS,       //GPS权限 GPS permissions
+    kHDPermissionNameNotification, //通知权限 Notification permissions
 };
 
 ///申请权限状态 Application permissions status
@@ -63,4 +64,5 @@ typedef NS_ENUM(NSUInteger, HDJumpStoreType) {
     kHDJumpStoreTypeInApp,      //强制在app中弹出appStore，ios10.3版本以下无反应。Force the score pop-up window in app, the score will not respond when lower than the ios10.3 version
     kHDJumpStoreTypeAuto         //10.3版本以下跳转appStore，10.3版本以上在app中弹出Appstore。jump to appsStore when lower than the ios10.3 version and the score pop-up window in app when higher than the ios10.3 version
 };
+
 #endif /* HDCommonToolsConfig_h */

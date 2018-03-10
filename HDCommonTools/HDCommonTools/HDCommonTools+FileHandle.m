@@ -22,8 +22,8 @@
     return savedImagePath;
 }
 
-///在Document创建子文件夹
-//Create a subfolder in Document
+///在Document创建子文件夹并返回创建后的路径
+//Create a subfolder in Document And return to the created path
 -(NSString*)createFolder:(NSString*)folderName{
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *path = [paths objectAtIndex:0];
@@ -44,6 +44,21 @@
         return folderPath;
         }
     return folderPath;
+}
+
+///获取在Document文件夹里的或者子文件夹里面对应文件名的路径
+//Get the path to the file name in the Document folder or in the subfolder
+-(NSString*)getFilePathByName:(NSString*)fileName subfolder:(NSString*)folderName{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *path = [paths objectAtIndex:0];
+    
+    if (folderName && folderName.length > 0) {
+        path = [path stringByAppendingPathComponent:folderName];
+    }
+    if (fileName && fileName.length > 0) {
+        path = [path stringByAppendingPathComponent:fileName];
+    }
+    return path;
 }
 
 ///检查文件夹下是否有指定文件名文件

@@ -17,9 +17,13 @@
 // Write the Data content to local save, rename, and return the saved path
 - (NSString*)savedPathWithData:(NSData*)data WithFileName:(NSString*)fileName;
 
-///在Document创建子文件夹
-//Create a subfolder in Document
+///在Document创建子文件夹并返回创建后的路径
+//Create a subfolder in Document And return to the created path
 -(NSString*)createFolder:(NSString*)folderName;
+
+///获取在Document文件夹里的或者子文件夹里面对应文件名的路径
+//Get the path to the file name in the Document folder or in the subfolder
+-(NSString*)getFilePathByName:(NSString*)fileName subfolder:(NSString*)folderName;
 
 ///检查文件夹下是否有指定文件名文件
 //Check if there is a specified file name file under the folder

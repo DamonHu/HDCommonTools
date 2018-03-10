@@ -9,12 +9,14 @@
 #import "HDCommonTools+Permission.h"
 #import <AVFoundation/AVFoundation.h>
 #import <Photos/Photos.h>
+#import <UserNotifications/UserNotifications.h>
 
 NSString * const HDPermissionStatusDidChangeNotification = @"HDPermissionStatusDidChangeNotification";
 NSString * const HDPermissionNameItem = @"HDPermissionNameItem";
 NSString * const HDPermissionStatusItem = @"HDPermissionStatusItem";
 
 CLLocationManager *locationManager;
+
 @implementation HDCommonTools (Permission)
 
 #pragma mark -
@@ -81,6 +83,16 @@ CLLocationManager *locationManager;
     return kHDDenied;
 }
 
+///是否有通知权限
+///Whether there is notification authority
+- (HDPrivatePermissionStatus)hasNotification{
+    if ([[UIApplication sharedApplication] currentUserNotificationSettings].types  == UIUserNotificationTypeNone) {
+        return kHDDenied;
+    }else{
+        return kHDAuthorized;
+    }
+}
+
 ///申请定位权限
 //Apply the GPS permissions
 -(void)getGPSLibraryWithType:(HDGPSPermissionType)GPSPermissionType{
@@ -143,6 +155,25 @@ CLLocationManager *locationManager;
         NSDictionary * userInfo = [NSDictionary dictionaryWithObjectsAndKeys:@(kHDPermissionNamePhotoLib),HDPermissionNameItem,@(permissionStatus),HDPermissionStatusItem, nil];
         [[NSNotificationCenter defaultCenter] postNotificationName:HDPermissionStatusDidChangeNotification object:nil userInfo:userInfo];
     }];
+}
+
+///申请通知权限
+///Application of notification authority
+-(void)getNotification{
+    if (@available(iOS 10.0, *)) {
+        [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:UIUserNotificationTypeAlert|UIUserNotificationTypeSound|UIUserNotificationTypeBadge completionHandler:^(BOOL granted, NSError * _Nullable error) {
+            HDPrivatePermissionStatus permissionStatus;
+            if (granted) {
+                permissionStatus = kHDAuthorized;
+            }else{
+                permissionStatus = kHDDenied;
+            }
+            NSDictionary * userInfo = [NSDictionary dictionaryWithObjectsAndKeys:@(kHDPermissionNameNotification),HDPermissionNameItem,@(permissionStatus),HDPermissionStatusItem, nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:HDPermissionStatusDidChangeNotification object:nil userInfo:userInfo];
+        }];
+    }else{
+        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeSound|UIUserNotificationTypeBadge categories:nil]];  //注册通知
+    }
 }
 
 ///打开系统设置

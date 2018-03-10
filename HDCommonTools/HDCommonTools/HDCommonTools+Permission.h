@@ -42,6 +42,10 @@ FOUNDATION_EXPORT NSString * const HDPermissionStatusItem;
 //Whether have the GPS permissions
 - (HDPrivatePermissionStatus)hasGPSLibrary;
 
+///是否有通知权限
+///Whether there is notification authority
+- (HDPrivatePermissionStatus)hasNotification;
+
 ///申请定位权限
 //Apply the GPS permissions
 -(void)getGPSLibraryWithType:(HDGPSPermissionType)GPSPermissionType;
@@ -57,6 +61,10 @@ FOUNDATION_EXPORT NSString * const HDPermissionStatusItem;
 ///申请相册权限
 //Apply the Photo album permissions
 - (void)getPhotoLibrary;
+
+///申请通知权限,iOS10.0以上才可以动态通知获取到的权限
+///Application of notification authority,More than iOS10.0 can dynamically notify the acquired permissions
+-(void)getNotification;
 
 ///打开系统设置
 //Open the system settings

@@ -13,6 +13,7 @@
 @property (strong,nonatomic)NSMutableArray * dataArray;
 @property (strong,nonatomic)NSArray * titleArray;
 @property (strong,nonatomic)NSString *debugFilePath;
+@property (strong,nonatomic)UIButton *shareBtn;
 @end
 
 @implementation ViewController
@@ -30,7 +31,7 @@
     _titleArray = [NSArray arrayWithObjects:@"系统信息示例 System information",@"权限申请示例 Permission application",@"多媒体操作 Multi-Media",@"常用宏定义示例 common define",@"加密解密 Crypto",@"Appstore", nil];
     _dataArray = [NSMutableArray array];
     NSArray *array = [NSArray arrayWithObjects:@"打印软件版本 Print software version",@"打印系统语言 Print system language",@"打印系统iOS版本 Print system iOS version", nil];
-    NSArray *array2 = [NSArray arrayWithObjects:@"申请GPS权限 GPS permissions",@"申请相册权限 Photo album permissions",@"打开系统设置 Open the system settings", nil];
+    NSArray *array2 = [NSArray arrayWithObjects:@"申请GPS权限 GPS permissions",@"申请相册权限 Photo album permissions",@"申请通知权限 Application of notification authority",@"打开系统设置 Open the system settings", nil];
     NSArray *array3 = [NSArray arrayWithObjects:@"播放音乐 Play music",@"关闭音乐 Stop playing music", nil];
     NSArray *array4 = [NSArray arrayWithObjects:@"测试输出 Log output",@"16进制颜色 16 Decimal color #f44336",@"rgb color 3，169，244，translucent",@"Interface parameters",@"将log输出到文件 Output log to a file", nil];
     NSArray *array5 = [NSArray arrayWithObjects:@"md5加密 String MD5 encryption",@"aes256加密 String aes256 encryption",@"aes256解密 String aes256 Decrypted", nil];
@@ -72,6 +73,14 @@
         }else{
             NSLog(@"用户不允许访问相册 Users do not allow access to Album");
         }
+    }else if ([[userInfo objectForKey:HDPermissionNameItem] integerValue] == kHDPermissionNameNotification){
+        ///ios10.0以上，通知权限的变化才可以被检测到
+        ///Above ios10.0, the change of notification permissions can be detected
+        if ([[userInfo objectForKey:HDPermissionStatusItem] integerValue] == kHDAuthorized) {
+            NSLog(@"用户允许接收通知 Users are allowed access to Receiving notification");
+        }else{
+            NSLog(@"用户不允许访问接收通知 Users do not allow access to Receiving notification");
+        }
     }
 }
 
@@ -107,6 +116,10 @@
                     [[HDCommonTools sharedHDCommonTools] getPhotoLibrary];
                     break;
                 case 2:
+                    ///申请通知权限 Application of notification authority
+                    [[HDCommonTools sharedHDCommonTools] getNotification];
+                    break;
+                case 3:
                     ///打开系统设置 Open the system settings
                     [[HDCommonTools sharedHDCommonTools] openSetting];
                     break;
@@ -179,6 +192,7 @@
                     [button setBackgroundColor:[UIColor clearColor]];
                     [button addTarget:self action:@selector(shareTest) forControlEvents:UIControlEventTouchUpInside];
                     [[[UIApplication sharedApplication] keyWindow] addSubview:button];
+                    self.shareBtn = button;
                 }
                     break;
                 default:
@@ -252,8 +266,11 @@
     
     UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:[NSArray arrayWithObjects:titleText,shareText,URL, nil] applicationActivities:nil];
     if ([[HDCommonTools sharedHDCommonTools] isPad]) {
-        UIPopoverController *popup = [[UIPopoverController alloc] initWithContentViewController:activityVC];
-        [popup presentPopoverFromRect:CGRectMake(HDScreenWidth/2, HDScreenHeight/4, 0, 0)inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+//        UIPopoverController *popup = [[UIPopoverController alloc] initWithContentViewController:activityVC];
+//        [popup presentPopoverFromRect:CGRectMake(HDScreenWidth/2, HDScreenHeight/4, 0, 0)inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        activityVC.modalPresentationStyle = UIModalPresentationPopover;
+        activityVC.popoverPresentationController.sourceView = self.shareBtn;
+        [self presentViewController:activityVC animated:YES completion:nil];
     }else {
         [self presentViewController:activityVC animated:true completion:nil];
     }

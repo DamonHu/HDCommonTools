@@ -213,4 +213,15 @@
     NSString* dateString = [temp_formatter stringFromDate:date];
     return dateString;
 }
+
+- (NSComparisonResult)compareFirstDay:(NSDate *)firstDay withSecondDay:(NSDate *)secondDay{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"dd-MM-yyyy"];
+    NSString *firstDayStr = [dateFormatter stringFromDate:firstDay];
+    NSString *secondDayStr = [dateFormatter stringFromDate:secondDay];
+    NSDate *dateA = [dateFormatter dateFromString:firstDayStr];
+    NSDate *dateB = [dateFormatter dateFromString:secondDayStr];
+    NSComparisonResult result = [dateA compare:dateB];
+    return result;
+}
 @end
