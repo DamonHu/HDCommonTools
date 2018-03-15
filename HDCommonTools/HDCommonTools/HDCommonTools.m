@@ -214,13 +214,52 @@
     return dateString;
 }
 
+/**
+ 比较两个日期的先后顺序
+ Compare the order of the two dates
+ 
+ @param firstDay 第一个日期
+ @param secondDay 第二个日期
+ @return 第一个日期和第二个日期比较的结果 the comparison between the first date and the second date
+ NSOrderedAscending:第一个日期更早 The first date is earlier
+ NSOrderedSame:两个日期一样 Two dates are the same
+ NSOrderedDescending:第一个日期更晚 The first date is later
+ */
 - (NSComparisonResult)compareFirstDay:(NSDate *)firstDay withSecondDay:(NSDate *)secondDay{
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"dd-MM-yyyy"];
-    NSString *firstDayStr = [dateFormatter stringFromDate:firstDay];
-    NSString *secondDayStr = [dateFormatter stringFromDate:secondDay];
-    NSDate *dateA = [dateFormatter dateFromString:firstDayStr];
-    NSDate *dateB = [dateFormatter dateFromString:secondDayStr];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    
+    NSDateFormatter *dateFormatter2 = [[NSDateFormatter alloc] init];
+    [dateFormatter2 setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZ"];
+    
+    NSDate *dateA;
+    NSDate *dateB;
+    if ([firstDay isKindOfClass:[NSDate class]]) {
+        NSString *firstDayStr = [dateFormatter stringFromDate:firstDay];
+        dateA = [dateFormatter dateFromString:firstDayStr];
+    }else{
+        NSAssert(NO, @"firstDay类型错误! firstDay error in type!");
+        //尝试使用字符串解析 Try to use string parsing
+        dateA = [dateFormatter dateFromString:(NSString*)firstDay];
+        if (!dateA) {
+            //尝试@"2018-03-15T09:59:00+0800";该类型解析
+            dateA = [dateFormatter2 dateFromString:(NSString*)firstDay];
+        }
+    }
+    if ([secondDay isKindOfClass:[NSDate class]]) {
+        NSString *secondDayStr = [dateFormatter stringFromDate:secondDay];
+        dateB = [dateFormatter dateFromString:secondDayStr];
+    }else{
+        NSAssert(NO, @"secondDay类型错误! secondDay error in type!");
+        //尝试使用字符串解析 Try to use string parsing
+        dateB = [dateFormatter dateFromString:(NSString*)secondDay];
+        if (!dateB) {
+            dateB = [dateFormatter2 dateFromString:(NSString*)secondDay];
+        }
+    }
+    if (!dateA || !dateB) {
+        NSAssert(NO, @"日期转换错误!Date conversion error!");
+    }
     NSComparisonResult result = [dateA compare:dateB];
     return result;
 }
