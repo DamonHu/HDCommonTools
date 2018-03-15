@@ -225,12 +225,16 @@
  NSOrderedSame:两个日期一样 Two dates are the same
  NSOrderedDescending:第一个日期更晚 The first date is later
  */
-- (NSComparisonResult)compareFirstDay:(NSDate *)firstDay withSecondDay:(NSDate *)secondDay{
+- (NSComparisonResult)compareFirstDay:(NSDate *)firstDay withSecondDay:(NSDate *)secondDay shouldIgnoreTime:(BOOL)ignoreTime{
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    
     NSDateFormatter *dateFormatter2 = [[NSDateFormatter alloc] init];
     [dateFormatter2 setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZ"];
+    if (ignoreTime) {
+        [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    }else{
+        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    }
+    
     
     NSDate *dateA;
     NSDate *dateB;
@@ -244,6 +248,8 @@
         if (!dateA) {
             //尝试@"2018-03-15T09:59:00+0800";该类型解析
             dateA = [dateFormatter2 dateFromString:(NSString*)firstDay];
+            NSString *firstDayStr = [dateFormatter stringFromDate:dateA];
+            dateA = [dateFormatter dateFromString:firstDayStr];
         }
     }
     if ([secondDay isKindOfClass:[NSDate class]]) {
@@ -255,6 +261,8 @@
         dateB = [dateFormatter dateFromString:(NSString*)secondDay];
         if (!dateB) {
             dateB = [dateFormatter2 dateFromString:(NSString*)secondDay];
+            NSString *secondDayStr = [dateFormatter stringFromDate:dateB];
+            dateB = [dateFormatter dateFromString:secondDayStr];
         }
     }
     if (!dateA || !dateB) {

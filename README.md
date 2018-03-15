@@ -477,6 +477,9 @@ My Blog：[http://www.hudongdong.com/ios/796.html](http://www.hudongdong.com/ios
 
 ## 六、重要修改记录 Important revision record
 
+### v1.2.8
+1. 修改日期比较功能，增加是否比较时间的选项。Modify the date comparison function，Increase the option that whether to ignore the time
+
 ### v1.2.6
 
 1. 增加时间比较功能 Add the time comparison function
