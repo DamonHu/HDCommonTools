@@ -9,6 +9,7 @@
 #import "HDCommonTools+Multimedia.h"
 
 AVPlayer *avPlayer;
+BOOL playMusicRepeat;
 @implementation HDCommonTools (Multimedia)
 #pragma mark -
 #pragma mark - 图像视频处理类
@@ -139,7 +140,7 @@ AVPlayer *avPlayer;
  播放音乐 Play music
  @param musicPath 音乐的地址 The address of the music
  */
--(void)playMusic:(NSString*)musicPath{
+-(void)playMusic:(NSString*)musicPath andRepeat:(BOOL)repeat{
     NSURL *musicUrl;
     if ([musicPath hasPrefix:@"http"]||[musicPath hasPrefix:@"https://"]) {
         musicUrl = [NSURL URLWithString:musicPath];
@@ -148,6 +149,10 @@ AVPlayer *avPlayer;
     }
     AVPlayerItem *item = [AVPlayerItem playerItemWithURL:musicUrl];
     avPlayer = [[AVPlayer alloc] initWithPlayerItem:item];
+    playMusicRepeat = repeat;
+    if (playMusicRepeat) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playbackFinished:) name:AVPlayerItemDidPlayToEndTimeNotification object:avPlayer.currentItem];
+    }
     if (avPlayer) {
         [avPlayer play];
     }
@@ -157,6 +162,21 @@ AVPlayer *avPlayer;
 -(void)stopMusic{
     if (avPlayer) {
         [avPlayer pause];
+    }
+}
+
+/**
+ *  播放完成通知
+ *
+ *  @param notification 通知对象
+ */
+-(void)playbackFinished:(NSNotification *)notification{
+    NSLog(@"视频播放完成.");
+    // 播放完成后重复播放
+    // 跳到最新的时间点开始播放
+    if (playMusicRepeat) {
+        [avPlayer seekToTime:CMTimeMake(0, 1)];
+        [avPlayer play];
     }
 }
 @end

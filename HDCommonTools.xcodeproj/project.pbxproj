@@ -24,6 +24,7 @@
 		E49A622620366D430002923B /* HDCommonTools+Appstore.m in Sources */ = {isa = PBXBuildFile; fileRef = E49A622520366D430002923B /* HDCommonTools+Appstore.m */; };
 		E4AC0DCE203FEBA700EA1EBF /* music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E4AC0DCD203FEBA700EA1EBF /* music.mp3 */; };
 		E4AC0DD320401DC100EA1EBF /* HDCommonTools+Encrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = E4AC0DD220401DC100EA1EBF /* HDCommonTools+Encrypt.m */; };
+		E4D38C13206E30B700E4E749 /* 空谷.wav in Resources */ = {isa = PBXBuildFile; fileRef = E4D38C12206E30B700E4E749 /* 空谷.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +81,7 @@
 		E4AC0DCD203FEBA700EA1EBF /* music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music.mp3; sourceTree = "<group>"; };
 		E4AC0DD120401DC100EA1EBF /* HDCommonTools+Encrypt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HDCommonTools+Encrypt.h"; sourceTree = "<group>"; };
 		E4AC0DD220401DC100EA1EBF /* HDCommonTools+Encrypt.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "HDCommonTools+Encrypt.m"; sourceTree = "<group>"; };
+		E4D38C12206E30B700E4E749 /* 空谷.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "空谷.wav"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +137,7 @@
 				E49A61D7203488280002923B /* AppDelegate.m */,
 				E49A61D9203488280002923B /* ViewController.h */,
 				E49A61DA203488280002923B /* ViewController.m */,
+				E4D38C12206E30B700E4E749 /* 空谷.wav */,
 				E4AC0DCD203FEBA700EA1EBF /* music.mp3 */,
 				E49A61DC203488280002923B /* Main.storyboard */,
 				E49A61DF203488280002923B /* Assets.xcassets */,
@@ -303,6 +306,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4D38C13206E30B700E4E749 /* 空谷.wav in Resources */,
 				E4AC0DCE203FEBA700EA1EBF /* music.mp3 in Resources */,
 				E49A61E3203488280002923B /* LaunchScreen.storyboard in Resources */,
 				E49A61E0203488280002923B /* Assets.xcassets in Resources */,

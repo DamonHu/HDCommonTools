@@ -51,8 +51,9 @@
 /**
  播放音乐 Play music
  @param musicPath 音乐的地址 The address of the music
+@param repeat 是否循环播放 should play music repeat
  */
--(void)playMusic:(NSString*)musicPath;
+-(void)playMusic:(NSString*)musicPath andRepeat:(BOOL)repeat;
 //停止音乐播放 Stop playing music
 -(void)stopMusic;
 

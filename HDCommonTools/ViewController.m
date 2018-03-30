@@ -131,8 +131,8 @@
         case 2:{
             switch (indexPath.row) {
                 case 0:{
-                    NSString * musicFilePath = [[NSBundle mainBundle] pathForResource:@"music" ofType:@"mp3"];
-                    [[HDCommonTools sharedHDCommonTools] playMusic:musicFilePath];
+                    NSString * musicFilePath = [[NSBundle mainBundle] pathForResource:@"空谷" ofType:@"wav"];
+                    [[HDCommonTools sharedHDCommonTools] playMusic:musicFilePath andRepeat:true];
                 }
                     break;
                 case 1:{
