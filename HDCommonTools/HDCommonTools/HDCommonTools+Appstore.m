@@ -10,13 +10,13 @@
 
 @implementation HDCommonTools (Appstore)
 
--(void)jumpStoreWithAppleID:(NSString*)appleID withType:(HDJumpStoreType)jumpStoreType{
+- (void)openAppStoreWithAppleID:(NSString *)appleID withType:(HDJumpStoreType)jumpStoreType {
     switch (jumpStoreType) {
         case kHDJumpStoreTypeInAppStore:{
             NSString* urlStr =[NSString stringWithFormat:@"https://itunes.apple.com/app/id%@",appleID];
             if (@available(iOS 10.0, *)) {
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlStr] options:[NSDictionary dictionary] completionHandler:nil];
-            }else{
+            } else {
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlStr]];
             }
         }
@@ -28,11 +28,11 @@
                 [storeProductVC loadProductWithParameters:[NSDictionary dictionaryWithObjectsAndKeys:appleID,SKStoreProductParameterITunesItemIdentifier, nil] completionBlock:^(BOOL result, NSError * _Nullable error) {
                     if (result) {
                         [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:storeProductVC animated:YES completion:nil];
-                    }else{
+                    } else {
                         NSLog(@"%@",error);
                     }
                 }];
-            }else{
+            } else {
                 NSLog(@"Less than 10.3 version does not support opening the Appstore preview page within app");
             }
         }
@@ -44,15 +44,15 @@
                 [storeProductVC loadProductWithParameters:[NSDictionary dictionaryWithObjectsAndKeys:appleID,SKStoreProductParameterITunesItemIdentifier, nil] completionBlock:^(BOOL result, NSError * _Nullable error) {
                     if (result) {
                         [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:storeProductVC animated:YES completion:nil];
-                    }else{
+                    } else {
                         NSLog(@"%@",error);
                     }
                 }];
-            }else{
+            } else {
                 NSString* urlStr =[NSString stringWithFormat:@"https://itunes.apple.com/app/id%@",appleID];
                 if (@available(iOS 10.0, *)) {
                     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlStr] options:[NSDictionary dictionary] completionHandler:nil];
-                }else{
+                } else {
                     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlStr]];
                 }
             }
@@ -63,13 +63,13 @@
     }
 }
 
--(void)giveScoreWithAppleID:(NSString*)appleID withType:(HDScoreType)scoreType{
+- (void)giveScoreWithAppleID:(NSString *)appleID withType:(HDScoreType)scoreType {
     switch (scoreType) {
         case kHDScoreTypeInAppStore:{
             NSString* urlStr =[NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/viewContentsUserReviews?id=%@",appleID];
             if (@available(iOS 10.0, *)) {
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlStr] options:[NSDictionary dictionary] completionHandler:nil];
-            }else{
+            } else {
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlStr]];
             }
         }
@@ -77,7 +77,7 @@
         case kHDScoreTypeInApp:{
             if (@available(iOS 10.3, *)) {
                 [SKStoreReviewController requestReview];
-            }else{
+            } else {
                 NSLog(@"Less than 10.3 version does not support the app open score");
             }
         }
@@ -85,11 +85,11 @@
         case kHDScoreTypeAuto:{
             if (@available(iOS 10.3, *)) {
                 [SKStoreReviewController requestReview];
-            }else{
+            } else {
                 NSString* urlStr =[NSString stringWithFormat:@"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%@",appleID];
                 if (@available(iOS 10.0, *)) {
                     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlStr] options:[NSDictionary dictionary] completionHandler:nil];
-                }else{
+                } else {
                     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlStr]];
                 }
             }

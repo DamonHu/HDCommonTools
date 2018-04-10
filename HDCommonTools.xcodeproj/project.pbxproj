@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E452427A207B6500006F8324 /* CalenderConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = E4524278207B6500006F8324 /* CalenderConverter.m */; };
+		E45242BB207B67CF006F8324 /* HDCommonTools+Date.m in Sources */ = {isa = PBXBuildFile; fileRef = E45242BA207B67CF006F8324 /* HDCommonTools+Date.m */; };
 		E49A61D8203488280002923B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E49A61D7203488280002923B /* AppDelegate.m */; };
 		E49A61DB203488280002923B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E49A61DA203488280002923B /* ViewController.m */; };
 		E49A61DE203488280002923B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E49A61DC203488280002923B /* Main.storyboard */; };
@@ -45,6 +47,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E4524278207B6500006F8324 /* CalenderConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalenderConverter.m; sourceTree = "<group>"; };
+		E4524279207B6500006F8324 /* CalenderConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalenderConverter.h; sourceTree = "<group>"; };
+		E45242B9207B67CF006F8324 /* HDCommonTools+Date.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HDCommonTools+Date.h"; sourceTree = "<group>"; };
+		E45242BA207B67CF006F8324 /* HDCommonTools+Date.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "HDCommonTools+Date.m"; sourceTree = "<group>"; };
 		E49A61D3203488280002923B /* HDCommonTools.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HDCommonTools.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E49A61D6203488280002923B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E49A61D7203488280002923B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -109,6 +115,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E4524277207B64A2006F8324 /* CalenderConverter */ = {
+			isa = PBXGroup;
+			children = (
+				E4524279207B6500006F8324 /* CalenderConverter.h */,
+				E4524278207B6500006F8324 /* CalenderConverter.m */,
+			);
+			path = CalenderConverter;
+			sourceTree = "<group>";
+		};
 		E49A61CA203488280002923B = {
 			isa = PBXGroup;
 			children = (
@@ -186,7 +201,10 @@
 				E49A622520366D430002923B /* HDCommonTools+Appstore.m */,
 				E4AC0DD120401DC100EA1EBF /* HDCommonTools+Encrypt.h */,
 				E4AC0DD220401DC100EA1EBF /* HDCommonTools+Encrypt.m */,
+				E45242B9207B67CF006F8324 /* HDCommonTools+Date.h */,
+				E45242BA207B67CF006F8324 /* HDCommonTools+Date.m */,
 				E49A621C20353E6C0002923B /* SimulateIDFA */,
+				E4524277207B64A2006F8324 /* CalenderConverter */,
 			);
 			path = HDCommonTools;
 			sourceTree = "<group>";
@@ -335,12 +353,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E452427A207B6500006F8324 /* CalenderConverter.m in Sources */,
 				E49A620B203532020002923B /* HDCommonTools.m in Sources */,
 				E49A621F20353E6C0002923B /* SimulateIDFA.m in Sources */,
 				E49A61DB203488280002923B /* ViewController.m in Sources */,
 				E49A62172035374F0002923B /* HDCommonTools+Multimedia.m in Sources */,
 				E4AC0DD320401DC100EA1EBF /* HDCommonTools+Encrypt.m in Sources */,
 				E49A622220353EE20002923B /* HDCommonTools+SystemInfo.m in Sources */,
+				E45242BB207B67CF006F8324 /* HDCommonTools+Date.m in Sources */,
 				E49A61E6203488280002923B /* main.m in Sources */,
 				E49A622620366D430002923B /* HDCommonTools+Appstore.m in Sources */,
 				E49A621B2035389B0002923B /* HDCommonTools+Permission.m in Sources */,

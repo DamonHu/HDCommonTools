@@ -18,5 +18,6 @@
 #import "HDCommonTools+SystemInfo.h"
 #import "HDCommonTools+Appstore.h"
 #import "HDCommonTools+Encrypt.h"
+#import "HDCommonTools+Date.h"
 
 #endif /* HDCommonHeader_h */

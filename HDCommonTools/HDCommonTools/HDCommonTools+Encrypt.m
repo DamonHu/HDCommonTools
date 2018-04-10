@@ -20,8 +20,8 @@ static Byte ivBuff[]   = {0xA,1,0xB,5,4,0xF,7,9,0x17,3,1,6,8,0xC,0xD,91};
 
 @implementation HDCommonTools (Encrypt)
 ///字符串MD5加密
-- (NSString*)getMD5withStr:(NSString*)str lowercase:(BOOL)lowercase{
-    const char *cStr = [str UTF8String];
+- (NSString *)MD5EncryptWithString:(NSString *)string withLowercase:(BOOL)lowercase {
+    const char *cStr = [string UTF8String];
     unsigned char result[16];
     CC_MD5( cStr, (CC_LONG)strlen(cStr), result );
     if (lowercase) {
@@ -32,7 +32,7 @@ static Byte ivBuff[]   = {0xA,1,0xB,5,4,0xF,7,9,0x17,3,1,6,8,0xC,0xD,91};
                  result[8], result[9], result[10], result[11],
                  result[12], result[13], result[14], result[15]
                  ] lowercaseString];
-    }else{
+    } else {
         return [NSString stringWithFormat:
                  @"%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",
                  result[0], result[1], result[2], result[3],
@@ -45,7 +45,7 @@ static Byte ivBuff[]   = {0xA,1,0xB,5,4,0xF,7,9,0x17,3,1,6,8,0xC,0xD,91};
 #pragma mark -
 #pragma mark - AES加密
 
--(NSData *)AESKeyForPassword:(NSString *)password{                  //Derive a key from a text password/passphrase
+- (NSData *)AESKeyForPassword:(NSString *)password {                  //Derive a key from a text password/passphrase
     NSMutableData *derivedKey = [NSMutableData dataWithLength:kAlgorithmKeySize];
     NSData *salt = [NSData dataWithBytes:saltBuff length:kCCKeySizeAES128];
     int result = CCKeyDerivationPBKDF(kCCPBKDF2,        // algorithm算法
@@ -64,7 +64,7 @@ static Byte ivBuff[]   = {0xA,1,0xB,5,4,0xF,7,9,0x17,3,1,6,8,0xC,0xD,91};
 }
 ///字符串aes256加密
 //String aes256 encryption
-- (NSString *)AES256EncryptWithPlainText:(NSString *)plain andKey:(NSString*)key{
+- (NSString *)AES256EncryptWithPlainText:(NSString *)plain andKey:(NSString *)key {
     NSData *plainText = [plain dataUsingEncoding:NSUTF8StringEncoding];
     // 'key' should be 32 bytes for AES256, will be null-padded otherwise
     char keyPtr[kCCKeySizeAES256+1]; // room for terminator (unused)
@@ -95,7 +95,7 @@ static Byte ivBuff[]   = {0xA,1,0xB,5,4,0xF,7,9,0x17,3,1,6,8,0xC,0xD,91};
 
 ///字符串aes256解密
 //String aes256 Decrypted
-- (NSString *)AES256DecryptWithCiphertext:(NSString *)ciphertexts andKey:(NSString*)key{
+- (NSString *)AES256DecryptWithCiphertext:(NSString *)ciphertexts andKey:(NSString *)key {
     NSData *cipherData = [self dataWithBase64EncodedString:ciphertexts];
     // 'key' should be 32 bytes for AES256, will be null-padded otherwise
     char keyPtr[kCCKeySizeAES256+1]; // room for terminator (unused)
@@ -123,8 +123,7 @@ static Byte ivBuff[]   = {0xA,1,0xB,5,4,0xF,7,9,0x17,3,1,6,8,0xC,0xD,91};
     return nil;
 }
 
-- (id)dataWithBase64EncodedString:(NSString *)string;
-{
+- (id)dataWithBase64EncodedString:(NSString *)string {
     if (string == nil)
         NSAssert(NO,@"string is nil");
     if ([string length] == 0)
@@ -189,8 +188,7 @@ static Byte ivBuff[]   = {0xA,1,0xB,5,4,0xF,7,9,0x17,3,1,6,8,0xC,0xD,91};
     return [NSData dataWithBytesNoCopy:bytes length:length];
 }
 
-- (NSString *)base64Encodings:(NSData*)data;
-{
+- (NSString *)base64Encodings:(NSData *)data {
     if ([data length] == 0)
         return @"";
     
@@ -200,8 +198,7 @@ static Byte ivBuff[]   = {0xA,1,0xB,5,4,0xF,7,9,0x17,3,1,6,8,0xC,0xD,91};
     NSUInteger length = 0;
     
     NSUInteger i = 0;
-    while (i < [data length])
-        {
+    while (i < [data length]) {
         char buffer[3] = {0,0,0};
         short bufferLength = 0;
         while (bufferLength < 3 && i < [data length])
@@ -212,11 +209,13 @@ static Byte ivBuff[]   = {0xA,1,0xB,5,4,0xF,7,9,0x17,3,1,6,8,0xC,0xD,91};
         characters[length++] = encodingTable[((buffer[0] & 0x03) << 4) | ((buffer[1] & 0xF0) >> 4)];
         if (bufferLength > 1)
             characters[length++] = encodingTable[((buffer[1] & 0x0F) << 2) | ((buffer[2] & 0xC0) >> 6)];
-        else characters[length++] = '=';
+        else
+            characters[length++] = '=';
         if (bufferLength > 2)
             characters[length++] = encodingTable[buffer[2] & 0x3F];
-        else characters[length++] = '=';
-        }
+        else
+            characters[length++] = '=';
+    }
     
     return [[[NSString alloc] initWithBytesNoCopy:characters length:length encoding:NSASCIIStringEncoding freeWhenDone:YES] init];
 }

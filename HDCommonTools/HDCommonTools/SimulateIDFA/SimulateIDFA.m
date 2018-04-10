@@ -145,7 +145,7 @@ static NSString *combineTwoFingerPrint(unsigned char *fp1,unsigned char *fp2){
         
         if (i < 8) {
             [hash appendFormat:@"%02X",fp1[i]];
-        }else{
+        } else {
             [hash appendFormat:@"%02X",fp2[i-8]];
         }
     }

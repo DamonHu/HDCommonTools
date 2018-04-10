@@ -9,11 +9,11 @@
 #import "ViewController.h"
 #import "HDCommonHeader.h"
 
-@interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
-@property (strong,nonatomic)NSMutableArray * dataArray;
-@property (strong,nonatomic)NSArray * titleArray;
-@property (strong,nonatomic)NSString *debugFilePath;
-@property (strong,nonatomic)UIButton *shareBtn;
+@interface ViewController () <UITableViewDelegate,UITableViewDataSource>
+@property (strong,nonatomic) NSMutableArray *dataArray;
+@property (strong,nonatomic) NSArray *titleArray;
+@property (strong,nonatomic) NSString *debugFilePath;
+@property (strong,nonatomic) UIButton *shareBtn;
 @end
 
 @implementation ViewController
@@ -28,20 +28,22 @@
 }
 
 -(void)initData{
-    _titleArray = [NSArray arrayWithObjects:@"系统信息示例 System information",@"权限申请示例 Permission application",@"多媒体操作 Multi-Media",@"常用宏定义示例 common define",@"加密解密 Crypto",@"Appstore", nil];
-    _dataArray = [NSMutableArray array];
+    self.titleArray = [NSArray arrayWithObjects:@"系统信息示例 System information",@"权限申请示例 Permission application",@"多媒体操作 Multi-Media",@"常用宏定义示例 common define",@"加密解密 Crypto",@"Appstore",@"日期相关", nil];
+    self.dataArray = [NSMutableArray array];
     NSArray *array = [NSArray arrayWithObjects:@"打印软件版本 Print software version",@"打印系统语言 Print system language",@"打印系统iOS版本 Print system iOS version", nil];
     NSArray *array2 = [NSArray arrayWithObjects:@"申请GPS权限 GPS permissions",@"申请相册权限 Photo album permissions",@"申请通知权限 Application of notification authority",@"打开系统设置 Open the system settings", nil];
     NSArray *array3 = [NSArray arrayWithObjects:@"播放音乐 Play music",@"关闭音乐 Stop playing music", nil];
     NSArray *array4 = [NSArray arrayWithObjects:@"测试输出 Log output",@"16进制颜色 16 Decimal color #f44336",@"rgb color 3，169，244，translucent",@"Interface parameters",@"将log输出到文件 Output log to a file", nil];
     NSArray *array5 = [NSArray arrayWithObjects:@"md5加密 String MD5 encryption",@"aes256加密 String aes256 encryption",@"aes256解密 String aes256 Decrypted", nil];
     NSArray *array6 = [NSArray arrayWithObjects:@"应用内Appstore评分 Force the score pop-up window in app",@"跳转Appstore评分 Forced jump to appsStore to give score",@"应用内弹出appstore介绍 Force the score pop-up window in app",@"跳转到appstore看介绍 Jump to the appstore to see the introduction", nil];
-    [_dataArray addObject:array];
-    [_dataArray addObject:array2];
-    [_dataArray addObject:array3];
-    [_dataArray addObject:array4];
-    [_dataArray addObject:array5];
-    [_dataArray addObject:array6];
+    NSArray *array7 = [NSArray arrayWithObjects:@"获取时间戳 getTimestamp",@"比较日期先后 compare date",@"获取农历日期 getTimeStrWithChineseLunarCalendar",@"获取农历生肖 ChineseZodiac",@"获取星座 getConstellation", nil];
+    [self.dataArray addObject:array];
+    [self.dataArray addObject:array2];
+    [self.dataArray addObject:array3];
+    [self.dataArray addObject:array4];
+    [self.dataArray addObject:array5];
+    [self.dataArray addObject:array6];
+    [self.dataArray addObject:array7];
 }
 -(void)createUI{
     UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, HDScreenWidth, HDScreenHeight) style:UITableViewStyleGrouped];
@@ -56,21 +58,21 @@
     if ([[userInfo objectForKey:HDPermissionNameItem] integerValue] == kHDPermissionNameGPS) {
         if ([[userInfo objectForKey:HDPermissionStatusItem] integerValue] == kHDAuthorized) {
             NSLog(@"用户允许访问gps Users are allowed access to GPS");
-        }else if ([[userInfo objectForKey:HDPermissionStatusItem] integerValue] == kHDAuthorRestricted){
+        } else if ([[userInfo objectForKey:HDPermissionStatusItem] integerValue] == kHDAuthorRestricted){
             NSLog(@"用户被限制访问gps Users are restricted to access to GPS");
-        }else if ([[userInfo objectForKey:HDPermissionStatusItem] integerValue] == kHDNotDetermined){
+        } else if ([[userInfo objectForKey:HDPermissionStatusItem] integerValue] == kHDNotDetermined){
             NSLog(@"用户尚未选择是否允许访问gps User has not chosen to allow access to the GPS");
-        }else{
+        } else {
             NSLog(@"用户不允许访问gps Users do not allow access to GPS");
         }
     }else if ([[userInfo objectForKey:HDPermissionNameItem] integerValue] == kHDPermissionNamePhotoLib){
         if ([[userInfo objectForKey:HDPermissionStatusItem] integerValue] == kHDAuthorized) {
             NSLog(@"用户允许访问相册 Users are allowed access to Album");
-        }else if ([[userInfo objectForKey:HDPermissionStatusItem] integerValue] == kHDAuthorRestricted){
+        } else if ([[userInfo objectForKey:HDPermissionStatusItem] integerValue] == kHDAuthorRestricted){
             NSLog(@"用户被限制访问相册 Users are restricted to access to Album");
-        }else if ([[userInfo objectForKey:HDPermissionStatusItem] integerValue] == kHDNotDetermined){
+        } else if ([[userInfo objectForKey:HDPermissionStatusItem] integerValue] == kHDNotDetermined){
             NSLog(@"用户尚未选择是否允许访问相册 User has not chosen to allow access to the Album");
-        }else{
+        } else {
             NSLog(@"用户不允许访问相册 Users do not allow access to Album");
         }
     }else if ([[userInfo objectForKey:HDPermissionNameItem] integerValue] == kHDPermissionNameNotification){
@@ -78,7 +80,7 @@
         ///Above ios10.0, the change of notification permissions can be detected
         if ([[userInfo objectForKey:HDPermissionStatusItem] integerValue] == kHDAuthorized) {
             NSLog(@"用户允许接收通知 Users are allowed access to Receiving notification");
-        }else{
+        } else {
             NSLog(@"用户不允许访问接收通知 Users do not allow access to Receiving notification");
         }
     }
@@ -92,13 +94,13 @@
         case 0:{
             switch (indexPath.row) {
                 case 0:
-                    NSLog(@"%@",[[HDCommonTools sharedHDCommonTools] getAppVersion]);
+                    NSLog(@"%@",[[HDCommonTools sharedHDCommonTools] getAppVersionStr]);
                     break;
                 case 1:
-                    NSLog(@"%@",[[HDCommonTools sharedHDCommonTools] getIOSLanguage]);
+                    NSLog(@"%@",[[HDCommonTools sharedHDCommonTools] getIOSLanguageStr]);
                     break;
                 case 2:
-                    NSLog(@"%@",[[HDCommonTools sharedHDCommonTools] getIOSVersion]);
+                    NSLog(@"%@",[[HDCommonTools sharedHDCommonTools] getIOSVersionStr]);
                     break;
                 default:
                     break;
@@ -109,19 +111,19 @@
             switch (indexPath.row) {
                 case 0:
                     ///申请gps权限 Apply for GPS permissions
-                    [[HDCommonTools sharedHDCommonTools] getGPSLibraryWithType:kHDGPSPermissionWhenInUse];
+                    [[HDCommonTools sharedHDCommonTools] requestGPSLibraryPermissionWithType:kHDGPSPermissionWhenInUse];
                     break;
                 case 1:
                     ///申请相册权限 Apply for Album permissions
-                    [[HDCommonTools sharedHDCommonTools] getPhotoLibrary];
+                    [[HDCommonTools sharedHDCommonTools] requestPhotoLibraryPermission];
                     break;
                 case 2:
                     ///申请通知权限 Application of notification authority
-                    [[HDCommonTools sharedHDCommonTools] getNotification];
+                    [[HDCommonTools sharedHDCommonTools] requestNotificationPermission];
                     break;
                 case 3:
                     ///打开系统设置 Open the system settings
-                    [[HDCommonTools sharedHDCommonTools] openSetting];
+                    [[HDCommonTools sharedHDCommonTools] openSystemSetting];
                     break;
                 default:
                     break;
@@ -132,7 +134,7 @@
             switch (indexPath.row) {
                 case 0:{
                     NSString * musicFilePath = [[NSBundle mainBundle] pathForResource:@"空谷" ofType:@"wav"];
-                    [[HDCommonTools sharedHDCommonTools] playMusic:musicFilePath andRepeat:true];
+                    [[HDCommonTools sharedHDCommonTools] playMusicWithMusicFilePath:musicFilePath withRepeat:true];
                 }
                     break;
                 case 1:{
@@ -202,8 +204,8 @@
         case 4:{
             switch (indexPath.row) {
                 case 0:{
-                    NSLog(@"md5加密的大写字符串 MD5 encrypted uppercase string：%@",[[HDCommonTools sharedHDCommonTools] getMD5withStr:@"my name is HDCommonTools" lowercase:YES]);
-                    NSLog(@"md5加密的小写字符串 MD5 encrypted lowercase string：%@",[[HDCommonTools sharedHDCommonTools] getMD5withStr:@"我my name is HDCommonTools" lowercase:NO]);
+                    NSLog(@"md5加密的大写字符串 MD5 encrypted uppercase string：%@",[[HDCommonTools sharedHDCommonTools] MD5EncryptWithString:@"my name is HDCommonTools" withLowercase:YES]);
+                    NSLog(@"md5加密的小写字符串 MD5 encrypted lowercase string：%@",[[HDCommonTools sharedHDCommonTools] MD5EncryptWithString:@"我my name is HDCommonTools" withLowercase:NO]);
                 }
                     break;
                 case 1:
@@ -237,12 +239,59 @@
                     break;
                 case 2:{
                     //应用内弹出appstore介绍 Force the score pop-up window in app
-                    [[HDCommonTools sharedHDCommonTools] jumpStoreWithAppleID:@"1193575039" withType:kHDJumpStoreTypeInApp];
+                    [[HDCommonTools sharedHDCommonTools] openAppStoreWithAppleID:@"1193575039" withType:kHDJumpStoreTypeInApp];
                 }
                     break;
                 case 3:{
                     //跳转到appstore看介绍 Jump to the appstore to see the introduction
-                    [[HDCommonTools sharedHDCommonTools] jumpStoreWithAppleID:@"1193575039" withType:kHDJumpStoreTypeInAppStore];
+                    [[HDCommonTools sharedHDCommonTools] openAppStoreWithAppleID:@"1193575039" withType:kHDJumpStoreTypeInAppStore];
+                }
+                    break;
+                default:
+                    break;
+            }
+        }
+            break;
+        case 6:{
+            switch (indexPath.row) {
+                case 0:{
+                    //获取时间戳 getTimestamp
+                    NSLog(@"%@",[[HDCommonTools sharedHDCommonTools] getTimestampWithDate:[NSDate date]]);
+                }
+                    break;
+                case 1:{
+                    //比较日期先后 compare date
+                    NSDateFormatter *temp_formatter = [[NSDateFormatter alloc] init];
+                    [temp_formatter setDateFormat:@"yyyy-MM-dd"];
+                    NSDate *date = [temp_formatter dateFromString:@"2018-10-20"];
+                    
+                    NSDateFormatter *temp_formatter2 = [[NSDateFormatter alloc] init];
+                    [temp_formatter2 setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
+                    NSDate *date2 = [temp_formatter2 dateFromString:@"2018-10-18 10:40:40"];
+                    
+                    if ([[HDCommonTools sharedHDCommonTools] compareFirstDay:date withSecondDay:date2 withIgnoreTime:YES] == NSOrderedAscending) {
+                        NSLog(@"第一个时间早 The first date is earlier");
+                    } else if ([[HDCommonTools sharedHDCommonTools] compareFirstDay:date withSecondDay:date2 withIgnoreTime:YES] == NSOrderedDescending) {
+                        NSLog(@"第一个日期更晚 The first date is later");
+                    } else if ([[HDCommonTools sharedHDCommonTools] compareFirstDay:date withSecondDay:date2 withIgnoreTime:YES] == NSOrderedSame) {
+                        NSLog(@"两个日期一样 Two dates are the same");
+                    }
+                }
+                    break;
+                case 2:{
+                    //获取农历日期 getTimeStrWithChineseLunarCalendar
+                    ChineseLunarCalendar *chineseLunarCalendar = [[HDCommonTools sharedHDCommonTools] getChineseLunarCalendarWithDate:[NSDate date]];
+                    NSLog(@"%@",[[HDCommonTools sharedHDCommonTools] getChineseLunarCalendarStrWithChineseLunarCalendar:chineseLunarCalendar withFormatType:kHDChineseLunarCalendarFormatTypeYMD]);
+                }
+                    break;
+                case 3:{
+                    //获取农历生肖 ChineseZodiac
+                    NSLog(@"%lu",(unsigned long)[[HDCommonTools sharedHDCommonTools] getChineseZodiacWithYear:2018]);
+                }
+                    break;
+                case 4:{
+                    //获取星座 getConstellation
+                    NSLog(@"%lu",(unsigned long)[[HDCommonTools sharedHDCommonTools] getConstellationWithDate:[NSDate date]]);
                 }
                     break;
                 default:

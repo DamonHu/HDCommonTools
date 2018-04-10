@@ -22,51 +22,51 @@ FOUNDATION_EXPORT NSString * const HDPermissionNameItem;
 //The key of userinfo in the system change notification, marked state
 FOUNDATION_EXPORT NSString * const HDPermissionStatusItem;
 
-@interface HDCommonTools (Permission)<CLLocationManagerDelegate>
+@interface HDCommonTools (Permission) <CLLocationManagerDelegate>
 
 #pragma mark -
 #pragma mark - 权限类
 ///是否有麦克风权限
 //Whether have the microphone permissions
-- (HDPrivatePermissionStatus)hasAVMediaTypeAudio;
+- (HDPrivatePermissionStatus)getAVMediaTypeAudioPermissionStatus;
 
 ///是否有拍照权限
 //Whether have the Camera permissions
-- (HDPrivatePermissionStatus)hasAVMediaTypeVideo;
+- (HDPrivatePermissionStatus)getAVMediaTypeVideoPermissionStatus;
 
 ///是否有相册权限
 ////Whether have the Photo album permissions
-- (HDPrivatePermissionStatus)hasPhotoLibrary;
+- (HDPrivatePermissionStatus)getPhotoLibraryPermissionStatus;
 
 ///是否有定位权限
 //Whether have the GPS permissions
-- (HDPrivatePermissionStatus)hasGPSLibrary;
+- (HDPrivatePermissionStatus)getGPSLibraryPermissionStatus;
 
 ///是否有通知权限
 ///Whether there is notification authority
-- (HDPrivatePermissionStatus)hasNotification;
+- (HDPrivatePermissionStatus)getNotificationPermissionStatus;
 
 ///申请定位权限
 //Apply the GPS permissions
--(void)getGPSLibraryWithType:(HDGPSPermissionType)GPSPermissionType;
+- (void)requestGPSLibraryPermissionWithType:(HDGPSPermissionType)GPSPermissionType;
 
 ///申请麦克风权限
 //Apply the Microphone permissions
-- (void)getAVMediaTypeAudio;
+- (void)requestAVMediaTypeAudioPermission;
 
 ///申请拍照权限
 //Apply the Camera permissions
--(void)getAVMediaTypeVideo;
+- (void)requestAVMediaTypeVideoPermission;
 
 ///申请相册权限
 //Apply the Photo album permissions
-- (void)getPhotoLibrary;
+- (void)requestPhotoLibraryPermission;
 
 ///申请通知权限,iOS10.0以上才可以动态通知获取到的权限
 ///Application of notification authority,More than iOS10.0 can dynamically notify the acquired permissions
--(void)getNotification;
+- (void)requestNotificationPermission;
 
 ///打开系统设置
 //Open the system settings
-- (void)openSetting;
+- (void)openSystemSetting;
 @end

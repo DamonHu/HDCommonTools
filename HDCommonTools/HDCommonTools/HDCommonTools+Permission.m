@@ -21,62 +21,63 @@ CLLocationManager *locationManager;
 
 #pragma mark -
 #pragma mark - 权限类
+
 ///是否有麦克风权限
 //Whether have the microphone permissions
-- (HDPrivatePermissionStatus)hasAVMediaTypeAudio{
+- (HDPrivatePermissionStatus)getAVMediaTypeAudioPermissionStatus {
     AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
     if (status == AVAuthorizationStatusAuthorized) {
         return kHDAuthorized;
-    }else if (status == AVAuthorizationStatusNotDetermined) {
+    } else if (status == AVAuthorizationStatusNotDetermined) {
         return kHDNotDetermined;
-    }else if (status == AVAuthorizationStatusRestricted){
+    } else if (status == AVAuthorizationStatusRestricted) {
         return kHDAuthorRestricted;
-    }else {
+    } else {
         return kHDDenied;
     }
 }
 
 ///是否有拍照权限
 //Whether have the Camera permissions
-- (HDPrivatePermissionStatus)hasAVMediaTypeVideo{
+- (HDPrivatePermissionStatus)getAVMediaTypeVideoPermissionStatus {
     AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
     if (status == AVAuthorizationStatusAuthorized) {
         return kHDAuthorized;
-    }else if (status == AVAuthorizationStatusNotDetermined) {
+    } else if (status == AVAuthorizationStatusNotDetermined) {
         return kHDNotDetermined;
-    }else if (status == AVAuthorizationStatusRestricted){
+    } else if (status == AVAuthorizationStatusRestricted) {
         return kHDAuthorRestricted;
-    }else {
+    } else {
         return kHDDenied;
     }
 }
 
 ///是否有相册权限
 ////Whether have the Photo album permissions
-- (HDPrivatePermissionStatus)hasPhotoLibrary{
+- (HDPrivatePermissionStatus)getPhotoLibraryPermissionStatus {
     PHAuthorizationStatus status=[PHPhotoLibrary authorizationStatus];
     if (status == PHAuthorizationStatusAuthorized) {
         return kHDAuthorized;
-    }else if (status == PHAuthorizationStatusNotDetermined) {
+    } else if (status == PHAuthorizationStatusNotDetermined) {
         return kHDNotDetermined;
-    }else if (status == PHAuthorizationStatusRestricted){
+    } else if (status == PHAuthorizationStatusRestricted) {
         return kHDAuthorRestricted;
-    }else {
+    } else {
         return kHDDenied;
     }
 }
 
 ///是否有定位权限
 //Whether have the GPS permissions
-- (HDPrivatePermissionStatus)hasGPSLibrary{
+- (HDPrivatePermissionStatus)getGPSLibraryPermissionStatus {
     if ([CLLocationManager locationServicesEnabled] && ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse || [CLLocationManager authorizationStatus]  == kCLAuthorizationStatusAuthorizedAlways)) {
         //定位功能可用
         return kHDAuthorized;
-    }else if ( [CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined){
+    } else if ( [CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined) {
         return kHDNotDetermined;
-    }else if ([CLLocationManager authorizationStatus] ==kCLAuthorizationStatusRestricted){
+    } else if ([CLLocationManager authorizationStatus] ==kCLAuthorizationStatusRestricted) {
         return kHDAuthorRestricted;
-    }else if ([CLLocationManager authorizationStatus] ==kCLAuthorizationStatusDenied) {
+    } else if ([CLLocationManager authorizationStatus] ==kCLAuthorizationStatusDenied) {
         //定位不能用
         return kHDDenied;
     }
@@ -85,24 +86,24 @@ CLLocationManager *locationManager;
 
 ///是否有通知权限
 ///Whether there is notification authority
-- (HDPrivatePermissionStatus)hasNotification{
+- (HDPrivatePermissionStatus)getNotificationPermissionStatus {
     if ([[UIApplication sharedApplication] currentUserNotificationSettings].types  == UIUserNotificationTypeNone) {
         return kHDDenied;
-    }else{
+    } else {
         return kHDAuthorized;
     }
 }
 
 ///申请定位权限
 //Apply the GPS permissions
--(void)getGPSLibraryWithType:(HDGPSPermissionType)GPSPermissionType{
+- (void)requestGPSLibraryPermissionWithType:(HDGPSPermissionType)GPSPermissionType {
     locationManager = [[CLLocationManager alloc] init];
     locationManager.delegate = self;
     if (GPSPermissionType == kHDGPSPermissionWhenInUse) {
         [locationManager requestWhenInUseAuthorization];
-    }else if (GPSPermissionType == kHDGPSPermissionAlways){
+    } else if (GPSPermissionType == kHDGPSPermissionAlways) {
         [locationManager requestAlwaysAuthorization];
-    }else if (GPSPermissionType == kHDGPSPermissionBoth){
+    } else if (GPSPermissionType == kHDGPSPermissionBoth) {
         [locationManager requestWhenInUseAuthorization];
         [locationManager requestAlwaysAuthorization];
     }
@@ -110,12 +111,12 @@ CLLocationManager *locationManager;
 
 ///申请麦克风权限
 //Apply the Microphone permissions
-- (void)getAVMediaTypeAudio{
+- (void)requestAVMediaTypeAudioPermission {
     [AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler:^(BOOL granted) {
         HDPrivatePermissionStatus permissionStatus;
         if (granted) {
             permissionStatus = kHDAuthorized;
-        }else{
+        } else{
             permissionStatus = kHDDenied;
         }
         NSDictionary * userInfo = [NSDictionary dictionaryWithObjectsAndKeys:@(kHDPermissionNameAudio),HDPermissionNameItem,@(permissionStatus),HDPermissionStatusItem, nil];
@@ -125,12 +126,12 @@ CLLocationManager *locationManager;
 
 ///申请拍照权限
 //Apply the Camera permissions
--(void)getAVMediaTypeVideo{
+- (void)requestAVMediaTypeVideoPermission {
     [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
         HDPrivatePermissionStatus permissionStatus;
         if (granted) {
             permissionStatus = kHDAuthorized;
-        }else{
+        } else {
             permissionStatus = kHDDenied;
         }
         NSDictionary * userInfo = [NSDictionary dictionaryWithObjectsAndKeys:@(kHDPermissionNameVideo),HDPermissionNameItem,@(permissionStatus),HDPermissionStatusItem, nil];
@@ -140,16 +141,16 @@ CLLocationManager *locationManager;
 
 ///申请相册权限
 //Apply the Photo album permissions
-- (void)getPhotoLibrary{
+- (void)requestPhotoLibraryPermission {
     [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
         HDPrivatePermissionStatus permissionStatus;
         if (status == PHAuthorizationStatusAuthorized) {
             permissionStatus = kHDAuthorized;
-        }else if (status == PHAuthorizationStatusNotDetermined) {
+        } else if (status == PHAuthorizationStatusNotDetermined) {
             permissionStatus = kHDNotDetermined;
-        }else if (status == PHAuthorizationStatusRestricted){
+        } else if (status == PHAuthorizationStatusRestricted) {
             permissionStatus = kHDAuthorRestricted;
-        }else {
+        } else {
             permissionStatus = kHDDenied;
         }
         NSDictionary * userInfo = [NSDictionary dictionaryWithObjectsAndKeys:@(kHDPermissionNamePhotoLib),HDPermissionNameItem,@(permissionStatus),HDPermissionStatusItem, nil];
@@ -159,43 +160,47 @@ CLLocationManager *locationManager;
 
 ///申请通知权限
 ///Application of notification authority
--(void)getNotification{
+-(void)requestNotificationPermission {
     if (@available(iOS 10.0, *)) {
         [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:UIUserNotificationTypeAlert|UIUserNotificationTypeSound|UIUserNotificationTypeBadge completionHandler:^(BOOL granted, NSError * _Nullable error) {
             HDPrivatePermissionStatus permissionStatus;
             if (granted) {
                 permissionStatus = kHDAuthorized;
-            }else{
+            } else {
                 permissionStatus = kHDDenied;
             }
             NSDictionary * userInfo = [NSDictionary dictionaryWithObjectsAndKeys:@(kHDPermissionNameNotification),HDPermissionNameItem,@(permissionStatus),HDPermissionStatusItem, nil];
             [[NSNotificationCenter defaultCenter] postNotificationName:HDPermissionStatusDidChangeNotification object:nil userInfo:userInfo];
         }];
-    }else{
+    } else {
         [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeSound|UIUserNotificationTypeBadge categories:nil]];  //注册通知
     }
 }
 
 ///打开系统设置
 //Open the system settings
-- (void)openSetting{
+- (void)openSystemSetting {
     NSURL *settingUrl = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
     if ([[UIApplication sharedApplication] canOpenURL:settingUrl]) {
-        [[UIApplication sharedApplication] openURL:settingUrl];
+        if (@available(iOS 10.0, *)) {
+            [[UIApplication sharedApplication] openURL:settingUrl options:[NSDictionary dictionary] completionHandler:nil];
+        } else {
+            [[UIApplication sharedApplication] openURL:settingUrl];
+        }
     }
 }
 
 #pragma mark -
 #pragma mark - CLLocationManagerDelegate
-- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status{
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
     HDPrivatePermissionStatus permissionStatus;
     if (status == kCLAuthorizationStatusNotDetermined) {
         permissionStatus = kHDNotDetermined;
-    }else if (status == kCLAuthorizationStatusRestricted){
+    } else if (status == kCLAuthorizationStatusRestricted) {
         permissionStatus = kHDAuthorRestricted;
-    }else if (status == kCLAuthorizationStatusDenied){
+    } else if (status == kCLAuthorizationStatusDenied) {
         permissionStatus = kHDDenied;
-    }else {
+    } else {
         permissionStatus = kHDAuthorized;
     }
     NSDictionary * userInfo = [NSDictionary dictionaryWithObjectsAndKeys:@(kHDPermissionNameGPS),HDPermissionNameItem,@(permissionStatus),HDPermissionStatusItem, nil];

@@ -43,12 +43,18 @@ typedef NS_ENUM(NSUInteger, HDSystemLanguage) {
 
 ///时间戳快速转换为时间字符串 The time stamp is quickly converted to a time string
 typedef NS_ENUM(NSUInteger, HDQuickFormatType) {
-    kHDQuickFormateTypeNone = 0,    //自己定义转换 Self definition conversion
     kHDQuickFormateTypeYMD,         //年月日   2010-09-02
     kHDQuickFormateTypeMD,          //月日     09-02
     kHDQuickFormateTypeYMDTime,     //年月日时间 2010-09-02 05:23:17
     kHDQuickFormateTypeTime,        //时间    05:23:17
-    kHDQuickFormateTypeMDTime       //月日时间 09-02 05:23
+    kHDQuickFormateTypeMDTime,       //月日时间 09-02 05:23
+    kHDQuickFormateTypeYMDTimeZone    //年月日时区 2018-03-15T09:59:00+0800
+};
+
+///
+typedef NS_ENUM(NSUInteger, HDChineseLunarCalendarFormatType) {
+    kHDChineseLunarCalendarFormatTypeYMD,         //年月日   2018年正月初十
+    kHDChineseLunarCalendarFormatTypeMD,          //月日     正月初十
 };
 
 ///评分样式类型 Scoring style type
@@ -65,4 +71,35 @@ typedef NS_ENUM(NSUInteger, HDJumpStoreType) {
     kHDJumpStoreTypeAuto         //10.3版本以下跳转appStore，10.3版本以上在app中弹出Appstore。jump to appsStore when lower than the ios10.3 version and the score pop-up window in app when higher than the ios10.3 version
 };
 
+///星座 Constellation
+typedef NS_ENUM(NSUInteger, HDConstellation) {
+    kHDConstellationCapricorn,      //摩羯座
+    kHDConstellationAquarius,       //水瓶座
+    kHDConstellationPisces,         //双鱼座
+    kHDConstellationAries,          //白羊座
+    kHDConstellationTaurus,         //金牛座
+    kHDConstellationGemini,         //双子座
+    kHDConstellationCancer,         //巨蟹座
+    kHDConstellationLeo,            //狮子座
+    kHDConstellationVirgo,          //处女座
+    kHDConstellationLibra,          //天秤座
+    kHDConstellationScorpio,        //天蝎座
+    kHDConstellationSagittarius     //射手座
+};
+
+///十二生肖 Chinese Zodiac
+typedef NS_ENUM(NSUInteger, HDChineseZodiac) {
+    kHDChineseZodiacRat = 1,        //子鼠
+    kHDChineseZodiacOx,         //丑牛
+    kHDChineseZodiacTiger,      //寅虎
+    kHDChineseZodiacRabbit,     //卯兔
+    kHDChineseZodiacDragon,     //辰龙
+    kHDChineseZodiacSnake,      //巳蛇
+    kHDChineseZodiacHorse,      //午马
+    kHDChineseZodiacGoat,       //未羊
+    kHDChineseZodiacMonkey,     //申猴
+    kHDChineseZodiacRooster,    //酉鸡
+    kHDChineseZodiacDog,        //戌狗
+    kHDChineseZodiacPig,        //亥猪
+};
 #endif /* HDCommonToolsConfig_h */

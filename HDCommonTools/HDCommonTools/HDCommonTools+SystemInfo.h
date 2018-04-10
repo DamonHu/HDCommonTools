@@ -13,19 +13,19 @@
 #pragma mark - 系统信息类
 ///软件版本
 //the AppVersion
-- (NSString*)getAppVersion;
+- (NSString *)getAppVersionStr;
 
 ///工程的build版本
 //The build version of the project
-- (NSString*)getAppBuildVersion;
+- (NSString *)getAppBuildVersionStr;
 
 ///系统的ios版本
 //The IOS version of the system
-- (NSString*)getIOSVersion;
+- (NSString *)getIOSVersionStr;
 
 ///获取系统语言
 //Get the system language
-- (NSString*)getIOSLanguage;
+- (NSString *)getIOSLanguageStr;
 
 ///是否是英文语言环境
 //Is it an English language environment
@@ -37,15 +37,15 @@
 
 ///软件Bundle Identifier
 //Software Bundle Identifier
-- (NSString*)getBundleIdentifier;
+- (NSString *)getBundleIdentifier;
 
 ///模拟软件唯一标示，如果idfa可用使用idfa，否则则使用模拟的idfa
 //The only indication of the simulation software.If IDFA is available, it will return to IDFA.Otherwise, use the analog IDFA
-- (NSString*)getIphoneIdfa;
+- (NSString *)getIphoneIdfa;
 
 ///获取具体的手机型号字符串
 //Get a specific handset model string
-- (NSString*)getDetailModel;
+- (NSString *)getDetailModelStr;
 
 ///是否是平板
 //Whether is ipad
@@ -53,5 +53,5 @@
 
 ///是否是iphoneX
 //Whether is iphoneX
--(BOOL)isPhoneX;
+- (BOOL)isPhoneX;
 @end
