@@ -148,7 +148,7 @@ The project uses many other excellent projects, especially thanks to the followi
 
 ## 七、重要修改记录 Important revision record
 
-### 1.3.0
+### v1.3.0
 
 1. 调整优化代码 Optimization code
 2. 增加农历公历转换 Increase the transformation of the lunar calendar
