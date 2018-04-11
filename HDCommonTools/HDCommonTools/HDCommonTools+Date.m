@@ -51,12 +51,12 @@
             break;
         case kHDQuickFormateTypeYMDTime:{
             temp_formatter = [[NSDateFormatter alloc] init];
-            [temp_formatter setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
+            [temp_formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
         }
             break;
         case kHDQuickFormateTypeTime:{
             temp_formatter = [[NSDateFormatter alloc] init];
-            [temp_formatter setDateFormat:@"hh:mm:ss"];
+            [temp_formatter setDateFormat:@"HH:mm:ss"];
         }
             break;
         case kHDQuickFormateTypeMDTime:{

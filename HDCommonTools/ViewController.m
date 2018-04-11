@@ -266,8 +266,8 @@
                     NSDate *date = [temp_formatter dateFromString:@"2018-10-20"];
                     
                     NSDateFormatter *temp_formatter2 = [[NSDateFormatter alloc] init];
-                    [temp_formatter2 setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
-                    NSDate *date2 = [temp_formatter2 dateFromString:@"2018-10-18 10:40:40"];
+                    [temp_formatter2 setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+                    NSDate *date2 = [temp_formatter2 dateFromString:@"2018-10-18 18:40:40"];
                     
                     if ([[HDCommonTools sharedHDCommonTools] compareFirstDay:date withSecondDay:date2 withIgnoreTime:YES] == NSOrderedAscending) {
                         NSLog(@"第一个时间早 The first date is earlier");
