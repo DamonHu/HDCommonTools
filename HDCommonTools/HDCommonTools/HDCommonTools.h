@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "HDCommonToolsConfig.h"
+#import "HDCommonDefine.h"
 
 @interface HDCommonTools : NSObject
 ///工具的单例 singleton
@@ -54,5 +55,21 @@
 ///从指定文件名文件获取json内容
 //Getting the JSON content from the specified file name file
 - (id)getObjectWithJSONFileName:(NSString *)jsonFileName;
+
+///是否是本地URL链接
+///is it a local URL link
+- (BOOL)isLocalURLLink:(NSString *)urlStr;
+
+///URL字符串转为URL
+///URL string to URL
+- (NSURL *)urlCreatedByString:(NSString *)urlStr;
+
+///URL转为字符串
+///URL into a string
+- (NSString *)urlStrCreateByURL:(NSURL *)url;
+
+///UIApplication openURL无参数方式
+///UIApplication openURL parameterless method
+- (void)applicationOpenURL:(NSURL *)url;
 
 @end

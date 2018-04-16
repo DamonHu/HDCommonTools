@@ -7,6 +7,7 @@
 //
 
 #import "HDCommonTools.h"
+#import <UIKit/UIKit.h>
 
 @implementation HDCommonTools
 ///工具的单例 singleton
@@ -139,4 +140,41 @@
     return result;
 }
 
+///是否是本地URL链接
+///is it a local URL link
+- (BOOL)isLocalURLLink:(NSString *)urlStr {
+    return ![urlStr hasPrefix:@"http://"] && ![urlStr hasPrefix:@"https://"];
+}
+
+///URL字符串转为URL
+///URL string to URL
+- (NSURL *)urlCreatedByString:(NSString *)urlStr {
+    if ([self isLocalURLLink:urlStr]) {
+        return [NSURL fileURLWithPath:urlStr];
+    }
+    else{
+        return [NSURL URLWithString:urlStr];
+    }
+}
+
+///URL转为字符串
+///URL into a string
+- (NSString *)urlStrCreateByURL:(NSURL *)url {
+    if ([self isLocalURLLink:url.absoluteString]) {
+        return url.path;
+    }
+    else{
+        return url.absoluteString;
+    }
+}
+
+///UIApplication openURL无参数方式
+///UIApplication openURL parameterless method
+- (void)applicationOpenURL:(NSURL *)url {
+    if (@available(iOS 10.0, *)) {
+        [[UIApplication sharedApplication] openURL:url options:[NSDictionary dictionary] completionHandler:nil];
+    } else {
+        [[UIApplication sharedApplication] openURL:url];
+    }
+}
 @end
