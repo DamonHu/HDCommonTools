@@ -14,11 +14,7 @@
     switch (jumpStoreType) {
         case kHDJumpStoreTypeInAppStore:{
             NSString* urlStr =[NSString stringWithFormat:@"https://itunes.apple.com/app/id%@",appleID];
-            if (@available(iOS 10.0, *)) {
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlStr] options:[NSDictionary dictionary] completionHandler:nil];
-            } else {
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlStr]];
-            }
+            [[HDCommonTools sharedHDCommonTools] applicationOpenURL:[NSURL URLWithString:urlStr]];
         }
             break;
         case kHDJumpStoreTypeInApp:{
@@ -50,15 +46,9 @@
                 }];
             } else {
                 NSString* urlStr =[NSString stringWithFormat:@"https://itunes.apple.com/app/id%@",appleID];
-                if (@available(iOS 10.0, *)) {
-                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlStr] options:[NSDictionary dictionary] completionHandler:nil];
-                } else {
-                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlStr]];
-                }
+                [[HDCommonTools sharedHDCommonTools] applicationOpenURL:[NSURL URLWithString:urlStr]];
             }
         }
-            break;
-        default:
             break;
     }
 }
@@ -67,11 +57,7 @@
     switch (scoreType) {
         case kHDScoreTypeInAppStore:{
             NSString* urlStr =[NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/viewContentsUserReviews?id=%@",appleID];
-            if (@available(iOS 10.0, *)) {
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlStr] options:[NSDictionary dictionary] completionHandler:nil];
-            } else {
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlStr]];
-            }
+            [[HDCommonTools sharedHDCommonTools] applicationOpenURL:[NSURL URLWithString:urlStr]];
         }
             break;
         case kHDScoreTypeInApp:{
@@ -87,16 +73,22 @@
                 [SKStoreReviewController requestReview];
             } else {
                 NSString* urlStr =[NSString stringWithFormat:@"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%@",appleID];
-                if (@available(iOS 10.0, *)) {
-                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlStr] options:[NSDictionary dictionary] completionHandler:nil];
-                } else {
-                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlStr]];
-                }
+                [[HDCommonTools sharedHDCommonTools] applicationOpenURL:[NSURL URLWithString:urlStr]];
             }
         }
             break;
-        default:
-            break;
+    }
+}
+
+- (void)giveScoreAutoTypeWithAppleID:(NSString *)appleID withHasRequestTime:(NSUInteger)hasRequestTime withTotalTimeLimit:(NSUInteger)totalTimeLimit {
+    if (@available(iOS 10.3, *)) {
+        if (hasRequestTime < totalTimeLimit && hasRequestTime < 3) {
+            [SKStoreReviewController requestReview];
+        } else {
+            [self giveScoreWithAppleID:appleID withType:kHDScoreTypeInAppStore];
+        }
+    } else {
+        [self giveScoreWithAppleID:appleID withType:kHDScoreTypeInAppStore];
     }
 }
 
