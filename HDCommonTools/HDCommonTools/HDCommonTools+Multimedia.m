@@ -9,7 +9,8 @@
 #import "HDCommonTools+Multimedia.h"
 
 AVPlayer *avPlayer;
-BOOL playMusicRepeat;
+AVPlayer *avRepeatPlayer;
+
 @implementation HDCommonTools (Multimedia)
 #pragma mark -
 #pragma mark - 图像视频处理类
@@ -117,7 +118,7 @@ BOOL playMusicRepeat;
     AudioServicesCreateSystemSoundID((__bridge CFURLRef)url, &soundID);
     
     // 设置播放完成回调
-    //    AudioServicesAddSystemSoundCompletion(soundID, NULL, NULL, nil, NULL);
+    AudioServicesAddSystemSoundCompletion(soundID, NULL, NULL, soundCompleteCallback, NULL);
     
     // 播放音效
     if (shake) {
@@ -127,26 +128,71 @@ BOOL playMusicRepeat;
         // 无振动
         AudioServicesPlaySystemSound(soundID);
     }
-    // 销毁 SoundID
-    //    AudioServicesDisposeSystemSoundID(_soundID);
 }
 
 /**
+ *  播放完成回调函数
+ *
+ *  @param soundID    系统声音ID
+ *  @param clientData 回调时传递的数据
+ */
+void soundCompleteCallback(SystemSoundID soundID,void * clientData){
+    // 销毁 SoundID
+    AudioServicesDisposeSystemSoundID(soundID);
+}
+
+
+/**
  播放音乐 Play music
- @param musicPath 音乐的地址 The address of the music
+ @param musicPath 音乐的地址,可以是本地地址，也可以是网络地址 The address of the music，available with localFilePath and network address
+ @param repeat 是否循环播放 should play music repeat
  */
 - (void)playMusicWithMusicFilePath:(NSString *)musicPath withRepeat:(BOOL)repeat {
-    NSURL *musicUrl;
-    if ([musicPath hasPrefix:@"http"]||[musicPath hasPrefix:@"https://"]) {
-        musicUrl = [NSURL URLWithString:musicPath];
-    } else {
-        musicUrl = [NSURL fileURLWithPath:musicPath];
-    }
+    NSURL *musicUrl = [[HDCommonTools sharedHDCommonTools] urlCreatedByString:musicPath];
     AVPlayerItem *item = [AVPlayerItem playerItemWithURL:musicUrl];
     avPlayer = [[AVPlayer alloc] initWithPlayerItem:item];
-    playMusicRepeat = repeat;
-    if (playMusicRepeat) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playbackFinished:) name:AVPlayerItemDidPlayToEndTimeNotification object:avPlayer.currentItem];
+    if (repeat) {
+        //第一个
+        [avPlayer addPeriodicTimeObserverForInterval:CMTimeMake(1.0, 1.0) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
+            CGFloat duration =  avPlayer.currentItem.duration.value / avPlayer.currentItem.duration.timescale; //视频总时间
+            CGFloat currentTime =avPlayer.currentItem.currentTime.value / avPlayer.currentItem.currentTime.timescale;//视频当前运行时间
+//            NSLog(@"第一个准备好播放了，总时间：%f,%f",duration,currentTime);
+            if (currentTime >= duration - 2.0) {
+                if (avRepeatPlayer) {
+                    [avRepeatPlayer play];
+                }
+            }
+            if (currentTime >= duration - 1.0) {
+                [item seekToTime:kCMTimeZero completionHandler:^(BOOL finished) {
+                    if (finished) {
+                        [avPlayer seekToTime:kCMTimeZero];
+                        [avPlayer pause];
+                    }
+                }];
+            }
+        }];
+        //新建一个重复的去提前播放
+        AVPlayerItem *item2 = [AVPlayerItem playerItemWithURL:musicUrl];
+        avRepeatPlayer = [[AVPlayer alloc] initWithPlayerItem:item2];
+        [avRepeatPlayer addPeriodicTimeObserverForInterval:CMTimeMake(1.0, 1.0) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
+            CGFloat duration =  avRepeatPlayer.currentItem.duration.value / avRepeatPlayer.currentItem.duration.timescale; //视频总时间
+            CGFloat currentTime =avRepeatPlayer.currentItem.currentTime.value / avRepeatPlayer.currentItem.currentTime.timescale;//视频当前运行时间
+//            NSLog(@"第二个准备好播放了，总时间：%f,%f",duration,currentTime);
+            if (currentTime >= duration - 2.0) {
+                if (avPlayer) {
+                    [avPlayer play];
+                }
+            }
+            if (currentTime >= duration - 1.0) {
+                [item2 seekToTime:kCMTimeZero completionHandler:^(BOOL finished) {
+                    if (finished) {
+                        [avRepeatPlayer seekToTime:kCMTimeZero];
+                        [avRepeatPlayer pause];
+                    }
+                }];
+                
+            }
+        }];
     }
     if (avPlayer) {
         [avPlayer play];
@@ -158,21 +204,8 @@ BOOL playMusicRepeat;
     if (avPlayer) {
         [avPlayer pause];
     }
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
-}
-
-/**
- *  播放完成通知
- *
- *  @param notification 通知对象
- */
-- (void)playbackFinished:(NSNotification *)notification {
-    NSLog(@"视频播放完成.");
-    // 播放完成后重复播放
-    // 跳到最新的时间点开始播放
-    if (playMusicRepeat) {
-        [avPlayer seekToTime:CMTimeMake(0, 1)];
-        [avPlayer play];
+    if (avRepeatPlayer) {
+        [avRepeatPlayer pause];
     }
 }
 @end
