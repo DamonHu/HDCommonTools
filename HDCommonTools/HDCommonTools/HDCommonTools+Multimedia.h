@@ -48,6 +48,14 @@
 //Play sound effects, set up vibration
 - (void)playEffectWithLocalFilePath:(NSString *)effectLocalFilePath withShake:(BOOL)shake;
 
+///循环播放音效，是否震动
+//Play sound effects repeat, set up vibration
+- (void)playEffectRepeatWithLocalFilePath:(NSString *)effectLocalFilePath withShake:(BOOL)shake;
+
+//关闭循环播放音效
+// stop the playing repeat effect
+- (void)stopPlayEffectRepeat;
+
 /**
  播放音乐 Play music
  @param musicPath 音乐的地址,可以是本地地址，也可以是网络地址 The address of the music，available with localFilePath and network address

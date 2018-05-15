@@ -10,6 +10,8 @@
 
 AVPlayer *avPlayer;
 AVPlayer *avRepeatPlayer;
+BOOL repeatEffectShark;
+SystemSoundID m_soundID;
 
 @implementation HDCommonTools (Multimedia)
 #pragma mark -
@@ -141,6 +143,49 @@ void soundCompleteCallback(SystemSoundID soundID,void * clientData){
     AudioServicesDisposeSystemSoundID(soundID);
 }
 
+///循环播放音效，是否震动
+//Play sound effects repeat, set up vibration
+- (void)playEffectRepeatWithLocalFilePath:(NSString *)effectLocalFilePath withShake:(BOOL)shake {
+    // 获取音频文件路径
+    NSURL *url = [NSURL fileURLWithPath:effectLocalFilePath];
+    
+    // 加载音效文件并创建 SoundID
+    SystemSoundID soundID = 0;
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef)url, &soundID);
+    
+    // 设置播放完成回调
+    AudioServicesAddSystemSoundCompletion(soundID, NULL, NULL, repeatSoundCompleteCallback, NULL);
+    repeatEffectShark = shake;
+    m_soundID = soundID;
+    // 播放音效
+    if (shake) {
+        // 带有震动
+        AudioServicesPlayAlertSound(soundID);
+    }else{
+        // 无振动
+        AudioServicesPlaySystemSound(soundID);
+    }
+}
+
+void repeatSoundCompleteCallback(SystemSoundID soundID,void * clientData){
+    // 播放音效
+    if (repeatEffectShark) {
+        // 带有震动
+        AudioServicesPlayAlertSound(soundID);
+    }else{
+        // 无振动
+        AudioServicesPlaySystemSound(soundID);
+    }
+}
+
+//关闭循环播放音效
+// stop the playing repeat effect
+- (void)stopPlayEffectRepeat {
+    if (m_soundID) {
+        AudioServicesDisposeSystemSoundID(m_soundID);
+        
+    }
+}
 
 /**
  播放音乐 Play music
