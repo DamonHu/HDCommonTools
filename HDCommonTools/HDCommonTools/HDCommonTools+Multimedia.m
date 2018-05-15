@@ -112,12 +112,15 @@ SystemSoundID m_soundID;
 ///播放音效，是否震动
 //Play sound effects, set up vibration
 - (void)playEffectWithLocalFilePath:(NSString *)effectLocalFilePath withShake:(BOOL)shake {
-    // 获取音频文件路径
-    NSURL *url = [NSURL fileURLWithPath:effectLocalFilePath];
-    
     // 加载音效文件并创建 SoundID
     SystemSoundID soundID = 0;
-    AudioServicesCreateSystemSoundID((__bridge CFURLRef)url, &soundID);
+    // 获取音频文件路径
+    if (effectLocalFilePath.length) {
+        NSURL *url = [NSURL fileURLWithPath:effectLocalFilePath];
+        AudioServicesCreateSystemSoundID((__bridge CFURLRef)url, &soundID);
+    } else if (shake) {
+        soundID = kSystemSoundID_Vibrate;
+    }
     
     // 设置播放完成回调
     AudioServicesAddSystemSoundCompletion(soundID, NULL, NULL, soundCompleteCallback, NULL);
@@ -146,13 +149,15 @@ void soundCompleteCallback(SystemSoundID soundID,void * clientData){
 ///循环播放音效，是否震动
 //Play sound effects repeat, set up vibration
 - (void)playEffectRepeatWithLocalFilePath:(NSString *)effectLocalFilePath withShake:(BOOL)shake {
-    // 获取音频文件路径
-    NSURL *url = [NSURL fileURLWithPath:effectLocalFilePath];
-    
     // 加载音效文件并创建 SoundID
     SystemSoundID soundID = 0;
-    AudioServicesCreateSystemSoundID((__bridge CFURLRef)url, &soundID);
-    
+    // 获取音频文件路径
+    if (effectLocalFilePath.length) {
+        NSURL *url = [NSURL fileURLWithPath:effectLocalFilePath];
+        AudioServicesCreateSystemSoundID((__bridge CFURLRef)url, &soundID);
+    } else if (shake) {
+        soundID = kSystemSoundID_Vibrate;
+    }
     // 设置播放完成回调
     AudioServicesAddSystemSoundCompletion(soundID, NULL, NULL, repeatSoundCompleteCallback, NULL);
     repeatEffectShark = shake;
@@ -181,8 +186,9 @@ void repeatSoundCompleteCallback(SystemSoundID soundID,void * clientData){
 //关闭循环播放音效
 // stop the playing repeat effect
 - (void)stopPlayEffectRepeat {
-    if (m_soundID) {
+    if (m_soundID || m_soundID == kSystemSoundID_Vibrate) {
         AudioServicesDisposeSystemSoundID(m_soundID);
+        AudioServicesRemoveSystemSoundCompletion(m_soundID);
         repeatEffectShark = false;
         m_soundID = 0;
     }

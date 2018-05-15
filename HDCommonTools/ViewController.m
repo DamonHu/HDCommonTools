@@ -144,8 +144,8 @@
                 }
                     break;
                 case 2:{
-                    NSString * effectFilePath = [[NSBundle mainBundle] pathForResource:@"click" ofType:@"caf"];
-                    [[HDCommonTools sharedHDCommonTools] playEffectRepeatWithLocalFilePath:effectFilePath withShake:YES];
+//                    NSString * effectFilePath = [[NSBundle mainBundle] pathForResource:@"click" ofType:@"caf"];
+                    [[HDCommonTools sharedHDCommonTools] playEffectRepeatWithLocalFilePath:nil withShake:YES];
                 }
                     break;
                 case 3:{
