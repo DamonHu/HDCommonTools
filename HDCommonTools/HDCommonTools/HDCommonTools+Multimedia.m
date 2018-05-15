@@ -183,7 +183,8 @@ void repeatSoundCompleteCallback(SystemSoundID soundID,void * clientData){
 - (void)stopPlayEffectRepeat {
     if (m_soundID) {
         AudioServicesDisposeSystemSoundID(m_soundID);
-        
+        repeatEffectShark = false;
+        m_soundID = 0;
     }
 }
 
