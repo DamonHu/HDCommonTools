@@ -25,6 +25,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(permissionNotifacation:) name:HDPermissionStatusDidChangeNotification object:nil];
     [self initData];
     [self createUI];
+    HDDebugLog(@"开始演示");
+    HDDebugLog(@"开始演示2");
 }
 
 -(void)initData{
@@ -32,7 +34,7 @@
     self.dataArray = [NSMutableArray array];
     NSArray *array = [NSArray arrayWithObjects:@"打印软件版本 Print software version",@"打印系统语言 Print system language",@"打印系统iOS版本 Print system iOS version", nil];
     NSArray *array2 = [NSArray arrayWithObjects:@"申请GPS权限 GPS permissions",@"申请相册权限 Photo album permissions",@"申请通知权限 Application of notification authority",@"打开系统设置 Open the system settings", nil];
-    NSArray *array3 = [NSArray arrayWithObjects:@"循环播放音乐 Loop Play music ",@"关闭音乐 Stop playing music", nil];
+    NSArray *array3 = [NSArray arrayWithObjects:@"循环播放音乐 Loop Play music ",@"关闭音乐 Stop playing music",@"循环播放音效 Play effect repeat",@"关闭音效 stop playing effect", nil];
     NSArray *array4 = [NSArray arrayWithObjects:@"测试输出 Log output",@"16进制颜色 16 Decimal color #f44336",@"rgb color 3，169，244，translucent",@"Interface parameters",@"将log输出到文件 Output log to a file", nil];
     NSArray *array5 = [NSArray arrayWithObjects:@"md5加密 String MD5 encryption",@"aes256加密 String aes256 encryption",@"aes256解密 String aes256 Decrypted", nil];
     NSArray *array6 = [NSArray arrayWithObjects:@"应用内Appstore评分 Force the score pop-up window in app",@"跳转Appstore评分 Forced jump to appsStore to give score",@"应用内弹出appstore介绍 Force the score pop-up window in app",@"跳转到appstore看介绍 Jump to the appstore to see the introduction", nil];
@@ -140,6 +142,16 @@
                 case 1:{
                     [[HDCommonTools sharedHDCommonTools] stopMusic];
                 }
+                    break;
+                case 2:{
+                    NSString * effectFilePath = [[NSBundle mainBundle] pathForResource:@"click" ofType:@"caf"];
+                    [[HDCommonTools sharedHDCommonTools] playEffectRepeatWithLocalFilePath:effectFilePath withShake:YES];
+                }
+                    break;
+                case 3:{
+                    [[HDCommonTools sharedHDCommonTools] stopPlayEffectRepeat];
+                }
+                    break;
                 default:
                     break;
             }
