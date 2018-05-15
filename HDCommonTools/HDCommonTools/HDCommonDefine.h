@@ -27,7 +27,7 @@
 #define HDDEBUG_MODE true
 
 #if HDDEBUG_MODE
-#define HDDebugLog( s, ... ) NSLog( @"\n↓↓↓↓↓↓↓↓\n<%p %@:(%d)> \n%s\n%@\n↑↑↑↑↑↑↑↑", __FILE__, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, __FUNCTION__, [NSString stringWithFormat:(s), ##__VA_ARGS__] )
+#define HDDebugLog( s, ... ) NSLog( @"HDDebugLog: \nFile: <%p %@:(%d)> \nFunction: %s\nLog: %@\n", __FILE__, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, __FUNCTION__, [NSString stringWithFormat:(s), ##__VA_ARGS__] )
 #else
 #define HDDebugLog( s, ... )
 #endif
