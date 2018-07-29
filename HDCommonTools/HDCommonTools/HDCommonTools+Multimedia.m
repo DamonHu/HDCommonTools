@@ -202,11 +202,15 @@ void repeatSoundCompleteCallback(SystemSoundID soundID,void * clientData){
 - (void)playMusicWithMusicFilePath:(NSString *)musicPath withRepeat:(BOOL)repeat {
     NSURL *musicUrl = [[HDCommonTools sharedHDCommonTools] urlCreatedByString:musicPath];
     AVPlayerItem *item = [AVPlayerItem playerItemWithURL:musicUrl];
-    if (!avPlayer) {
-        avPlayer = [[AVPlayer alloc] initWithPlayerItem:item];
-    } else {
-        [avPlayer replaceCurrentItemWithPlayerItem:item];
+    if (avPlayer) {
+        [avPlayer pause];
+        avPlayer = nil;
     }
+    if (avRepeatPlayer) {
+        [avRepeatPlayer pause];
+        avRepeatPlayer = nil;
+    }
+    avPlayer = [[AVPlayer alloc] initWithPlayerItem:item];
     if (repeat) {
         //第一个
         [avPlayer addPeriodicTimeObserverForInterval:CMTimeMake(1.0, 1.0) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
