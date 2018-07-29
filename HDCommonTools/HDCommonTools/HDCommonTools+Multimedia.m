@@ -8,9 +8,11 @@
 
 #import "HDCommonTools+Multimedia.h"
 
-AVPlayer *avPlayer;
-AVPlayer *avRepeatPlayer;
-BOOL repeatEffectShark;
+AVPlayer *avPlayer = nil;
+AVPlayer *avRepeatPlayer = nil;
+NSObject *avPlayerObserver = nil;
+NSObject *avRepeatPlayerObserver = nil;
+BOOL repeatEffectShark = false;
 SystemSoundID m_soundID;
 
 @implementation HDCommonTools (Multimedia)
@@ -202,34 +204,45 @@ void repeatSoundCompleteCallback(SystemSoundID soundID,void * clientData){
 - (void)playMusicWithMusicFilePath:(NSString *)musicPath withRepeat:(BOOL)repeat {
     NSURL *musicUrl = [[HDCommonTools sharedHDCommonTools] urlCreatedByString:musicPath];
     AVPlayerItem *item = [AVPlayerItem playerItemWithURL:musicUrl];
-    if (avPlayer) {
-        [avPlayer pause];
-        avPlayer = nil;
+    if (!avPlayer) {
+        avPlayer = [[AVPlayer alloc] initWithPlayerItem:item];
+    } else {
+        [avPlayer replaceCurrentItemWithPlayerItem:item];
     }
     if (avRepeatPlayer) {
+        if (avRepeatPlayerObserver) {
+            [avRepeatPlayer removeTimeObserver:avRepeatPlayerObserver];
+            avRepeatPlayerObserver = nil;
+        }
         [avRepeatPlayer pause];
         avRepeatPlayer = nil;
     }
-    avPlayer = [[AVPlayer alloc] initWithPlayerItem:item];
+    if (avPlayerObserver) {
+        [avPlayer removeTimeObserver:avPlayerObserver];
+        avPlayerObserver = nil;
+    }
     if (repeat) {
         //第一个
-        [avPlayer addPeriodicTimeObserverForInterval:CMTimeMake(1.0, 1.0) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
+        avPlayerObserver = [avPlayer addPeriodicTimeObserverForInterval:CMTimeMake(1.0, 1.0) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
             CGFloat duration =  avPlayer.currentItem.duration.value / avPlayer.currentItem.duration.timescale; //视频总时间
             CGFloat currentTime =avPlayer.currentItem.currentTime.value / avPlayer.currentItem.currentTime.timescale;//视频当前运行时间
-//            NSLog(@"第一个准备好播放了，总时间：%f,%f",duration,currentTime);
-            if (currentTime >= duration - 2.0) {
-                if (avRepeatPlayer) {
-                    [avRepeatPlayer play];
+            //            NSLog(@"第一个准备好播放了，总时间：%f,%f",duration,currentTime);
+            if (duration > 0 && currentTime > 0) {
+                if (currentTime >= duration - 2.0) {
+                    if (avRepeatPlayer) {
+                        [avRepeatPlayer play];
+                    }
+                }
+                if (currentTime >= duration - 1.0) {
+                    [item seekToTime:kCMTimeZero completionHandler:^(BOOL finished) {
+                        if (finished) {
+                            [avPlayer seekToTime:kCMTimeZero];
+                            [avPlayer pause];
+                        }
+                    }];
                 }
             }
-            if (currentTime >= duration - 1.0) {
-                [item seekToTime:kCMTimeZero completionHandler:^(BOOL finished) {
-                    if (finished) {
-                        [avPlayer seekToTime:kCMTimeZero];
-                        [avPlayer pause];
-                    }
-                }];
-            }
+            
         }];
         //新建一个重复的去提前播放
         AVPlayerItem *item2 = [AVPlayerItem playerItemWithURL:musicUrl];
@@ -238,27 +251,39 @@ void repeatSoundCompleteCallback(SystemSoundID soundID,void * clientData){
         } else {
             [avRepeatPlayer replaceCurrentItemWithPlayerItem:item2];
         }
-        [avRepeatPlayer addPeriodicTimeObserverForInterval:CMTimeMake(1.0, 1.0) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
+        avRepeatPlayerObserver = [avRepeatPlayer addPeriodicTimeObserverForInterval:CMTimeMake(1.0, 1.0) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
             CGFloat duration =  avRepeatPlayer.currentItem.duration.value / avRepeatPlayer.currentItem.duration.timescale; //视频总时间
             CGFloat currentTime =avRepeatPlayer.currentItem.currentTime.value / avRepeatPlayer.currentItem.currentTime.timescale;//视频当前运行时间
-//            NSLog(@"第二个准备好播放了，总时间：%f,%f",duration,currentTime);
-            if (currentTime >= duration - 2.0) {
-                if (avPlayer) {
-                    [avPlayer play];
+            //            NSLog(@"第二个准备好播放了，总时间：%f,%f",duration,currentTime);
+            if (duration > 0 && currentTime > 0) {
+                if (currentTime >= duration - 2.0) {
+                    if (avPlayer) {
+                        [avPlayer play];
+                    }
+                }
+                if (currentTime >= duration - 1.0) {
+                    [item2 seekToTime:kCMTimeZero completionHandler:^(BOOL finished) {
+                        if (finished) {
+                            [avRepeatPlayer seekToTime:kCMTimeZero];
+                            [avRepeatPlayer pause];
+                        }
+                    }];
+                    
                 }
             }
-            if (currentTime >= duration - 1.0) {
-                [item2 seekToTime:kCMTimeZero completionHandler:^(BOOL finished) {
-                    if (finished) {
-                        [avRepeatPlayer seekToTime:kCMTimeZero];
-                        [avRepeatPlayer pause];
-                    }
-                }];
-                
-            }
         }];
+    } else {
+        if (avPlayerObserver) {
+            [avPlayer removeTimeObserver:avPlayerObserver];
+            avPlayerObserver = nil;
+        }
+        if (avRepeatPlayerObserver) {
+            [avRepeatPlayer removeTimeObserver:avRepeatPlayerObserver];
+            avRepeatPlayerObserver = nil;
+        }
     }
     if (avPlayer) {
+        [avPlayer seekToTime:kCMTimeZero];
         [avPlayer play];
     }
 }
