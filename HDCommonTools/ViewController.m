@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "HDCommonHeader.h"
+#import "HDCommonTools.h"
 
 @interface ViewController () <UITableViewDelegate,UITableViewDataSource>
 @property (strong,nonatomic) NSMutableArray *dataArray;

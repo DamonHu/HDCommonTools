@@ -17,7 +17,7 @@
 		E49A61E6203488280002923B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E49A61E5203488280002923B /* main.m */; };
 		E49A61F0203488280002923B /* HDCommonToolsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E49A61EF203488280002923B /* HDCommonToolsTests.m */; };
 		E49A61FB203488280002923B /* HDCommonToolsUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = E49A61FA203488280002923B /* HDCommonToolsUITests.m */; };
-		E49A620B203532020002923B /* HDCommonTools.m in Sources */ = {isa = PBXBuildFile; fileRef = E49A620A203532020002923B /* HDCommonTools.m */; };
+		E49A620B203532020002923B /* HDBaseCommonTools.m in Sources */ = {isa = PBXBuildFile; fileRef = E49A620A203532020002923B /* HDBaseCommonTools.m */; };
 		E49A62172035374F0002923B /* HDCommonTools+Multimedia.m in Sources */ = {isa = PBXBuildFile; fileRef = E49A62142035374E0002923B /* HDCommonTools+Multimedia.m */; };
 		E49A62182035374F0002923B /* HDCommonTools+FileHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = E49A62152035374E0002923B /* HDCommonTools+FileHandle.m */; };
 		E49A621B2035389B0002923B /* HDCommonTools+Permission.m in Sources */ = {isa = PBXBuildFile; fileRef = E49A621A2035389B0002923B /* HDCommonTools+Permission.m */; };
@@ -68,8 +68,8 @@
 		E49A61F6203488280002923B /* HDCommonToolsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HDCommonToolsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E49A61FA203488280002923B /* HDCommonToolsUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HDCommonToolsUITests.m; sourceTree = "<group>"; };
 		E49A61FC203488280002923B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E49A6209203532020002923B /* HDCommonTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HDCommonTools.h; sourceTree = "<group>"; };
-		E49A620A203532020002923B /* HDCommonTools.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HDCommonTools.m; sourceTree = "<group>"; };
+		E49A6209203532020002923B /* HDBaseCommonTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HDBaseCommonTools.h; sourceTree = "<group>"; };
+		E49A620A203532020002923B /* HDBaseCommonTools.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HDBaseCommonTools.m; sourceTree = "<group>"; };
 		E49A620C203532EE0002923B /* HDCommonToolsConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HDCommonToolsConfig.h; sourceTree = "<group>"; };
 		E49A62132035374E0002923B /* HDCommonTools+Multimedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HDCommonTools+Multimedia.h"; sourceTree = "<group>"; };
 		E49A62142035374E0002923B /* HDCommonTools+Multimedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HDCommonTools+Multimedia.m"; sourceTree = "<group>"; };
@@ -81,7 +81,7 @@
 		E49A621E20353E6C0002923B /* SimulateIDFA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimulateIDFA.h; sourceTree = "<group>"; };
 		E49A622020353EE20002923B /* HDCommonTools+SystemInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HDCommonTools+SystemInfo.h"; sourceTree = "<group>"; };
 		E49A622120353EE20002923B /* HDCommonTools+SystemInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "HDCommonTools+SystemInfo.m"; sourceTree = "<group>"; };
-		E49A62232035422B0002923B /* HDCommonHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HDCommonHeader.h; sourceTree = "<group>"; };
+		E49A62232035422B0002923B /* HDCommonTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HDCommonTools.h; sourceTree = "<group>"; };
 		E49A622420366D430002923B /* HDCommonTools+Appstore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HDCommonTools+Appstore.h"; sourceTree = "<group>"; };
 		E49A622520366D430002923B /* HDCommonTools+Appstore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "HDCommonTools+Appstore.m"; sourceTree = "<group>"; };
 		E4AC0DCC203FC41C00EA1EBF /* HDCommonDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HDCommonDefine.h; sourceTree = "<group>"; };
@@ -187,10 +187,10 @@
 		E49A6208203531BA0002923B /* HDCommonTools */ = {
 			isa = PBXGroup;
 			children = (
-				E49A62232035422B0002923B /* HDCommonHeader.h */,
+				E49A62232035422B0002923B /* HDCommonTools.h */,
 				E4AC0DCC203FC41C00EA1EBF /* HDCommonDefine.h */,
-				E49A6209203532020002923B /* HDCommonTools.h */,
-				E49A620A203532020002923B /* HDCommonTools.m */,
+				E49A6209203532020002923B /* HDBaseCommonTools.h */,
+				E49A620A203532020002923B /* HDBaseCommonTools.m */,
 				E49A620C203532EE0002923B /* HDCommonToolsConfig.h */,
 				E49A62162035374F0002923B /* HDCommonTools+FileHandle.h */,
 				E49A62152035374E0002923B /* HDCommonTools+FileHandle.m */,
@@ -358,7 +358,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E452427A207B6500006F8324 /* CalenderConverter.m in Sources */,
-				E49A620B203532020002923B /* HDCommonTools.m in Sources */,
+				E49A620B203532020002923B /* HDBaseCommonTools.m in Sources */,
 				E49A621F20353E6C0002923B /* SimulateIDFA.m in Sources */,
 				E49A61DB203488280002923B /* ViewController.m in Sources */,
 				E49A62172035374F0002923B /* HDCommonTools+Multimedia.m in Sources */,

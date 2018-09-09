@@ -6,7 +6,7 @@
 //  Copyright © 2018年 damon. All rights reserved.
 //
 
-#import "HDCommonTools.h"
+#import "HDBaseCommonTools.h"
 #import <UIKit/UIKit.h>
 
 @implementation HDCommonTools

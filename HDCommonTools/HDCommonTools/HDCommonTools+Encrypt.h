@@ -6,7 +6,7 @@
 //  Copyright © 2018年 damon. All rights reserved.
 //
 
-#import "HDCommonTools.h"
+#import "HDBaseCommonTools.h"
 
 @interface HDCommonTools (Encrypt)
 #pragma mark -

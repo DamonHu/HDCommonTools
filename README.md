@@ -29,11 +29,28 @@ Download the project, import the contents of the HDCommonTools folder into the p
 
 All function functions can be called in the two step.[wiki](https://github.com/DamonHu/HDCommonTools/wiki)
 
-### 1、导入头文件 Import header file
+### 1. 头文件导入
+
+**为了避免用户对头文件感到困惑，所以2.x版本将引入头文件进行了修改**
+
+**v1.x版本 - v1.x vsersion**
+
+#### 导入头文件 Import header file
 
 ```
 #import "HDCommonHeader.h"
 ```
+
+**v2.x版本 - v2.x vsersion**
+
+导入头文件 Import header file
+
+```
+#import "HDCommonTools.h"
+```
+
+****
+
 ### 2、通过单例调用即可 Can be called by a single case
 ```
 ///获取手机的语言设置
@@ -147,6 +164,9 @@ The project uses many other excellent projects, especially thanks to the followi
 2. [Lunar-Solar-Calendar-Converter](https://github.com/isee15/Lunar-Solar-Calendar-Converter)
 
 ## 七、重要修改记录 Important revision record
+### v2.0.0
+
+1. 修改头文件引入模式 Modify header import mode
 
 ### v1.3.0
 
