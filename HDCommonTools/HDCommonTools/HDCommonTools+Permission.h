@@ -7,7 +7,6 @@
 //
 
 #import "HDBaseCommonTools.h"
-#import "HDCommonToolsConfig.h"
 #import <CoreLocation/CoreLocation.h>
 
 ///系统权限授权变化通知
