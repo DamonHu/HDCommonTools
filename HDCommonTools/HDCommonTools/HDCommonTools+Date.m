@@ -102,51 +102,53 @@
  NSOrderedDescending:第一个日期更晚 The first date is later
  */
 - (NSComparisonResult)compareFirstDay:(NSDate *)firstDay withSecondDay:(NSDate *)secondDay withIgnoreTime:(BOOL)ignoreTime {
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    if (ignoreTime) {
-        [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-    } else {
-        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    }
-    
-    
-    NSDate *dateA;
-    NSDate *dateB;
-    if ([firstDay isKindOfClass:[NSDate class]]) {
-        NSString *firstDayStr = [dateFormatter stringFromDate:firstDay];
-        dateA = [dateFormatter dateFromString:firstDayStr];
-    } else {
+    if (![firstDay isKindOfClass:[NSDate class]]) {
         NSAssert(NO, @"firstDay类型错误! firstDay error in type!");
-        //尝试使用字符串解析 Try to use string parsing
-        dateA = [dateFormatter dateFromString:(NSString*)firstDay];
-        if (!dateA) {
-            //尝试@"2018-03-15T09:59:00+0800";该类型解析,部分数据库会更改时间格式
-            NSDateFormatter *dateFormatter2 = [[NSDateFormatter alloc] init];
-            [dateFormatter2 setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZ"];
-            dateA = [dateFormatter2 dateFromString:(NSString*)firstDay];
-            NSString *firstDayStr = [dateFormatter stringFromDate:dateA];
-            dateA = [dateFormatter dateFromString:firstDayStr];
-        }
+        return NSOrderedSame;
     }
-    if ([secondDay isKindOfClass:[NSDate class]]) {
-        NSString *secondDayStr = [dateFormatter stringFromDate:secondDay];
-        dateB = [dateFormatter dateFromString:secondDayStr];
-    } else {
+    if (![secondDay isKindOfClass:[NSDate class]]) {
         NSAssert(NO, @"secondDay类型错误! secondDay error in type!");
-        dateB = [dateFormatter dateFromString:(NSString*)secondDay];
-        if (!dateB) {
-            NSDateFormatter *dateFormatter2 = [[NSDateFormatter alloc] init];
-            [dateFormatter2 setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZ"];
-            dateB = [dateFormatter2 dateFromString:(NSString*)secondDay];
-            NSString *secondDayStr = [dateFormatter stringFromDate:dateB];
-            dateB = [dateFormatter dateFromString:secondDayStr];
+        return NSOrderedSame;
+    }
+    if (!ignoreTime) {
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        //格式化日期
+        NSString *firstDayStr = [dateFormatter stringFromDate:firstDay];
+        NSDate *dateA = [dateFormatter dateFromString:firstDayStr];
+        
+        NSString *secondDayStr = [dateFormatter stringFromDate:secondDay];
+        NSDate *dateB = [dateFormatter dateFromString:secondDayStr];
+        
+        NSComparisonResult result = [dateA compare:dateB];
+        return result;
+    } else {
+        NSDateFormatter *yearFormatter = [[NSDateFormatter alloc] init];
+        [yearFormatter setTimeZone:[NSTimeZone systemTimeZone]];
+        [yearFormatter setDateFormat:@"yyyy"];
+        NSDateFormatter *monthFormatter = [[NSDateFormatter alloc] init];
+        [monthFormatter setTimeZone:[NSTimeZone systemTimeZone]];
+        [monthFormatter setDateFormat:@"MM"];
+        NSDateFormatter *dayFormatter = [[NSDateFormatter alloc] init];
+        [dayFormatter setTimeZone:[NSTimeZone systemTimeZone]];
+        [dayFormatter setDateFormat:@"dd"];
+        
+        NSNumber *firstYearNum = @([[yearFormatter stringFromDate:firstDay] integerValue]);
+        NSNumber *firstMonthNum = @([[monthFormatter stringFromDate:firstDay] integerValue]);
+        NSNumber *firstDayNum = @([[dayFormatter stringFromDate:firstDay] integerValue]);
+        
+        NSNumber *secondYearNum = @([[yearFormatter stringFromDate:secondDay] integerValue]);
+        NSNumber *secondMonthNum = @([[monthFormatter stringFromDate:secondDay] integerValue]);
+        NSNumber *secondDayNum = @([[dayFormatter stringFromDate:secondDay] integerValue]);
+        
+        if ([firstYearNum integerValue] != [secondYearNum integerValue]) {
+            return [firstYearNum  compare:secondYearNum];
         }
+        if ([firstMonthNum integerValue] != [secondMonthNum integerValue]) {
+            return [firstMonthNum  compare:secondMonthNum];
+        }
+        return [firstDayNum compare:secondDayNum];
     }
-    if (!dateA || !dateB) {
-        NSAssert(NO, @"日期转换错误!Date conversion error!");
-    }
-    NSComparisonResult result = [dateA compare:dateB];
-    return result;
 }
 
 #pragma mark -
