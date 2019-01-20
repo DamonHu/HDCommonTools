@@ -29,4 +29,11 @@
 //Check if there is a specified file name file under the folder
 - (BOOL)isExistFileWithfileName:(NSString *)fileName andSubfolderName:(NSString *)folderName;
 
+///指定路径的文件大小，单位b
+///get the file size at path,the Unit is b
+- (long long)fileSizeAtPath:(NSString *)filePath;
+
+///指定路径的文件夹总大小，单位b
+///get the folder size at path,the Unit is b
+- (float)folderSizeAtPath:(NSString *)folderPath;
 @end
