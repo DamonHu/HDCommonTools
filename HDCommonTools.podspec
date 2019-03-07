@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 s.name = 'HDCommonTools'
-s.version = '2.3.0'
+s.version = '2.3.1'
 s.license= { :type => "MIT", :file => "LICENSE" }
 s.summary = 'HDCommonTools,一句代码即可实现多种常用功能.A short code can achieve a variety of commonly used functions.'
 s.homepage = 'https://github.com/DamonHu/HDCommonTools'

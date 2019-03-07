@@ -223,17 +223,17 @@ void repeatSoundCompleteCallback(SystemSoundID soundID,void * clientData){
     }
     if (repeat) {
         //第一个
-        avPlayerObserver = [avPlayer addPeriodicTimeObserverForInterval:CMTimeMake(1.0, 1.0) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
-            CGFloat duration =  avPlayer.currentItem.duration.value / avPlayer.currentItem.duration.timescale; //视频总时间
-            CGFloat currentTime =avPlayer.currentItem.currentTime.value / avPlayer.currentItem.currentTime.timescale;//视频当前运行时间
-            //            NSLog(@"第一个准备好播放了，总时间：%f,%f",duration,currentTime);
+        avPlayerObserver = [avPlayer addPeriodicTimeObserverForInterval:CMTimeMake(1.0, 1000.0) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
+            CGFloat duration =  CMTimeGetSeconds(avPlayer.currentItem.duration); //视频总时间
+            CGFloat currentTime = CMTimeGetSeconds(time);//视频当前运行时间
+//                        NSLog(@"第一个准备好播放了，总时间：%f,%f",duration,currentTime);
             if (duration > 0 && currentTime > 0) {
-                if (currentTime >= duration - 2.0) {
+                if (currentTime >= duration - 0.25) {
                     if (avRepeatPlayer) {
                         [avRepeatPlayer play];
                     }
                 }
-                if (currentTime >= duration - 1.0) {
+                if (currentTime >= duration - 0.1) {
                     [item seekToTime:kCMTimeZero completionHandler:^(BOOL finished) {
                         if (finished) {
                             [avPlayer seekToTime:kCMTimeZero];
@@ -251,17 +251,17 @@ void repeatSoundCompleteCallback(SystemSoundID soundID,void * clientData){
         } else {
             [avRepeatPlayer replaceCurrentItemWithPlayerItem:item2];
         }
-        avRepeatPlayerObserver = [avRepeatPlayer addPeriodicTimeObserverForInterval:CMTimeMake(1.0, 1.0) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
-            CGFloat duration =  avRepeatPlayer.currentItem.duration.value / avRepeatPlayer.currentItem.duration.timescale; //视频总时间
-            CGFloat currentTime =avRepeatPlayer.currentItem.currentTime.value / avRepeatPlayer.currentItem.currentTime.timescale;//视频当前运行时间
+        avRepeatPlayerObserver = [avRepeatPlayer addPeriodicTimeObserverForInterval:CMTimeMake(1.0, 1000.0) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
+            CGFloat duration =  CMTimeGetSeconds(avRepeatPlayer.currentItem.duration); //视频总时间
+            CGFloat currentTime = CMTimeGetSeconds(time);//视频当前运行时间
             //            NSLog(@"第二个准备好播放了，总时间：%f,%f",duration,currentTime);
             if (duration > 0 && currentTime > 0) {
-                if (currentTime >= duration - 2.0) {
+                if (currentTime >= duration - 0.25) {
                     if (avPlayer) {
                         [avPlayer play];
                     }
                 }
-                if (currentTime >= duration - 1.0) {
+                if (currentTime >= duration - 0.1) {
                     [item2 seekToTime:kCMTimeZero completionHandler:^(BOOL finished) {
                         if (finished) {
                             [avRepeatPlayer seekToTime:kCMTimeZero];
