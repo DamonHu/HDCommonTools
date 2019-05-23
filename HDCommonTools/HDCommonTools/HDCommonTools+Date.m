@@ -61,7 +61,7 @@
             break;
         case kHDQuickFormateTypeMDTime:{
             temp_formatter = [[NSDateFormatter alloc] init];
-            [temp_formatter setDateFormat:@"MM-dd hh:mm"];
+            [temp_formatter setDateFormat:@"MM-dd HH:mm"];
         }
             break;
         case kHDQuickFormateTypeYMDTimeZone:{

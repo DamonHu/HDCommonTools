@@ -226,7 +226,7 @@ void repeatSoundCompleteCallback(SystemSoundID soundID,void * clientData){
         avPlayerObserver = [avPlayer addPeriodicTimeObserverForInterval:CMTimeMake(1.0, 1000.0) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
             CGFloat duration =  CMTimeGetSeconds(avPlayer.currentItem.duration); //视频总时间
             CGFloat currentTime = CMTimeGetSeconds(time);//视频当前运行时间
-//                        NSLog(@"第一个准备好播放了，总时间：%f,%f",duration,currentTime);
+                        NSLog(@"第一个准备好播放了，总时间：%f,%f",duration,currentTime);
             if (duration > 0 && currentTime > 0) {
                 if (currentTime >= duration - 0.25) {
                     if (avRepeatPlayer) {
@@ -254,7 +254,7 @@ void repeatSoundCompleteCallback(SystemSoundID soundID,void * clientData){
         avRepeatPlayerObserver = [avRepeatPlayer addPeriodicTimeObserverForInterval:CMTimeMake(1.0, 1000.0) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
             CGFloat duration =  CMTimeGetSeconds(avRepeatPlayer.currentItem.duration); //视频总时间
             CGFloat currentTime = CMTimeGetSeconds(time);//视频当前运行时间
-            //            NSLog(@"第二个准备好播放了，总时间：%f,%f",duration,currentTime);
+                        NSLog(@"第二个准备好播放了，总时间：%f,%f",duration,currentTime);
             if (duration > 0 && currentTime > 0) {
                 if (currentTime >= duration - 0.25) {
                     if (avPlayer) {
