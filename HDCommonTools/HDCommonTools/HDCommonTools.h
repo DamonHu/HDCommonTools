@@ -17,5 +17,6 @@
 #import "HDCommonTools+Appstore.h"
 #import "HDCommonTools+Encrypt.h"
 #import "HDCommonTools+Date.h"
+#import "HDCommonTools+UI.h"
 
 #endif /* HDCommonTools_h */
