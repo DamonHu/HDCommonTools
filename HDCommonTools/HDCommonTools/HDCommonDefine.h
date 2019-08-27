@@ -58,15 +58,26 @@
 //屏幕高度
 //ScreenHeight
 #define HDScreenHeight  [UIScreen mainScreen].bounds.size.height
-//状态栏当前高度
-//Status bar current height
-#define HD_Status_Height [UIApplication sharedApplication].statusBarFrame.size.height //状态栏高度
-// 导航栏高度
-//height of the navigation bar
+
+// 根据动态获取VC计算状态栏和tab的默认高度，如果不存在navigationbar或者tabbar的话，当前返回高度为0，可以使用下面默认高度
+// 状态栏当前高度
+// current status bar current height
+#define HD_StatusBar_Height [UIApplication sharedApplication].statusBarFrame.size.height //状态栏高度
+// 当前导航栏高度
+// current height of the navigation bar
 #define HD_NavigationBar_Height self.navigationController.navigationBar.frame.size.height
-//状态栏和导航栏总高度
-#define HD_NAV_And_Status_Height (HD_Status_Height + HD_NavigationBar_Height)
-// tabBar默认高度
-//height of the tabBar
+// tabBar当前高度
+//current height of the tabBar
 #define HD_TabBar_Height self.tabBarController.tabBar.frame.size.height
+
+// 根据系统组件计算状态栏和tab的默认高度
+// 导航栏默认高度
+//Default height of the navigation bar
+#define HD_Default_NavigationBar_Height [[UINavigationController alloc] init].navigationBar.frame.size.height
+// tabBar默认高度
+//Default height of the tabBar
+#define HD_Default_Tabbar_Height [[UITabBarController alloc] init].tabBar.frame.size.height
+//状态栏和导航栏默认总高度
+//Status bar and navigation bar default total height
+#define HD_Nav_And_Status_Height (HD_Default_NavigationBar_Height + HD_Default_Tabbar_Height)
 #endif /* HDCommonDefine_h */
