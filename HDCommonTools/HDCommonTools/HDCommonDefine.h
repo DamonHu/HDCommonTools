@@ -60,20 +60,13 @@
 #define HDScreenHeight  [UIScreen mainScreen].bounds.size.height
 //状态栏当前高度
 //Status bar current height
-#define HD_Portrait_Status_Height [UIApplication sharedApplication].statusBarFrame.size.height //状态栏高度
-
-// 判断是否是iPhone X
-//Judge whether it is iPhone X
-#define iPhoneX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
-// 状态栏默认高度
-//Default height of State Bar
-#define HD_Default_Portrait_Status_Height (iPhoneX ? 44.f : 20.f)
-// 导航栏默认高度
-//Default height of the navigation bar
-#define HD_Default_Portrait_NAVIGATION_BAR_HEIGHT (iPhoneX ? 88.f : 64.f)
+#define HD_Status_Height [UIApplication sharedApplication].statusBarFrame.size.height //状态栏高度
+// 导航栏高度
+//height of the navigation bar
+#define HD_NavigationBar_Height self.navigationController.navigationBar.frame.size.height
+//状态栏和导航栏总高度
+#define HD_NAV_And_Status_Height (HD_Status_Height + HD_NavigationBar_Height)
 // tabBar默认高度
-//Default height of the tabBar
-#define HD_Default_Portrait_TAB_BAR_HEIGHT (iPhoneX ? (49.f+34.f) : 49.f)
-// home indicator
-#define HD_Default_Portrait_HOME_INDICATOR_HEIGHT (iPhoneX ? 34.f : 0.f)
+//height of the tabBar
+#define HD_TabBar_Height self.tabBarController.tabBar.frame.size.height
 #endif /* HDCommonDefine_h */

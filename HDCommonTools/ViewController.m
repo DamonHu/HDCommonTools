@@ -178,10 +178,9 @@
                     break;
                 case 3:{
                     NSLog(@"ScreenWidth:%f,ScreenHeight:%f",HDScreenWidth,HDScreenHeight);
-                    NSLog(@"状态栏当前高度 Status bar current height:%f",HD_Portrait_Status_Height);//打电话时或者定位会发生变化
-                    NSLog(@"状态栏默认高度 Default height of State Bar:%f",HD_Default_Portrait_Status_Height);
-                    NSLog(@"导航栏默认高度 Default height of the navigation bar:%f",HD_Default_Portrait_NAVIGATION_BAR_HEIGHT);
-                    NSLog(@"tabbar默认高度 height of the tabBar:%f",HD_Default_Portrait_TAB_BAR_HEIGHT);
+                    NSLog(@"状态栏当前高度 Status bar current height:%f",HD_Status_Height);//打电话时或者定位会发生变化
+                    NSLog(@"导航栏高度  height of the navigation bar:%f",HD_NavigationBar_Height);
+                    NSLog(@"tabbar高度 height of the tabBar:%f",HD_TabBar_Height);
                 }
                     break;
                 case 4:{
@@ -189,10 +188,9 @@
                     _debugFilePath = [[HDCommonTools sharedHDCommonTools] setHdDebugLogToFile];
                     ///The following print has been printed to the file
                     NSLog(@"ScreenWidth:%f,ScreenHeight:%f",HDScreenWidth,HDScreenHeight);
-                    NSLog(@"状态栏当前高度 Status bar current height:%f",HD_Portrait_Status_Height);//打电话时或者定位会发生变化
-                    NSLog(@"状态栏默认高度 Default height of State Bar:%f",HD_Default_Portrait_Status_Height);
-                    NSLog(@"导航栏默认高度 Default height of the navigation bar:%f",HD_Default_Portrait_NAVIGATION_BAR_HEIGHT);
-                    NSLog(@"tabbar默认高度 height of the tabBar:%f",HD_Default_Portrait_TAB_BAR_HEIGHT);
+                    NSLog(@"状态栏当前高度 Status bar current height:%f",HD_Status_Height);//打电话时或者定位会发生变化
+                    NSLog(@"导航栏高度  height of the navigation bar:%f",HD_NavigationBar_Height);
+                    NSLog(@"tabbar高度 height of the tabBar:%f",HD_TabBar_Height);
                     
                     ///可以操作该文件,比如系统分享调试，可以分享到备忘录、imessage、微博等
                     //The file can be manipulate, such as system sharing debugging, and can be shared with memos, IMessage, micro-blog, and so on
