@@ -79,5 +79,5 @@
 #define HD_Default_Tabbar_Height [[UITabBarController alloc] init].tabBar.frame.size.height
 //状态栏和导航栏默认总高度
 //Status bar and navigation bar default total height
-#define HD_Nav_And_Status_Height (HD_Default_NavigationBar_Height + HD_Default_Tabbar_Height)
+#define HD_Default_Nav_And_Status_Height (HD_Default_NavigationBar_Height + HD_StatusBar_Height)
 #endif /* HDCommonDefine_h */
