@@ -14,7 +14,7 @@ BOOL hasTabbar;    //是否含有tabbar
 ///获取当前的normalwindow
 - (UIWindow *)getCurrentNormalWindow {
     UIWindow * window = [[UIApplication sharedApplication] keyWindow];
-    if (window.windowLevel != UIWindowLevelNormal) {
+    if (!window || window.windowLevel != UIWindowLevelNormal) {
         NSArray *windows = [[UIApplication sharedApplication] windows];
         for(UIWindow * tmpWin in windows) {
             if (tmpWin.windowLevel == UIWindowLevelNormal) {
