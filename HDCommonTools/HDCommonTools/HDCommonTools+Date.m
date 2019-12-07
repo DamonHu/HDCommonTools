@@ -111,43 +111,24 @@
         return NSOrderedSame;
     }
     if (!ignoreTime) {
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-        //格式化日期
-        NSString *firstDayStr = [dateFormatter stringFromDate:firstDay];
-        NSDate *dateA = [dateFormatter dateFromString:firstDayStr];
-        
-        NSString *secondDayStr = [dateFormatter stringFromDate:secondDay];
-        NSDate *dateB = [dateFormatter dateFromString:secondDayStr];
-        
-        NSComparisonResult result = [dateA compare:dateB];
+        NSComparisonResult result = [firstDay compare:secondDay];
         return result;
     } else {
-        NSDateFormatter *yearFormatter = [[NSDateFormatter alloc] init];
-        [yearFormatter setTimeZone:[NSTimeZone systemTimeZone]];
-        [yearFormatter setDateFormat:@"yyyy"];
-        NSDateFormatter *monthFormatter = [[NSDateFormatter alloc] init];
-        [monthFormatter setTimeZone:[NSTimeZone systemTimeZone]];
-        [monthFormatter setDateFormat:@"MM"];
-        NSDateFormatter *dayFormatter = [[NSDateFormatter alloc] init];
-        [dayFormatter setTimeZone:[NSTimeZone systemTimeZone]];
-        [dayFormatter setDateFormat:@"dd"];
+        NSCalendar *calendar = [NSCalendar currentCalendar];
         
-        NSNumber *firstYearNum = @([[yearFormatter stringFromDate:firstDay] integerValue]);
-        NSNumber *firstMonthNum = @([[monthFormatter stringFromDate:firstDay] integerValue]);
-        NSNumber *firstDayNum = @([[dayFormatter stringFromDate:firstDay] integerValue]);
+        int firstYearNum = [calendar component:NSCalendarUnitYear fromDate:firstDay];
+        int firstMonthNum = [calendar component:NSCalendarUnitMonth fromDate:firstDay];
         
-        NSNumber *secondYearNum = @([[yearFormatter stringFromDate:secondDay] integerValue]);
-        NSNumber *secondMonthNum = @([[monthFormatter stringFromDate:secondDay] integerValue]);
-        NSNumber *secondDayNum = @([[dayFormatter stringFromDate:secondDay] integerValue]);
+        int secondYearNum = [calendar component:NSCalendarUnitYear fromDate:secondDay];
+        int secondMonthNum = [calendar component:NSCalendarUnitMonth fromDate:secondDay];
         
-        if ([firstYearNum integerValue] != [secondYearNum integerValue]) {
-            return [firstYearNum  compare:secondYearNum];
+        if (firstYearNum != secondYearNum) {
+            return [calendar compareDate:firstDay toDate:secondDay toUnitGranularity:NSCalendarUnitYear];
         }
-        if ([firstMonthNum integerValue] != [secondMonthNum integerValue]) {
-            return [firstMonthNum  compare:secondMonthNum];
+        if (firstMonthNum != secondMonthNum) {
+            return [calendar compareDate:firstDay toDate:secondDay toUnitGranularity:NSCalendarUnitMonth];
         }
-        return [firstDayNum compare:secondDayNum];
+        return [calendar compareDate:firstDay toDate:secondDay toUnitGranularity:NSCalendarUnitDay];;
     }
 }
 
