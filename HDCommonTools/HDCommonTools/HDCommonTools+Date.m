@@ -115,17 +115,10 @@
         return result;
     } else {
         NSCalendar *calendar = [NSCalendar currentCalendar];
-        
-        int firstYearNum = [calendar component:NSCalendarUnitYear fromDate:firstDay];
-        int firstMonthNum = [calendar component:NSCalendarUnitMonth fromDate:firstDay];
-        
-        int secondYearNum = [calendar component:NSCalendarUnitYear fromDate:secondDay];
-        int secondMonthNum = [calendar component:NSCalendarUnitMonth fromDate:secondDay];
-        
-        if (firstYearNum != secondYearNum) {
+        if ([calendar compareDate:firstDay toDate:secondDay toUnitGranularity:NSCalendarUnitYear] != NSOrderedSame) {
             return [calendar compareDate:firstDay toDate:secondDay toUnitGranularity:NSCalendarUnitYear];
         }
-        if (firstMonthNum != secondMonthNum) {
+        if ([calendar compareDate:firstDay toDate:secondDay toUnitGranularity:NSCalendarUnitMonth] != NSOrderedSame) {
             return [calendar compareDate:firstDay toDate:secondDay toUnitGranularity:NSCalendarUnitMonth];
         }
         return [calendar compareDate:firstDay toDate:secondDay toUnitGranularity:NSCalendarUnitDay];;

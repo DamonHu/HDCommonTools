@@ -6,10 +6,14 @@
 //  Copyright © 2018年 damon. All rights reserved.
 //
 
+#import <UIKit/UIKit.h>
 #import "HDCommonTools+Permission.h"
 #import <AVFoundation/AVFoundation.h>
 #import <Photos/Photos.h>
+
+#ifdef NSFoundationVersionNumber_iOS_9_x_Max
 #import <UserNotifications/UserNotifications.h>
+#endif
 
 NSString * const HDPermissionStatusDidChangeNotification = @"HDPermissionStatusDidChangeNotification";
 NSString * const HDPermissionNameItem = @"HDPermissionNameItem";
