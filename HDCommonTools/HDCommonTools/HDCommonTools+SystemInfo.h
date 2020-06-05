@@ -43,6 +43,9 @@
 //The only indication of the simulation software.If IDFA is available, it will return to IDFA.Otherwise, use the analog IDFA
 - (NSString *)getIphoneIdfa;
 
+///获取手机WIFI的MAC地址，需要开启Access WiFi information
+- (NSString *)getMacAddress;
+
 ///获取具体的手机型号字符串
 //Get a specific handset model string
 - (NSString *)getDetailModelStr;
@@ -54,4 +57,6 @@
 ///是否是iphoneX
 //Whether is iphoneX
 - (BOOL)isPhoneX;
+
+
 @end

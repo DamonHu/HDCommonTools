@@ -102,4 +102,13 @@ typedef NS_ENUM(NSUInteger, HDChineseZodiac) {
     kHDChineseZodiacDog,        //戌狗
     kHDChineseZodiacPig,        //亥猪
 };
+
+//加密类型
+typedef NS_ENUM(NSUInteger, HDSHAEncryType) {
+    kHDSHAEncryTypeSha1,
+    kHDSHAEncryTypeSha224,
+    kHDSHAEncryTypeSha256,
+    kHDSHAEncryTypeSha384,
+    kHDSHAEncryTypeSha512,
+};
 #endif /* HDCommonToolsConfig_h */

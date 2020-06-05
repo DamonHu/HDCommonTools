@@ -9,6 +9,7 @@
 #import "HDCommonTools+SystemInfo.h"
 #import <UIKit/UIKit.h>
 #import <AdSupport/AdSupport.h>
+#import <SystemConfiguration/CaptiveNetwork.h>
 #import "SimulateIDFA.h"
 #import "sys/utsname.h"
 
@@ -78,6 +79,23 @@
     } else {
         return [SimulateIDFA createSimulateIDFA];
     }
+}
+
+///获取手机WIFI的MAC地址，需要开启Access WiFi information
+- (NSString *)getMacAddress {
+    NSArray *ifs = CFBridgingRelease(CNCopySupportedInterfaces());
+    id info = nil;
+    for (NSString *ifnam in ifs) {
+        info = (__bridge_transfer id)CNCopyCurrentNetworkInfo((CFStringRef)ifnam);
+        if (info && [info count]) {
+            break;
+        }
+    }
+    NSDictionary *dic = (NSDictionary *)info;
+    NSString *ssid = [[dic objectForKey:@"SSID"] lowercaseString];
+    NSString *bssid = [dic objectForKey:@"BSSID"];
+    NSLog(@"ssid:%@ \nssid:%@",ssid,bssid);
+    return bssid;
 }
 
 ///获取具体的手机型号字符串

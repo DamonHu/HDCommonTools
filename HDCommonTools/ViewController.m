@@ -25,7 +25,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(permissionNotifacation:) name:HDPermissionStatusDidChangeNotification object:nil];
     [self initData];
     [self createUI];
-    HDDebugLog(@"开始演示");
+    NSLog(@"当前系统版本: %@, wifi地址: %@", [[HDCommonTools sharedHDCommonTools] getDetailModelStr], [[HDCommonTools sharedHDCommonTools] getMacAddress]);
+    HDDebugLog(@"开始演示:");
     HDDebugLog(@"开始演示2");
 }
 
@@ -36,7 +37,7 @@
     NSArray *array2 = [NSArray arrayWithObjects:@"申请GPS权限 GPS permissions",@"申请相册权限 Photo album permissions",@"申请通知权限 Application of notification authority",@"打开系统设置 Open the system settings", nil];
     NSArray *array3 = [NSArray arrayWithObjects:@"循环播放音乐 Loop Play music ",@"关闭音乐 Stop playing music",@"循环播放音效 Play effect repeat",@"关闭音效 stop playing effect", nil];
     NSArray *array4 = [NSArray arrayWithObjects:@"测试输出 Log output",@"16进制颜色 16 Decimal color #f44336",@"rgb color 3，169，244，translucent",@"Interface parameters",@"将log输出到文件 Output log to a file", nil];
-    NSArray *array5 = [NSArray arrayWithObjects:@"md5加密 String MD5 encryption",@"aes256加密 String aes256 encryption",@"aes256解密 String aes256 Decrypted", nil];
+    NSArray *array5 = [NSArray arrayWithObjects:@"md5加密 String MD5 encryption", @"SHA1加密 String SHA1 encryption", @"SHA224加密 String SHA224 encryption", @"SHA256加密 String SHA256 encryption", @"SHA384加密 String SHA384 encryption", @"SHA512加密 String SHA512 encryption",@"aes256加密 String aes256 encryption",@"aes256解密 String aes256 Decrypted", nil];
     NSArray *array6 = [NSArray arrayWithObjects:@"应用内Appstore评分 Force the score pop-up window in app",@"跳转Appstore评分 Forced jump to appsStore to give score",@"应用内弹出appstore介绍 Force the score pop-up window in app",@"跳转到appstore看介绍 Jump to the appstore to see the introduction", nil];
     NSArray *array7 = [NSArray arrayWithObjects:@"获取时间戳 getTimestamp",@"比较日期先后 compare date",@"获取农历日期 getTimeStrWithChineseLunarCalendar",@"获取农历生肖 ChineseZodiac",@"获取星座 getConstellation", nil];
     [self.dataArray addObject:array];
@@ -216,14 +217,33 @@
         case 4:{
             switch (indexPath.row) {
                 case 0:{
-                    NSLog(@"md5加密的大写字符串 MD5 encrypted uppercase string：%@",[[HDCommonTools sharedHDCommonTools] MD5EncryptWithString:@"my name is HDCommonTools" withLowercase:YES]);
-                    NSLog(@"md5加密的小写字符串 MD5 encrypted lowercase string：%@",[[HDCommonTools sharedHDCommonTools] MD5EncryptWithString:@"我my name is HDCommonTools" withLowercase:NO]);
+                    NSLog(@"md5加密的大写字符串 MD5 encrypted uppercase string：%@",[[HDCommonTools sharedHDCommonTools] MD5EncryptWithString:@"my name is HDCommonTools" withLowercase:NO]);
                 }
                     break;
-                case 1:
-                    NSLog(@"aes加密后的字符串 AES encrypted string：%@",[[HDCommonTools sharedHDCommonTools] AES256EncryptWithPlainText:@"my name is HDCommonTools" andKey:@"密码只有我知道"]);
+                case 1:{
+                    NSLog(@"sha1加密的大写字符串 sha1 encrypted uppercase string：%@",[[HDCommonTools sharedHDCommonTools] SHAEncryptWithString: @"my name is HDCommonTools" withType:kHDSHAEncryTypeSha1 withLowercase:NO]);
+                }
                     break;
                 case 2:{
+                    NSLog(@"sha224加密的大写字符串 sha224 encrypted uppercase string：%@",[[HDCommonTools sharedHDCommonTools] SHAEncryptWithString: @"my name is HDCommonTools" withType:kHDSHAEncryTypeSha224 withLowercase:NO]);
+                }
+                    break;
+                case 3:{
+                    NSLog(@"sha256加密的大写字符串 sha256 encrypted uppercase string：%@",[[HDCommonTools sharedHDCommonTools] SHAEncryptWithString: @"my name is HDCommonTools" withType:kHDSHAEncryTypeSha256 withLowercase:NO]);
+                }
+                    break;
+                case 4:{
+                    NSLog(@"sha384加密的大写字符串 sha384 encrypted uppercase string：%@",[[HDCommonTools sharedHDCommonTools] SHAEncryptWithString: @"my name is HDCommonTools" withType:kHDSHAEncryTypeSha384 withLowercase:NO]);
+                }
+                    break;
+                case 5:{
+                    NSLog(@"sha512加密的大写字符串 sha512 encrypted uppercase string：%@",[[HDCommonTools sharedHDCommonTools] SHAEncryptWithString: @"my name is HDCommonTools" withType:kHDSHAEncryTypeSha512 withLowercase:NO]);
+                }
+                    break;
+                case 6:
+                    NSLog(@"aes加密后的字符串 AES encrypted string：%@",[[HDCommonTools sharedHDCommonTools] AES256EncryptWithPlainText:@"my name is HDCommonTools" andKey:@"密码只有我知道"]);
+                    break;
+                case 7:{
                     ///aes加密后的字符串 AES encrypted string
                     NSString* str = [[HDCommonTools sharedHDCommonTools] AES256EncryptWithPlainText:@"my name is HDCommonTools" andKey:@"Password"];
                     NSLog(@"aes加密后的字符串 AES encrypted string：%@",str);

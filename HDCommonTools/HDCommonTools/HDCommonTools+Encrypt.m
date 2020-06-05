@@ -21,25 +21,73 @@ static Byte ivBuff[]   = {0xA,1,0xB,5,4,0xF,7,9,0x17,3,1,6,8,0xC,0xD,91};
 @implementation HDCommonTools (Encrypt)
 ///字符串MD5加密
 - (NSString *)MD5EncryptWithString:(NSString *)string withLowercase:(BOOL)lowercase {
-    const char *cStr = [string UTF8String];
-    unsigned char result[16];
-    CC_MD5( cStr, (CC_LONG)strlen(cStr), result );
+    NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
+    uint8_t digest[CC_MD5_DIGEST_LENGTH];
+    CC_MD5(data.bytes, (unsigned int)data.length, digest);
+    NSMutableString *output = [NSMutableString string];
+    for(int i=0; i<CC_MD5_DIGEST_LENGTH; i++) {
+        [output appendFormat:@"%02x", digest[i]];
+    }
     if (lowercase) {
-        return [[NSString stringWithFormat:
-                 @"%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",
-                 result[0], result[1], result[2], result[3],
-                 result[4], result[5], result[6], result[7],
-                 result[8], result[9], result[10], result[11],
-                 result[12], result[13], result[14], result[15]
-                 ] lowercaseString];
+        return output;
     } else {
-        return [NSString stringWithFormat:
-                 @"%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",
-                 result[0], result[1], result[2], result[3],
-                 result[4], result[5], result[6], result[7],
-                 result[8], result[9], result[10], result[11],
-                 result[12], result[13], result[14], result[15]
-                 ];
+        return [output uppercaseString];
+    }
+}
+
+- (NSString *)SHAEncryptWithString:(NSString *)string withType:(HDSHAEncryType)shaType withLowercase:(BOOL)lowercase {
+    NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
+    NSMutableString *output = [NSMutableString string];
+    
+    switch (shaType) {
+        case kHDSHAEncryTypeSha1: {
+            uint8_t digest[CC_SHA1_DIGEST_LENGTH];
+            CC_SHA1(data.bytes, (unsigned int)data.length, digest);
+            for(int i=0; i<CC_SHA1_DIGEST_LENGTH; i++) {
+                [output appendFormat:@"%02x", digest[i]];
+            }
+        }
+            break;
+        case kHDSHAEncryTypeSha224: {
+            uint8_t digest[CC_SHA224_DIGEST_LENGTH];
+            CC_SHA224(data.bytes, (unsigned int)data.length, digest);
+            for(int i=0; i<CC_SHA224_DIGEST_LENGTH; i++) {
+                [output appendFormat:@"%02x", digest[i]];
+            }
+        }
+            break;
+        case kHDSHAEncryTypeSha256: {
+            uint8_t digest[CC_SHA256_DIGEST_LENGTH];
+            CC_SHA256(data.bytes, (unsigned int)data.length, digest);
+            for(int i=0; i<CC_SHA256_DIGEST_LENGTH; i++) {
+                [output appendFormat:@"%02x", digest[i]];
+            }
+        }
+            break;
+        case kHDSHAEncryTypeSha384: {
+            uint8_t digest[CC_SHA384_DIGEST_LENGTH];
+            CC_SHA384(data.bytes, (unsigned int)data.length, digest);
+            for(int i=0; i<CC_SHA384_DIGEST_LENGTH; i++) {
+                [output appendFormat:@"%02x", digest[i]];
+            }
+        }
+            break;
+        case kHDSHAEncryTypeSha512: {
+            uint8_t digest[CC_SHA512_DIGEST_LENGTH];
+            CC_SHA512(data.bytes, (unsigned int)data.length, digest);
+            for(int i=0; i<CC_SHA512_DIGEST_LENGTH; i++) {
+                [output appendFormat:@"%02x", digest[i]];
+            }
+        }
+            break;
+        default:
+            break;
+    }
+    
+    if (lowercase) {
+        return output;
+    } else {
+        return [output uppercaseString];
     }
 }
 #pragma mark -

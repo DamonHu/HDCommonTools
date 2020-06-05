@@ -20,6 +20,14 @@
  */
 - (NSString *)MD5EncryptWithString:(NSString *)string withLowercase:(BOOL)lowercase;
 
+/**
+字符串SHA加密 String SHA1 encryption
+@param string 要加密的字符串 String to be encrypted
+@param shaType 要加密的类型  encrypte type
+@param lowercase 是否小写 Is it a lowercase
+@return 加密过的字符串 Encrypted string
+*/
+- (NSString *)SHAEncryptWithString:(NSString *)string withType:(HDSHAEncryType)shaType withLowercase:(BOOL)lowercase;
 
 /**
  字符串aes256加密  String aes256 encryption

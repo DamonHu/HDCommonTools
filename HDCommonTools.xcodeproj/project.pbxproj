@@ -91,6 +91,7 @@
 		E4AC0DCD203FEBA700EA1EBF /* music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music.mp3; sourceTree = "<group>"; };
 		E4AC0DD120401DC100EA1EBF /* HDCommonTools+Encrypt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HDCommonTools+Encrypt.h"; sourceTree = "<group>"; };
 		E4AC0DD220401DC100EA1EBF /* HDCommonTools+Encrypt.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "HDCommonTools+Encrypt.m"; sourceTree = "<group>"; };
+		E4D0D6C8248A25E1002533E9 /* HDCommonTools.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HDCommonTools.entitlements; sourceTree = "<group>"; };
 		E4D38C12206E30B700E4E749 /* 空谷.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "空谷.wav"; sourceTree = "<group>"; };
 		E4D9E08520AAA6AC00F6BF63 /* click.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = click.caf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -152,6 +153,7 @@
 		E49A61D5203488280002923B /* HDCommonTools */ = {
 			isa = PBXGroup;
 			children = (
+				E4D0D6C8248A25E1002533E9 /* HDCommonTools.entitlements */,
 				E49A6208203531BA0002923B /* HDCommonTools */,
 				E49A61D6203488280002923B /* AppDelegate.h */,
 				E49A61D7203488280002923B /* AppDelegate.m */,
@@ -538,6 +540,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = HDCommonTools/HDCommonTools.entitlements;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = K5A8Z53TS5;
 				INFOPLIST_FILE = HDCommonTools/Info.plist;
@@ -555,6 +558,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = HDCommonTools/HDCommonTools.entitlements;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = HDCommonTools/Info.plist;
