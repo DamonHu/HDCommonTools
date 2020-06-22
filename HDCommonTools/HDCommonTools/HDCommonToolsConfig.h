@@ -111,4 +111,18 @@ typedef NS_ENUM(NSUInteger, HDSHAEncryType) {
     kHDSHAEncryTypeSha384,
     kHDSHAEncryTypeSha512,
 };
+
+//渐变方向
+typedef NS_ENUM(NSInteger, HDGradientDirection) {
+    HDLinearGradientDirectionLevel,                 //AC - BD
+    HDLinearGradientDirectionVertical,              //AB - CD
+    HDLinearGradientDirectionUpwardDiagonalLine,    //A - D
+    HDLinearGradientDirectionDownDiagonalLine,      //C - B
+};
+//      A         B
+//       _________
+//      |         |
+//      |         |
+//       ---------
+//      C         D
 #endif /* HDCommonToolsConfig_h */

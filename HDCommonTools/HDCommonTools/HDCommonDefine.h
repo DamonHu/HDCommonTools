@@ -21,18 +21,6 @@
 #define HDSTRONGSELF __strong typeof(weakSelf) strongSelf = weakSelf
 
 #pragma mark -
-#pragma mark - log输出
-//log输出，当为true时输出log，false不输出log
-//Log output, when log is output for true, false does not output log
-#define HDDEBUG_MODE true
-
-#if HDDEBUG_MODE
-#define HDDebugLog( s, ... ) NSLog( @"HDDebugLog: \nFile: <%p %@:(%d)> \nFunction: %s\nLog: %@\n", __FILE__, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, __FUNCTION__, [NSString stringWithFormat:(s), ##__VA_ARGS__] )
-#else
-#define HDDebugLog( s, ... )
-#endif
-
-#pragma mark -
 #pragma mark - 界面 Interface
 /*
  *  UIColor

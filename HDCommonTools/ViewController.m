@@ -26,8 +26,8 @@
     [self initData];
     [self createUI];
     NSLog(@"当前系统版本: %@, wifi地址: %@", [[HDCommonTools sharedHDCommonTools] getDetailModelStr], [[HDCommonTools sharedHDCommonTools] getMacAddress]);
-    HDDebugLog(@"开始演示:");
-    HDDebugLog(@"开始演示2");
+    
+    
 }
 
 -(void)initData{
@@ -36,7 +36,7 @@
     NSArray *array = [NSArray arrayWithObjects:@"打印软件版本 Print software version",@"打印系统语言 Print system language",@"打印系统iOS版本 Print system iOS version", nil];
     NSArray *array2 = [NSArray arrayWithObjects:@"申请GPS权限 GPS permissions",@"申请相册权限 Photo album permissions",@"申请通知权限 Application of notification authority",@"打开系统设置 Open the system settings", nil];
     NSArray *array3 = [NSArray arrayWithObjects:@"循环播放音乐 Loop Play music ",@"关闭音乐 Stop playing music",@"循环播放音效 Play effect repeat",@"关闭音效 stop playing effect", nil];
-    NSArray *array4 = [NSArray arrayWithObjects:@"测试输出 Log output",@"16进制颜色 16 Decimal color #f44336",@"rgb color 3，169，244，translucent",@"Interface parameters",@"将log输出到文件 Output log to a file", nil];
+    NSArray *array4 = [NSArray arrayWithObjects:@"16进制颜色字符串 16 Decimal color #f44336",@"16进制颜色 16 Decimal color #f44336",@"rgb color 3，169，244，translucent",@"Interface parameters",@"将log输出到文件 Output log to a file", nil];
     NSArray *array5 = [NSArray arrayWithObjects:@"md5加密 String MD5 encryption", @"SHA1加密 String SHA1 encryption", @"SHA224加密 String SHA224 encryption", @"SHA256加密 String SHA256 encryption", @"SHA384加密 String SHA384 encryption", @"SHA512加密 String SHA512 encryption",@"aes256加密 String aes256 encryption",@"aes256解密 String aes256 Decrypted", nil];
     NSArray *array6 = [NSArray arrayWithObjects:@"应用内Appstore评分 Force the score pop-up window in app",@"跳转Appstore评分 Forced jump to appsStore to give score",@"应用内弹出appstore介绍 Force the score pop-up window in app",@"跳转到appstore看介绍 Jump to the appstore to see the introduction", nil];
     NSArray *array7 = [NSArray arrayWithObjects:@"获取时间戳 getTimestamp",@"比较日期先后 compare date",@"获取农历日期 getTimeStrWithChineseLunarCalendar",@"获取农历生肖 ChineseZodiac",@"获取星座 getConstellation", nil];
@@ -54,6 +54,13 @@
     [self.view addSubview:tableView];
     tableView.delegate = self;
     tableView.dataSource = self;
+    
+//    UIImage *image = [[HDCommonTools sharedHDCommonTools] getLinearGradientImage:[NSArray arrayWithObjects:[UIColor blackColor],[UIColor blueColor], [UIColor redColor], [UIColor whiteColor], nil] directionType:HDLinearGradientDirectionLevel size:CGSizeMake(300, 100)];
+//    UIImage *image = [[HDCommonTools sharedHDCommonTools] getRadialGradientImage:[NSArray arrayWithObjects:[UIColor blackColor],[UIColor blueColor], [UIColor redColor], [UIColor whiteColor], nil] raduis:90.0 option:CGSizeMake(300, 100)];
+//    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+//    imageView.frame = CGRectMake(0, 0, 300, 100);
+//    imageView.backgroundColor = [[HDCommonTools sharedHDCommonTools] getColorWithHexString:@"#0077b3"];
+//    [self.view addSubview:imageView];
 }
 
 -(void)permissionNotifacation:(NSNotification*)notification{
@@ -161,8 +168,7 @@
         case 3:{
             switch (indexPath.row) {
                 case 0:{
-                    HDDebugLog(@"测试log输出，将HDCommonDefine中的HDDEBUG_MODE设置为false将不会打印");
-                    HDDebugLog(@"Test log output, and set the HDDEBUG_MODE in HDCommonDefine to false will not be printed");
+                   
                 }
                     break;
                 case 1:{
