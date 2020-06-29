@@ -25,27 +25,35 @@
 /*
  *  UIColor
  */
-///16进制颜色转为UIColor
-///16 Decimal color turn to UIColor
-#define HDColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 ///16进制颜色转为UIColor，设置透明度
 ///16 Decimal color turn to UIColor with alpha
-#define HDColorFromRGBA(rgbValue, _A) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:_A]
+#define UIColorWithHexA(hexValue, _A) [UIColor colorWithRed:((float)((hexValue & 0xFF0000) >> 16))/255.0 green:((float)((hexValue & 0xFF00) >> 8))/255.0 blue:((float)(hexValue & 0xFF))/255.0 alpha:_A]
+
+///16进制颜色转为UIColor
+///16 Decimal color turn to UIColor
+#define UIColorWithHex(hexValue) UIColorWithHexA(hexValue, 1.0)
+
 ///通过数值转为UIColor
 ///Turn to UIColor by numerical value
-#define HDColorWithRGB(_R,_G,_B)        ((UIColor *)[UIColor colorWithRed:_R/255.0 green:_G/255.0 blue:_B/255.0 alpha:1.0])
+#define UIColorWithRGB(_R,_G,_B)        [UIColor colorWithRed:_R/255.0 green:_G/255.0 blue:_B/255.0 alpha:1.0]
+
 ///通过数值转为UIColor，设置透明度
 ///Turn to UIColor by numerical value with alpha
-#define HDColorWithRGBA(_R,_G,_B,_A)    ((UIColor *)[UIColor colorWithRed:_R/255.0 green:_G/255.0 blue:_B/255.0 alpha:_A])
+#define UIColorWithRGBA(_R,_G,_B,_A)    [UIColor colorWithRed:_R/255.0 green:_G/255.0 blue:_B/255.0 alpha:_A]
+
+/// 通过字符串获取颜色
+/// @param hexColor 16进制颜色FFFFFF
+#define UIColorWithHexString(hexString)  [[HDCommonTools sharedHDCommonTools] getColorWithHexString:hexString]
+
 /*
  *  Screen size
  */
 //屏幕宽度
 //ScreenWidth
-#define HDScreenWidth   [UIScreen mainScreen].bounds.size.width
+#define UIScreenWidth   [UIScreen mainScreen].bounds.size.width
 //屏幕高度
 //ScreenHeight
-#define HDScreenHeight  [UIScreen mainScreen].bounds.size.height
+#define UIScreenHeight  [UIScreen mainScreen].bounds.size.height
 
 // 根据动态获取VC计算状态栏和tab的默认高度，如果不存在navigationbar或者tabbar的话，当前返回高度为0，可以使用下面默认高度
 // 状态栏当前高度

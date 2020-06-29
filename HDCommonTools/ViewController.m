@@ -47,7 +47,7 @@
     [self.dataArray addObject:array7];
 }
 -(void)createUI{
-    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, HDScreenWidth, HDScreenHeight) style:UITableViewStyleGrouped];
+    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, UIScreenWidth, UIScreenHeight) style:UITableViewStyleGrouped];
     [tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"HDcommonToolcell"];
     [self.view addSubview:tableView];
     tableView.delegate = self;
@@ -171,18 +171,19 @@
                     break;
                 case 1:{
                     //颜色为#f44336 The color is #f44336
-                    UIColor *color = HDColorFromRGB(0xf44336);
+                    UIColor *color = UIColorWithHex(0xf44336);
+                    
                     [tableView setBackgroundColor:color];
                 }
                     break;
                 case 2:{
                     //颜色为3，169，244，透明度为50% The color is 3,169,244 and the transparency is 50%
-                    UIColor *color = HDColorWithRGBA(3, 169, 244, 0.5);
+                    UIColor *color = UIColorWithRGBA(3, 169, 244, 0.5);
                     [tableView setBackgroundColor:color];
                 }
                     break;
                 case 3:{
-                    NSLog(@"ScreenWidth:%f,ScreenHeight:%f",HDScreenWidth,HDScreenHeight);
+                    NSLog(@"ScreenWidth:%f,ScreenHeight:%f",UIScreenWidth,UIScreenHeight);
                     NSLog(@"状态栏当前高度 Status bar current height:%f",HD_StatusBar_Height);//打电话时或者定位会发生变化
                     NSLog(@"导航栏当前高度 current height of the navigation bar:%f",HD_NavigationBar_Height);
                     NSLog(@"tabbar当前高度 current height of the tabBar:%f",HD_TabBar_Height);
@@ -194,14 +195,14 @@
                     ///After calling this function, the console will not output the print information
                     _debugFilePath = [[HDCommonTools sharedHDCommonTools] setHdDebugLogToFile];
                     ///The following print has been printed to the file
-                    NSLog(@"ScreenWidth:%f,ScreenHeight:%f",HDScreenWidth,HDScreenHeight);
+                    NSLog(@"ScreenWidth:%f,ScreenHeight:%f",UIScreenWidth,UIScreenHeight);
                     NSLog(@"状态栏当前高度 Status bar current height:%f",HD_StatusBar_Height);//打电话时或者定位会发生变化
                     NSLog(@"导航栏高度  height of the navigation bar:%f",HD_NavigationBar_Height);
                     NSLog(@"tabbar高度 height of the tabBar:%f",HD_TabBar_Height);
                     
                     ///可以操作该文件,比如系统分享调试，可以分享到备忘录、imessage、微博等
                     //The file can be manipulate, such as system sharing debugging, and can be shared with memos, IMessage, micro-blog, and so on
-                    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(HDScreenWidth/2 - 60, 20, 120, 40)];
+                    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(UIScreenWidth/2 - 60, 20, 120, 40)];
                     button.layer.masksToBounds = YES;
                     button.layer.cornerRadius = 10;
                     button.layer.borderColor = [UIColor whiteColor].CGColor;
@@ -352,7 +353,7 @@
     UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:[NSArray arrayWithObjects:titleText,shareText,URL, nil] applicationActivities:nil];
     if ([[HDCommonTools sharedHDCommonTools] isPad]) {
 //        UIPopoverController *popup = [[UIPopoverController alloc] initWithContentViewController:activityVC];
-//        [popup presentPopoverFromRect:CGRectMake(HDScreenWidth/2, HDScreenHeight/4, 0, 0)inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+//        [popup presentPopoverFromRect:CGRectMake(UIScreenWidth/2, UIScreenHeight/4, 0, 0)inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
         activityVC.modalPresentationStyle = UIModalPresentationPopover;
         activityVC.popoverPresentationController.sourceView = self.shareBtn;
         [self presentViewController:activityVC animated:YES completion:nil];
