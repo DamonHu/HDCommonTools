@@ -94,7 +94,6 @@
     NSDictionary *dic = (NSDictionary *)info;
     NSString *ssid = [[dic objectForKey:@"SSID"] lowercaseString];
     NSString *bssid = [dic objectForKey:@"BSSID"];
-    NSLog(@"ssid:%@ \nssid:%@",ssid,bssid);
     return bssid;
 }
 

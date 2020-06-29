@@ -26,8 +26,6 @@
     [self initData];
     [self createUI];
     NSLog(@"当前系统版本: %@, wifi地址: %@", [[HDCommonTools sharedHDCommonTools] getDetailModelStr], [[HDCommonTools sharedHDCommonTools] getMacAddress]);
-    
-    
 }
 
 -(void)initData{
