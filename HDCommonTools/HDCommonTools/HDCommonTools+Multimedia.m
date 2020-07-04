@@ -8,12 +8,8 @@
 
 #import "HDCommonTools+Multimedia.h"
 
-AVPlayer *avPlayer = nil;
-AVPlayer *avRepeatPlayer = nil;
-NSObject *avPlayerObserver = nil;
-NSObject *avRepeatPlayerObserver = nil;
-BOOL repeatEffectShark = false;
-SystemSoundID m_soundID;
+AVAudioPlayer *avPlayer = nil;
+BOOL vibrateRepeat = false;  //标记是否循环震动
 
 @implementation HDCommonTools (Multimedia)
 #pragma mark -
@@ -124,175 +120,58 @@ SystemSoundID m_soundID;
         soundID = kSystemSoundID_Vibrate;
     }
     
-    // 设置播放完成回调
-    AudioServicesAddSystemSoundCompletion(soundID, NULL, NULL, soundCompleteCallback, NULL);
-    
     // 播放音效
     if (shake) {
         // 带有震动
-        AudioServicesPlayAlertSound(soundID);
+        AudioServicesPlayAlertSoundWithCompletion(soundID, ^{});
     }else{
         // 无振动
-        AudioServicesPlaySystemSound(soundID);
+        AudioServicesPlaySystemSoundWithCompletion(soundID, ^{});
     }
 }
 
-/**
- *  播放完成回调函数
- *
- *  @param soundID    系统声音ID
- *  @param clientData 回调时传递的数据
- */
-void soundCompleteCallback(SystemSoundID soundID,void * clientData){
-    // 销毁 SoundID
-    AudioServicesDisposeSystemSoundID(soundID);
-}
-
-///循环播放音效，是否震动
-//Play sound effects repeat, set up vibration
-- (void)playEffectRepeatWithLocalFilePath:(NSString *)effectLocalFilePath withShake:(BOOL)shake {
-    // 加载音效文件并创建 SoundID
-    SystemSoundID soundID = 0;
-    // 获取音频文件路径
-    if (effectLocalFilePath.length) {
-        NSURL *url = [NSURL fileURLWithPath:effectLocalFilePath];
-        AudioServicesCreateSystemSoundID((__bridge CFURLRef)url, &soundID);
-    } else if (shake) {
-        soundID = kSystemSoundID_Vibrate;
-    }
-    // 设置播放完成回调
-    AudioServicesAddSystemSoundCompletion(soundID, NULL, NULL, repeatSoundCompleteCallback, NULL);
-    repeatEffectShark = shake;
-    m_soundID = soundID;
-    // 播放音效
-    if (shake) {
-        // 带有震动
-        AudioServicesPlayAlertSound(soundID);
-    }else{
-        // 无振动
-        AudioServicesPlaySystemSound(soundID);
-    }
-}
-
-void repeatSoundCompleteCallback(SystemSoundID soundID,void * clientData){
-    // 播放音效
-    if (repeatEffectShark) {
-        // 带有震动
-        AudioServicesPlayAlertSound(soundID);
-    }else{
-        // 无振动
-        AudioServicesPlaySystemSound(soundID);
-    }
-}
-
-//关闭循环播放音效
-// stop the playing repeat effect
-- (void)stopPlayEffectRepeat {
-    if (m_soundID || m_soundID == kSystemSoundID_Vibrate) {
-        AudioServicesDisposeSystemSoundID(m_soundID);
-        AudioServicesRemoveSystemSoundCompletion(m_soundID);
-        repeatEffectShark = false;
-        m_soundID = 0;
-    }
-}
-
-/**
- 播放音乐 Play music
- @param musicPath 音乐的地址,可以是本地地址，也可以是网络地址 The address of the music，available with localFilePath and network address
- @param repeat 是否循环播放 should play music repeat
- */
 - (void)playMusicWithMusicFilePath:(NSString *)musicPath withRepeat:(BOOL)repeat {
-    NSURL *musicUrl = [[HDCommonTools sharedHDCommonTools] urlCreatedByString:musicPath];
-    AVPlayerItem *item = [AVPlayerItem playerItemWithURL:musicUrl];
-    if (!avPlayer) {
-        avPlayer = [[AVPlayer alloc] initWithPlayerItem:item];
-    } else {
-        [avPlayer replaceCurrentItemWithPlayerItem:item];
-    }
-    if (avRepeatPlayer) {
-        if (avRepeatPlayerObserver) {
-            [avRepeatPlayer removeTimeObserver:avRepeatPlayerObserver];
-            avRepeatPlayerObserver = nil;
-        }
-        [avRepeatPlayer pause];
-        avRepeatPlayer = nil;
-    }
-    if (avPlayerObserver) {
-        [avPlayer removeTimeObserver:avPlayerObserver];
-        avPlayerObserver = nil;
-    }
+    [self playMusicWithMusicFilePath:musicPath withRepeat:repeat withCategory:AVAudioSessionCategoryPlayback];
+}
+
+- (void)playMusicWithMusicFilePath:(NSString *)musicPath withRepeat:(BOOL)repeat withCategory:(AVAudioSessionCategory)audioSessionCategory {
+    AVAudioSession *audioSession=[AVAudioSession sharedInstance];
+    //设置为播放
+    [audioSession setCategory:audioSessionCategory error:nil];
+    [audioSession setActive:YES error:nil];
+    
+    [avPlayer stop];
+     NSURL *musicUrl = [[HDCommonTools sharedHDCommonTools] urlCreatedByString:musicPath];
+    avPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:musicUrl error:nil];
     if (repeat) {
-        //第一个
-        avPlayerObserver = [avPlayer addPeriodicTimeObserverForInterval:CMTimeMake(1.0, 1000.0) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
-            CGFloat duration =  CMTimeGetSeconds(avPlayer.currentItem.duration); //视频总时间
-            CGFloat currentTime = CMTimeGetSeconds(time);//视频当前运行时间
-            if (duration > 0 && currentTime > 0) {
-                if (currentTime >= duration - 0.25) {
-                    if (avRepeatPlayer) {
-                        [avRepeatPlayer play];
-                    }
-                }
-                if (currentTime >= duration - 0.1) {
-                    [item seekToTime:kCMTimeZero completionHandler:^(BOOL finished) {
-                        if (finished) {
-                            [avPlayer seekToTime:kCMTimeZero];
-                            [avPlayer pause];
-                        }
-                    }];
-                }
-            }
-            
-        }];
-        //新建一个重复的去提前播放
-        AVPlayerItem *item2 = [AVPlayerItem playerItemWithURL:musicUrl];
-        if (!avRepeatPlayer) {
-            avRepeatPlayer = [[AVPlayer alloc] initWithPlayerItem:item2];
-        } else {
-            [avRepeatPlayer replaceCurrentItemWithPlayerItem:item2];
-        }
-        avRepeatPlayerObserver = [avRepeatPlayer addPeriodicTimeObserverForInterval:CMTimeMake(1.0, 1000.0) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
-            CGFloat duration =  CMTimeGetSeconds(avRepeatPlayer.currentItem.duration); //视频总时间
-            CGFloat currentTime = CMTimeGetSeconds(time);//视频当前运行时间
-            if (duration > 0 && currentTime > 0) {
-                if (currentTime >= duration - 0.25) {
-                    if (avPlayer) {
-                        [avPlayer play];
-                    }
-                }
-                if (currentTime >= duration - 0.1) {
-                    [item2 seekToTime:kCMTimeZero completionHandler:^(BOOL finished) {
-                        if (finished) {
-                            [avRepeatPlayer seekToTime:kCMTimeZero];
-                            [avRepeatPlayer pause];
-                        }
-                    }];
-                    
-                }
-            }
-        }];
+        avPlayer.numberOfLoops = -1;
     } else {
-        if (avPlayerObserver) {
-            [avPlayer removeTimeObserver:avPlayerObserver];
-            avPlayerObserver = nil;
-        }
-        if (avRepeatPlayerObserver) {
-            [avRepeatPlayer removeTimeObserver:avRepeatPlayerObserver];
-            avRepeatPlayerObserver = nil;
-        }
-    }
-    if (avPlayer) {
-        [avPlayer seekToTime:kCMTimeZero];
-        [avPlayer play];
+        avPlayer.numberOfLoops = 0;
     }
 }
 
 //停止音乐播放 Stop playing music
 - (void)stopMusic {
-    if (avPlayer) {
-        [avPlayer pause];
+    [avPlayer stop];
+}
+
+//开始震动
+- (void)startVibrateWithRepeat:(BOOL)repeat; {
+    vibrateRepeat = repeat;
+    if (repeat) {
+        AudioServicesPlaySystemSoundWithCompletion(kSystemSoundID_Vibrate, ^{
+            [self startVibrateWithRepeat: vibrateRepeat];
+        });
+    } else {
+        AudioServicesPlaySystemSoundWithCompletion(kSystemSoundID_Vibrate, ^{
+            
+        });
     }
-    if (avRepeatPlayer) {
-        [avRepeatPlayer pause];
-    }
+}
+
+//结束震动
+- (void)stopVibrate {
+    vibrateRepeat = false;
+    AudioServicesDisposeSystemSoundID(kSystemSoundID_Vibrate);
 }
 @end
