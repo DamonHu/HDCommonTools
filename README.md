@@ -4,7 +4,15 @@
 
 一句代码即可实现多种常用功能，根据数据处理、文件管理、多媒体管理、权限管理、系统信息、Appstore操作、加密解密、快捷宏定义等几种不同的类型封装不同的Category，同时可以通过调用不同的函数去使用。
 
+该版本是OC版本，目前已发布了纯swift编写的版本，
+
+Swift版本：[HDSwiftCommonTools](https://github.com/DamonHu/HDSwiftCommonTools)
+
 A short code can achieve a variety of commonly used functions, according to the data processing, file management, multimedia management, rights management, information system, Appstore, encryption and decryption, quick macro definition type package several different Category.
+
+This version is the OC version, and a version written in `swift` has been released.
+
+Swift：[HDSwiftCommonTools](https://github.com/DamonHu/HDSwiftCommonTools)
 
 ## 一、导入项目 Import project
 
@@ -30,18 +38,6 @@ Download the project, import the contents of the HDCommonTools folder into the p
 All function functions can be called in the two step.[wiki](https://github.com/DamonHu/HDCommonTools/wiki)
 
 ### 1. 头文件导入
-
-**为了避免用户对头文件感到困惑，所以2.x版本将引入头文件进行了修改**
-
-**v1.x版本 - v1.x vsersion**
-
-#### 导入头文件 Import header file
-
-```
-#import "HDCommonHeader.h"
-```
-
-**v2.x版本 - v2.x vsersion**
 
 导入头文件 Import header file
 
