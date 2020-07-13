@@ -7,6 +7,8 @@
 //
 
 #import "HDCommonTools+Multimedia.h"
+#import "HDCommonTools+Encrypt.h"
+#import "HDCommonTools+FileHandle.h"
 
 AVAudioPlayer *avPlayer = nil;
 BOOL vibrateRepeat = false;  //标记是否循环震动
@@ -141,13 +143,23 @@ BOOL vibrateRepeat = false;  //标记是否循环震动
     [audioSession setActive:YES error:nil];
     
     [avPlayer stop];
-     NSURL *musicUrl = [[HDCommonTools sharedHDCommonTools] urlCreatedByString:musicPath];
+    
+    if (![[HDCommonTools sharedHDCommonTools] isLocalURLLink:musicPath]) {
+        NSString *name = [[HDCommonTools sharedHDCommonTools] MD5EncryptWithString:musicPath withLowercase:true];
+         NSURL *path = [[[HDCommonTools sharedHDCommonTools] createFileDirectoryWithType:kHDFileDirectoryTypeCaches andDirectoryName:@"music"] URLByAppendingPathComponent:name isDirectory:false];
+        NSData * audioData = [NSData dataWithContentsOfURL:[NSURL URLWithString:musicPath]];
+        [audioData writeToURL:path atomically:true];
+        musicPath = path.path;
+    }
+    
+    NSURL *musicUrl = [[HDCommonTools sharedHDCommonTools] urlCreatedByString:musicPath];
     avPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:musicUrl error:nil];
     if (repeat) {
         avPlayer.numberOfLoops = -1;
     } else {
         avPlayer.numberOfLoops = 0;
     }
+    [avPlayer play];
 }
 
 //停止音乐播放 Stop playing music
