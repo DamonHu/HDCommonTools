@@ -141,7 +141,8 @@
         case 2:{
             switch (indexPath.row) {
                 case 0:{
-                    NSString * musicFilePath = [[NSBundle mainBundle] pathForResource:@"空谷" ofType:@"wav"];
+//                    NSString * musicFilePath = [[NSBundle mainBundle] pathForResource:@"空谷" ofType:@"wav"];
+                    NSString *musicFilePath = @"https://file-fat.shinningmorning.com/voice/voice_xiongdi.m4a";
                     [[HDCommonTools sharedHDCommonTools] playMusicWithMusicFilePath:musicFilePath withRepeat:true];
                 }
                     break;
