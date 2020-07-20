@@ -267,4 +267,25 @@ static Byte ivBuff[]   = {0xA,1,0xB,5,4,0xF,7,9,0x17,3,1,6,8,0xC,0xD,91};
     
     return [[[NSString alloc] initWithBytesNoCopy:characters length:length encoding:NSASCIIStringEncoding freeWhenDone:YES] init];
 }
+
+///字符串转unicode
+- (NSString *)unicodeEncodeWithString:(NSString *)string {
+    NSString *tempStr1=[string stringByReplacingOccurrencesOfString:@"\\u"withString:@"\\U"];
+    NSString *tempStr2=[tempStr1 stringByReplacingOccurrencesOfString:@"\""withString:@"\\\""];
+    NSString *tempStr3=[[@"\"" stringByAppendingString:tempStr2]stringByAppendingString:@"\""];
+    NSData *tempData=[tempStr3 dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *error;
+    NSString* returnStr = [NSPropertyListSerialization propertyListWithData:tempData options:NSPropertyListImmutable format:NULL error:&error];
+    if (!error) {
+        return [returnStr stringByReplacingOccurrencesOfString:@"\\r\\n"withString:@"\n"];
+    } else {
+        return string;
+    }
+}
+
+///unicode转字符串
+- (NSString *)unicodeDecodeWithString:(NSString *)string {
+    NSData *data = [string dataUsingEncoding:NSNonLossyASCIIStringEncoding];
+    return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+}
 @end

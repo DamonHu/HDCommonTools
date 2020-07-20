@@ -103,26 +103,4 @@ typedef NS_ENUM(NSUInteger, HDChineseZodiac) {
     kHDChineseZodiacPig,        //亥猪
 };
 
-//加密类型
-typedef NS_ENUM(NSUInteger, HDSHAEncryType) {
-    kHDSHAEncryTypeSha1,
-    kHDSHAEncryTypeSha224,
-    kHDSHAEncryTypeSha256,
-    kHDSHAEncryTypeSha384,
-    kHDSHAEncryTypeSha512,
-};
-
-//渐变方向
-typedef NS_ENUM(NSInteger, HDGradientDirection) {
-    HDLinearGradientDirectionLevel,                 //AC - BD
-    HDLinearGradientDirectionVertical,              //AB - CD
-    HDLinearGradientDirectionUpwardDiagonalLine,    //A - D
-    HDLinearGradientDirectionDownDiagonalLine,      //C - B
-};
-//      A         B
-//       _________
-//      |         |
-//      |         |
-//       ---------
-//      C         D
 #endif /* HDCommonToolsConfig_h */

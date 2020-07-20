@@ -9,6 +9,20 @@
 #import "HDCommonTools.h"
 #import <UIKit/UIKit.h>
 
+//渐变方向
+typedef NS_ENUM(NSInteger, HDGradientDirection) {
+    kHDLinearGradientDirectionLeftToRight,                 //AC - BD
+    kHDLinearGradientDirectionTopToBottom,              //AB - CD
+    kHDLinearGradientDirectionLeftTopToRightBottom,    //A - D
+    kHDLinearGradientDirectionLeftBottomToRightTop,      //C - B
+};
+//      A         B
+//       _________
+//      |         |
+//      |         |
+//       ---------
+//      C         D
+
 @interface HDCommonTools (UI)
 
 ///获取当前的normalwindow

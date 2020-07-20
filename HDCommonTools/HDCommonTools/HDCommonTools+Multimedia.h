@@ -67,4 +67,7 @@
 //结束震动
 - (void)stopVibrate;
 
+
+//即将废弃的接口
+
 @end

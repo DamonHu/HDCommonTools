@@ -115,7 +115,7 @@
 
 ///在Document创建子文件夹并返回创建后的路径
 //Create a subfolder in Document And return to the created path
-- (NSString *)createDocumentSubFolderWithName:(NSString *)folderName {
+- (NSString *)createDocumentSubFolderWithName:(NSString *)folderName DEPRECATED_MSG_ATTRIBUTE("使用createFileDirectoryWithType:andDirectoryName") {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *path = [paths objectAtIndex:0];
     NSString *folderPath = [path stringByAppendingPathComponent:folderName];

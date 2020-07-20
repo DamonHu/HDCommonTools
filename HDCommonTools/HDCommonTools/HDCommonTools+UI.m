@@ -99,16 +99,16 @@
     gradientLayer.colors = [NSArray arrayWithArray:cgColors];
     gradientLayer.locations = [NSArray arrayWithArray:locations];
     
-    if (directionType == HDLinearGradientDirectionLevel) {
+    if (directionType == kHDLinearGradientDirectionLeftToRight) {
         gradientLayer.startPoint = CGPointMake(0, 0);
         gradientLayer.endPoint = CGPointMake(1, 0);
-    }else if (directionType == HDLinearGradientDirectionVertical){
+    }else if (directionType == kHDLinearGradientDirectionTopToBottom){
         gradientLayer.startPoint = CGPointMake(0, 0);
         gradientLayer.endPoint = CGPointMake(0, 1);
-    }else if (directionType == HDLinearGradientDirectionUpwardDiagonalLine){
+    }else if (directionType == kHDLinearGradientDirectionLeftTopToRightBottom){
         gradientLayer.startPoint = CGPointMake(0, 0);
         gradientLayer.endPoint = CGPointMake(1, 1);
-    }else if (directionType == HDLinearGradientDirectionDownDiagonalLine){
+    }else if (directionType == kHDLinearGradientDirectionLeftBottomToRightTop){
         gradientLayer.startPoint = CGPointMake(0, 1);
         gradientLayer.endPoint = CGPointMake(1, 0);
     }

@@ -8,6 +8,15 @@
 
 #import "HDBaseCommonTools.h"
 
+//加密类型
+typedef NS_ENUM(NSUInteger, HDSHAEncryType) {
+    kHDSHAEncryTypeSha1,
+    kHDSHAEncryTypeSha224,
+    kHDSHAEncryTypeSha256,
+    kHDSHAEncryTypeSha384,
+    kHDSHAEncryTypeSha512,
+};
+
 @interface HDCommonTools (Encrypt)
 #pragma mark -
 #pragma mark - 加密解密相关操作类
@@ -46,4 +55,10 @@
  @return 解密后的字符串 Decrypted string
  */
 - (NSString *)AES256DecryptWithCiphertext:(NSString *)ciphertexts andKey:(NSString *)key;
+
+///字符串转unicode
+- (NSString *)unicodeEncodeWithString:(NSString *)string;
+
+///unicode转字符串
+- (NSString *)unicodeDecodeWithString:(NSString *)string;
 @end
