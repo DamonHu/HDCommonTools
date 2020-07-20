@@ -270,6 +270,12 @@ static Byte ivBuff[]   = {0xA,1,0xB,5,4,0xF,7,9,0x17,3,1,6,8,0xC,0xD,91};
 
 ///字符串转unicode
 - (NSString *)unicodeEncodeWithString:(NSString *)string {
+    NSData *data = [string dataUsingEncoding:NSNonLossyASCIIStringEncoding];
+    return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+}
+
+///unicode转字符串
+- (NSString *)unicodeDecodeWithString:(NSString *)string {
     NSString *tempStr1=[string stringByReplacingOccurrencesOfString:@"\\u"withString:@"\\U"];
     NSString *tempStr2=[tempStr1 stringByReplacingOccurrencesOfString:@"\""withString:@"\\\""];
     NSString *tempStr3=[[@"\"" stringByAppendingString:tempStr2]stringByAppendingString:@"\""];
@@ -281,11 +287,5 @@ static Byte ivBuff[]   = {0xA,1,0xB,5,4,0xF,7,9,0x17,3,1,6,8,0xC,0xD,91};
     } else {
         return string;
     }
-}
-
-///unicode转字符串
-- (NSString *)unicodeDecodeWithString:(NSString *)string {
-    NSData *data = [string dataUsingEncoding:NSNonLossyASCIIStringEncoding];
-    return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 }
 @end
