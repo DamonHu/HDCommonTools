@@ -13,6 +13,20 @@
 ///获取当前的normalwindow
 - (UIWindow *)getCurrentNormalWindow {
     UIWindow * window = [[UIApplication sharedApplication] keyWindow];
+    if (@available(iOS 13.0, *)) {
+        for (UIWindowScene* windowScene in [UIApplication sharedApplication].connectedScenes) {
+            if (windowScene.activationState == UISceneActivationStateForegroundActive) {
+                window = windowScene.windows.firstObject;
+                for (UIWindow * tmpWin in windowScene.windows) {
+                    if (tmpWin.windowLevel == UIWindowLevelNormal) {
+                        window = tmpWin;
+                        break;
+                    }
+                }
+                break;
+            }
+        }
+    }
     if (!window || window.windowLevel != UIWindowLevelNormal) {
         NSArray *windows = [[UIApplication sharedApplication] windows];
         for(UIWindow * tmpWin in windows) {
