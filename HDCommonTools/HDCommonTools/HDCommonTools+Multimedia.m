@@ -132,11 +132,11 @@ BOOL vibrateRepeat = false;  //标记是否循环震动
     }
 }
 
-- (void)playMusicWithMusicFilePath:(NSString *)musicPath withRepeat:(BOOL)repeat {
-    [self playMusicWithMusicFilePath:musicPath withRepeat:repeat withCategory:AVAudioSessionCategoryPlayback];
+- (AVAudioPlayer *)playMusicWithMusicFilePath:(NSString *)musicPath withRepeat:(BOOL)repeat {
+    return [self playMusicWithMusicFilePath:musicPath withRepeat:repeat withCategory:AVAudioSessionCategoryPlayback];
 }
 
-- (void)playMusicWithMusicFilePath:(NSString *)musicPath withRepeat:(BOOL)repeat withCategory:(AVAudioSessionCategory)audioSessionCategory {
+- (AVAudioPlayer *)playMusicWithMusicFilePath:(NSString *)musicPath withRepeat:(BOOL)repeat withCategory:(AVAudioSessionCategory)audioSessionCategory {
     AVAudioSession *audioSession=[AVAudioSession sharedInstance];
     //设置为播放
     [audioSession setCategory:audioSessionCategory error:nil];
@@ -160,6 +160,7 @@ BOOL vibrateRepeat = false;  //标记是否循环震动
         avPlayer.numberOfLoops = 0;
     }
     [avPlayer play];
+    return avPlayer;
 }
 
 //停止音乐播放 Stop playing music

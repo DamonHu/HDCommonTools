@@ -53,10 +53,10 @@
  @param musicPath 音乐的地址,可以是本地地址，也可以是网络地址 The address of the music，available with localFilePath and network address
 @param repeat 是否循环播放 should play music repeat
  */
-- (void)playMusicWithMusicFilePath:(NSString *)musicPath withRepeat:(BOOL)repeat;
+- (AVAudioPlayer *)playMusicWithMusicFilePath:(NSString *)musicPath withRepeat:(BOOL)repeat;
 
 //播放音乐，可以设置播放的模式
-- (void)playMusicWithMusicFilePath:(NSString *)musicPath withRepeat:(BOOL)repeat withCategory:(AVAudioSessionCategory)audioSessionCategory;
+- (AVAudioPlayer *)playMusicWithMusicFilePath:(NSString *)musicPath withRepeat:(BOOL)repeat withCategory:(AVAudioSessionCategory)audioSessionCategory;
 
 //停止音乐播放 Stop playing music
 - (void)stopMusic;
