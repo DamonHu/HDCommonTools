@@ -6,13 +6,13 @@
 
 该版本是OC版本，目前已发布了纯swift编写的版本，
 
-Swift版本：[HDSwiftCommonTools](https://github.com/DamonHu/HDSwiftCommonTools)
+Swift版本：[ZXKitCode/ZXKitUtil](https://github.com/ZXKitCode/ZXKitUtil)
 
 A short code can achieve a variety of commonly used functions, according to the data processing, file management, multimedia management, rights management, information system, Appstore, encryption and decryption, quick macro definition type package several different Category.
 
 This version is the OC version, and a version written in `swift` has been released.
 
-Swift：[HDSwiftCommonTools](https://github.com/DamonHu/HDSwiftCommonTools)
+Swift：[ZXKitCode/ZXKitUtil](https://github.com/ZXKitCode/ZXKitUtil)
 
 ## 一、导入项目 Import project
 
